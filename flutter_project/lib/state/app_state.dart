@@ -11,6 +11,10 @@ class AppState extends ChangeNotifier {
 		_loadPersistedData();
 	}
 
+	initializePersistedState() {
+		_loadPersistedData();
+	}
+
 	final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
 	Future<void> _loadPersistedData() async {
@@ -22,8 +26,8 @@ class AppState extends ChangeNotifier {
 		final prefs = await SharedPreferences.getInstance();
 		_darkMode = prefs.getBool('dark_mode') ?? false;
 		_firstLaunch = prefs.getBool('first_launch') ?? true;
-    _locale = AppLocale(prefs.getString('language_code') ?? 'en');
-    
+		_locale = AppLocale(prefs.getString('language_code') ?? 'en');
+
 		notifyListeners();
 	}
 
@@ -42,15 +46,15 @@ class AppState extends ChangeNotifier {
 		notifyListeners();
 	}
 
-  // 🌍 Language (Persistant)
-  AppLocale _locale = AppLocale('en');
-  AppLocale get Locale => _locale;
-  Future<void> setLocale(String locale) async {
-    _locale = AppLocale(locale);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('language_code', locale);
-    notifyListeners();  
-  }
+	// 🌍 Language (Persistant)
+	AppLocale _locale = AppLocale('en');
+	AppLocale get Locale => _locale;
+	Future<void> setLocale(String locale) async {
+		_locale = AppLocale(locale);
+		final prefs = await SharedPreferences.getInstance();
+		await prefs.setString('language_code', locale);
+		notifyListeners();  
+	}
 
 	// 🌙 Dark mode (Persistant)
 	bool _darkMode = false;

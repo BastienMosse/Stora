@@ -1,7 +1,7 @@
 arb-dir: lib/assets/lang
 template-arb-file: app_en.arb
 
-output-dir: lib/app_tools/generated
+output-dir: lib/localization/generated
 output-localization-file: app_localizations.dart
 output-class: AppLocalizations
 
