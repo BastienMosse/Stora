@@ -8,8 +8,7 @@ void main() async {
   final appState = AppState();
   await appState.initializePersistedState();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: MainApp(),
-  ));
+  runApp(
+    ChangeNotifierProvider(create: (context) => appState, child: MainApp()),
+  );
 }

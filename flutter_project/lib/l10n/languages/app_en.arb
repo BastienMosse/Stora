@@ -1,0 +1,21 @@
+{
+	"@@locale": "en",
+	"hello": "Hello",
+	"welcome": "Welcome to our app!",
+
+
+	"onBoarding_prev": "Previous",
+	"onBoarding_next": "Next",
+	"onBoarding_skip": "Skip",
+	"onBoarding_finish": "Finish",
+
+	"onBoarding_pageview1_title": "Welcome to Stockly",
+	"onBoarding_pageview1_desc" : "Manage your stocks easily and efficiently.",
+	"onBoarding_pageview2_title": "Real-time tracking",
+	"onBoarding_pageview2_desc" : "View the status of your stocks at any time.",
+	"onBoarding_pageview3_title": "Smart alerts",
+	"onBoarding_pageview3_desc" : "Receive notifications in case of critical thresholds.",
+	"onBoarding_pageview4_title": "Detailed reports",
+	"onBoarding_pageview4_desc" : "Analyze your data to optimize your management."
+}
+  
