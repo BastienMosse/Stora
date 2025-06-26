@@ -1,4 +1,5 @@
 import '/index.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -7,73 +8,30 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen>
-    with TickerProviderStateMixin {
-  late final PageController _pageController;
-  int _currentPageIndex = 0;
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  late final OnboardingScreenViewModel viewModel;
+  bool _isViewModelInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isViewModelInitialized) {
+      viewModel = OnboardingScreenViewModel(context);
+      _isViewModelInitialized = true;
+    }
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    viewModel.dispose();
     super.dispose();
   }
-
-
-  void _goToNextPage() {
-    if (_currentPageIndex < _pages.length - 1) {
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
-    }
-  }
-
-  void _goToPreviousPage() {
-    if (_currentPageIndex > 0) {
-      _pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
-    }
-  }
-
-  void _skipOnboarding() {
-    context.go('/home');
-  }
-
-
-  List<Map<String, String>> get _pages {
-    final loc = AppLocalizations.of(context)!;
-    return [
-      {
-        'image': 'lib/assets/icons/check.jpg',
-        'title': loc.onBoarding_pageview1_title,
-        'subtitle': loc.onBoarding_pageview1_desc,
-      },
-      {
-        'image': 'lib/assets/icons/loop.jpg',
-        'title': loc.onBoarding_pageview2_title,
-        'subtitle': loc.onBoarding_pageview2_desc,
-      },
-      {
-        'image': 'lib/assets/icons/upgrade.jpg',
-        'title': loc.onBoarding_pageview3_title,
-        'subtitle': loc.onBoarding_pageview3_desc,
-      },
-      {
-        'image': 'lib/assets/icons/stats.jpg',
-        'title': loc.onBoarding_pageview4_title,
-        'subtitle': loc.onBoarding_pageview4_desc,
-      },
-    ];
-  }
-
 
   Widget _buildOnboardingPage(Map<String, String> page) {
     return Padding(
@@ -114,18 +72,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
-        _pages.length,
+        viewModel.pages.length,
         (index) => AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.ease,
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          width: _currentPageIndex == index ? 32 : 8,
+          width: viewModel.currentPageIndex == index ? 32 : 8,
           height: 8,
           decoration: BoxDecoration(
-            color:
-                _currentPageIndex == index
-                    ? const Color(0xFF2563EB)
-                    : const Color(0xFF555555),
+            color: viewModel.currentPageIndex == index
+                ? const Color(0xFF2563EB)
+                : const Color(0xFF555555),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -135,7 +92,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   Widget _buildButtons() {
     final loc = AppLocalizations.of(context)!;
-    final isLastPage = _currentPageIndex == _pages.length - 1;
 
     return Container(
       width: 400,
@@ -146,39 +102,27 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           Row(
             children: [
-              if (_currentPageIndex != 0)
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _goToPreviousPage,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(0, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+              Expanded(
+                flex: viewModel.currentPageIndex == 0 ? 2 : 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    viewModel.nextPage();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2563EB),
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(0, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(loc.onBoarding_prev),
+                  ),
+                  child: Text(
+                    viewModel.isLastPage
+                        ? loc.onBoarding_finish
+                        : loc.onBoarding_next,
                   ),
                 ),
-              if (_currentPageIndex != 0 && _currentPageIndex != 3)
-                const SizedBox(width: 10),
-              if (_currentPageIndex != 3)
-                Expanded(
-                  flex: _currentPageIndex == 0 ? 2 : 1,
-                  child: ElevatedButton(
-                    onPressed: _goToNextPage,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(0, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(loc.onBoarding_next),
-                  ),
-                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -188,7 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 child: Opacity(
                   opacity: 0.7,
                   child: OutlinedButton(
-                    onPressed: _skipOnboarding,
+                    onPressed: viewModel.skipOnboarding,
                     style: OutlinedButton.styleFrom(
                       backgroundColor: const Color(0xFF1E2533),
                       foregroundColor: const Color(0xFF3C75EF),
@@ -199,7 +143,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       minimumSize: const Size(0, 40),
                     ),
                     child: Text(
-                      isLastPage ? loc.onBoarding_finish : loc.onBoarding_skip,
+                      loc.onBoarding_skip,
                       style: const TextStyle(
                         color: Color(0xFF3C75EF),
                         fontWeight: FontWeight.bold,
@@ -228,14 +172,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 children: [
                   Expanded(
                     child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: _pages.length,
+                      controller: viewModel.pageController,
+                      itemCount: viewModel.pages.length,
+                      physics: (defaultTargetPlatform == TargetPlatform.android ||
+                              defaultTargetPlatform == TargetPlatform.iOS)
+                          ? null
+                          : const NeverScrollableScrollPhysics(),
                       onPageChanged: (index) {
-                        setState(() => _currentPageIndex = index);
+                        setState(() {
+                          viewModel.onPageChanged(index);
+                        });
                       },
-                      itemBuilder:
-                          (context, index) =>
-                              _buildOnboardingPage(_pages[index]),
+                      itemBuilder: (context, index) =>
+                          _buildOnboardingPage(viewModel.pages[index]),
                     ),
                   ),
                   _buildPageIndicator(),

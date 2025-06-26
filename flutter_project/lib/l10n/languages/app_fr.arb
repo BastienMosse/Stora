@@ -3,13 +3,11 @@
 	"hello": "Bonjour",
 	"welcome": "Bienvenue dans notre application !",
 
-	
-	"onBoarding_prev": "Précédent",
 	"onBoarding_next": "Suivant",
 	"onBoarding_skip": "Passer",
 	"onBoarding_finish": "Terminer",
 
-	"onBoarding_pageview1_title": "Bienvenue sur Stockly",
+	"onBoarding_pageview1_title": "Bienvenue sur Stora",
 	"onBoarding_pageview1_desc" : "Gérez vos stocks facilement et efficacement.",
 	"onBoarding_pageview2_title": "Suivi en temps réel",
 	"onBoarding_pageview2_desc" : "Visualisez l’état de vos stocks à tout moment.",

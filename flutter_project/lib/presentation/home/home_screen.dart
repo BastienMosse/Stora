@@ -8,28 +8,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  AppState get appState => Provider.of<AppState>(context, listen: false);
+  UserPrefs get userPrefs => Provider.of<UserPrefs>(context, listen: false);
+  AppLocalizations get loc => AppLocalizations.of(context)!;
+
+
   @override
   Widget build(BuildContext context) {
-    // Récupère les traductions via AppLocalizations
-    final loc = AppLocalizations.of(context)!;
-    final appState = Provider.of<AppState>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(loc.hello), // Affiche "hello" dans la langue active
+        title: Text(loc.hello),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(loc.welcome), // Affiche "welcome" dans la langue active
+            Text(loc.welcome),
             const SizedBox(height: 20),
-            // DropdownButton pour changer la langue
             DropdownButton<Locale>(
               value: Localizations.localeOf(context),
               onChanged: (Locale? newLocale) {
                 if (newLocale != null) {
-                  appState.setLocale(newLocale.languageCode);
+                  UserPrefs.setLocale(newLocale);
                 }
               },
               items:

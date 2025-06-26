@@ -2,13 +2,24 @@ import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
-  final appState = AppState();
-  await appState.initializePersistedState();
+  await AppState.init();
+  await UserPrefs.init();
 
   runApp(
-    ChangeNotifierProvider(create: (context) => appState, child: MainApp()),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: AppState.instance),
+        ChangeNotifierProvider.value(value: UserPrefs.instance),
+      ],
+      child: MainApp(),
+    ),
+
   );
 }

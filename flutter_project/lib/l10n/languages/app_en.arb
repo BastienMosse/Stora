@@ -3,13 +3,11 @@
 	"hello": "Hello",
 	"welcome": "Welcome to our app!",
 
-
-	"onBoarding_prev": "Previous",
 	"onBoarding_next": "Next",
 	"onBoarding_skip": "Skip",
 	"onBoarding_finish": "Finish",
 
-	"onBoarding_pageview1_title": "Welcome to Stockly",
+	"onBoarding_pageview1_title": "Welcome to Stora",
 	"onBoarding_pageview1_desc" : "Manage your stocks easily and efficiently.",
 	"onBoarding_pageview2_title": "Real-time tracking",
 	"onBoarding_pageview2_desc" : "View the status of your stocks at any time.",

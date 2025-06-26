@@ -10,7 +10,7 @@ class MainApp extends StatelessWidget {
         return MaterialApp.router(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: appState.Locale,
+          locale: UserPrefs.Locale,
           routerConfig: route,
         );
       },

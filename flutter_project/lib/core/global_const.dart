@@ -1,7 +1,6 @@
 import '/index.dart';
 
 // Application-wide constant variables
-
 const String appName = 'Stora';
 const String apiBaseUrl = 'https://api.example.com';
 const int defaultTimeout = 30;
@@ -25,5 +24,3 @@ const int textFontSize = 16;
 
 const String titleFont = 'Poppins';
 const int titleFontSize = 30;
-
-// API constants
