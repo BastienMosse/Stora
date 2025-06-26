@@ -1,5 +1,6 @@
 import '/index.dart';
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform;
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -7,7 +8,6 @@ class OnboardingScreen extends StatefulWidget {
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
-
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late final OnboardingScreenViewModel viewModel;
@@ -22,7 +22,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isViewModelInitialized) {
-      viewModel = OnboardingScreenViewModel(context);
+      viewModel = OnboardingScreenViewModel();
+      viewModel.init(context);
       _isViewModelInitialized = true;
     }
   }
@@ -80,9 +81,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: viewModel.currentPageIndex == index ? 32 : 8,
           height: 8,
           decoration: BoxDecoration(
-            color: viewModel.currentPageIndex == index
-                ? const Color(0xFF2563EB)
-                : const Color(0xFF555555),
+            color:
+                viewModel.currentPageIndex == index
+                    ? const Color(0xFF2563EB)
+                    : const Color(0xFF555555),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -174,17 +176,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: PageView.builder(
                       controller: viewModel.pageController,
                       itemCount: viewModel.pages.length,
-                      physics: (defaultTargetPlatform == TargetPlatform.android ||
-                              defaultTargetPlatform == TargetPlatform.iOS)
-                          ? null
-                          : const NeverScrollableScrollPhysics(),
+                      physics:
+                          (defaultTargetPlatform == TargetPlatform.android ||
+                                  defaultTargetPlatform == TargetPlatform.iOS)
+                              ? null
+                              : const NeverScrollableScrollPhysics(),
                       onPageChanged: (index) {
                         setState(() {
                           viewModel.onPageChanged(index);
                         });
                       },
-                      itemBuilder: (context, index) =>
-                          _buildOnboardingPage(viewModel.pages[index]),
+                      itemBuilder:
+                          (context, index) =>
+                              _buildOnboardingPage(viewModel.pages[index]),
                     ),
                   ),
                   _buildPageIndicator(),

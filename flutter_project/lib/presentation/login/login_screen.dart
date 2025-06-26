@@ -1,15 +1,2 @@
-import '/index.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreen();
-}
-
-class _LoginScreen extends State<LoginScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Login Screen')));
-  }
-}
+export './view/login_screen.dart';
+export './viewmodel/login_screen_vm.dart';

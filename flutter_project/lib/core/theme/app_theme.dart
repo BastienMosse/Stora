@@ -13,10 +13,14 @@ class LightTheme extends AppThemeBase {
   static final LightTheme instance = LightTheme._internal();
   LightTheme._internal();
 
-  @override Color get primaryColor => Colors.blue;
-  @override Color get backgroundColor => Colors.white;
-  @override Color get textColor => Colors.black;
-  @override Color get buttonColor => Colors.blueAccent;
+  @override
+  Color get primaryColor => Colors.blue;
+  @override
+  Color get backgroundColor => Colors.white;
+  @override
+  Color get textColor => Colors.black;
+  @override
+  Color get buttonColor => Colors.blueAccent;
 }
 
 // ===== Dark Theme ===== //
@@ -24,10 +28,14 @@ class DarkTheme extends AppThemeBase {
   static final DarkTheme instance = DarkTheme._internal();
   DarkTheme._internal();
 
-  @override Color get primaryColor => const Color(0xFF1A1A1A);
-  @override Color get backgroundColor => const Color(0xFF121212);
-  @override Color get textColor => Colors.white;
-  @override Color get buttonColor => const Color(0xFF2563EB);
+  @override
+  Color get primaryColor => const Color(0xFF1A1A1A);
+  @override
+  Color get backgroundColor => const Color(0xFF121212);
+  @override
+  Color get textColor => Colors.white;
+  @override
+  Color get buttonColor => const Color(0xFF2563EB);
 }
 
 // ===== Custom Theme ===== //
@@ -40,17 +48,28 @@ class CustomTheme extends AppThemeBase {
   Color? _textColor;
   Color? _buttonColor;
 
-  @override Color get primaryColor => _primaryColor ?? DarkTheme.instance.primaryColor;
-  @override Color get backgroundColor => _backgroundColor ?? DarkTheme.instance.backgroundColor;
-  @override Color get textColor => _textColor ?? DarkTheme.instance.textColor;
-  @override Color get buttonColor => _buttonColor ?? DarkTheme.instance.buttonColor;
+  @override
+  Color get primaryColor => _primaryColor ?? DarkTheme.instance.primaryColor;
+  @override
+  Color get backgroundColor =>
+      _backgroundColor ?? DarkTheme.instance.backgroundColor;
+  @override
+  Color get textColor => _textColor ?? DarkTheme.instance.textColor;
+  @override
+  Color get buttonColor => _buttonColor ?? DarkTheme.instance.buttonColor;
 
   void load(String jsonString) {
     final Map<String, dynamic> json = jsonDecode(jsonString);
-    _primaryColor = json.containsKey('primaryColor') ? Color(json['primaryColor']) : null;
-    _backgroundColor = json.containsKey('backgroundColor') ? Color(json['backgroundColor']) : null;
-    _textColor = json.containsKey('textColor') ? Color(json['textColor']) : null;
-    _buttonColor = json.containsKey('buttonColor') ? Color(json['buttonColor']) : null;
+    _primaryColor =
+        json.containsKey('primaryColor') ? Color(json['primaryColor']) : null;
+    _backgroundColor =
+        json.containsKey('backgroundColor')
+            ? Color(json['backgroundColor'])
+            : null;
+    _textColor =
+        json.containsKey('textColor') ? Color(json['textColor']) : null;
+    _buttonColor =
+        json.containsKey('buttonColor') ? Color(json['buttonColor']) : null;
   }
 
   String save() {

@@ -3,18 +3,14 @@ import '/index.dart';
 enum ThemeType { light, dark, custom }
 
 class ThemeController extends ChangeNotifier {
-  static final ThemeController _instance = ThemeController._internal();
-  factory ThemeController() => _instance;
-  ThemeController._internal();
-
-  static ThemeController get instance => _instance;
-  
+  late UserPrefs _userPrefs;
   late ThemeType _currentType;
   late AppThemeBase _currentTheme;
 
   void init() {
-    _currentType = UserPrefs.TypeTheme;
+    _currentType = _userPrefs.TypeTheme;
     switchTheme(_currentType);
+    notifyListeners();
   }
 
   ThemeType get currentType => _currentType;
@@ -31,10 +27,10 @@ class ThemeController extends ChangeNotifier {
         break;
       case ThemeType.custom:
         _currentTheme = CustomTheme.instance;
-        (_currentTheme as CustomTheme).load(UserPrefs.CustomTheme);
+        (_currentTheme as CustomTheme).load(_userPrefs.CustomTheme);
         break;
     }
-    UserPrefs.setTypeTheme(newType);
+    _userPrefs.setTypeTheme(newType);
     notifyListeners();
   }
 }

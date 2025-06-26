@@ -1,16 +1,16 @@
 import '/index.dart';
 
 class SplashScreenViewModel {
-  final BuildContext context;
   final TickerProvider vsync;
 
   late final AnimationController animationController;
   late final Animation<double> fadeInAnimation;
-
   late final UserPrefs userPrefs;
 
-  SplashScreenViewModel(this.context, this.vsync) {
-    userPrefs = Provider.of<UserPrefs>(context, listen: false);
+  SplashScreenViewModel(this.vsync);
+
+  void init(UserPrefs prefs) {
+    userPrefs = prefs;
 
     animationController = AnimationController(
       vsync: vsync,
@@ -22,11 +22,11 @@ class SplashScreenViewModel {
     );
   }
 
-  void start() {
+  void start(BuildContext context) {
     animationController.forward();
 
     Timer(const Duration(seconds: 4), () {
-      if (UserPrefs.FirstLaunch) {
+      if (userPrefs.FirstLaunch) {
         context.go('/onboarding');
       } else {
         context.go('/home');

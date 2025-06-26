@@ -8,17 +8,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  AppState get appState => Provider.of<AppState>(context, listen: false);
-  UserPrefs get userPrefs => Provider.of<UserPrefs>(context, listen: false);
-  AppLocalizations get loc => AppLocalizations.of(context)!;
-
-
   @override
   Widget build(BuildContext context) {
+    final userPrefs = context.watch<UserPrefs>();
+    final appState = context.watch<AppState>();
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(loc.hello),
-      ),
+      appBar: AppBar(title: Text(loc.hello)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +26,7 @@ class _HomeScreen extends State<HomeScreen> {
               value: Localizations.localeOf(context),
               onChanged: (Locale? newLocale) {
                 if (newLocale != null) {
-                  UserPrefs.setLocale(newLocale);
+                  userPrefs.setLocale(newLocale);
                 }
               },
               items:

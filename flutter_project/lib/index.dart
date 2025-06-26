@@ -15,12 +15,12 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'routing/router.dart';
 
 // Pages
-export 'app/app.dart';
+export 'presentation/app.dart';
 export 'presentation/splash/splash_screen.dart';
 export 'presentation/onboarding/onboarding_screen.dart';
 
-export 'presentation/login/login_screen.dart';    // TODO
-export 'presentation/home/home_screen.dart';      // TODO
+export 'presentation/login/login_screen.dart'; // TODO
+export 'presentation/home/home_screen.dart'; // TODO
 
 // Themes
 export 'core/theme/theme.dart';
