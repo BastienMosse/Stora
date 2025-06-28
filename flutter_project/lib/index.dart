@@ -1,4 +1,5 @@
 export 'dart:async';
+export 'dart:convert';
 
 export 'package:flutter/gestures.dart';
 export 'package:flutter/material.dart';
@@ -19,8 +20,13 @@ export 'presentation/app.dart';
 export 'presentation/splash/splash.dart';
 export 'presentation/onboarding/onboarding.dart';
 
-export 'presentation/login/login.dart'; // TODO
-export 'presentation/settings/home_screen.dart'; // TODO
+export 'presentation/home/home.dart'; // TODO
+export 'presentation/login/login.dart'; // TODO :  view model
+export 'presentation/settings/settings_screen.dart';
+export 'presentation/gestionStock/gestionStock.dart'; // TODO
+
+export 'package:fl_chart/fl_chart.dart';
+export 'package:flutter_svg/flutter_svg.dart';
 
 // Themes
 export 'core/theme/theme.dart';
@@ -31,6 +37,9 @@ export 'l10n/localization/app_localizations.dart';
 // State Variables
 export '/app/app_state.dart';
 export '/app/user_prefs.dart';
+
+// Data
+export 'data/data.dart';
 
 // Utils
 export 'core/global_const.dart';

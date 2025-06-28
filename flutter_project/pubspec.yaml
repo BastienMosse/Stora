@@ -26,6 +26,22 @@ dependencies:
   # Theme
   json_annotation: ^4.8.1
 
+  # Police d'écriture
+  google_fonts: ^6.2.1
+
+  # icon
+  font_awesome_flutter: ^10.7.0
+  fl_chart: ^0.69.0
+  flutter_svg: ^1.1.1
+
+  # HTTP client
+  http: ^1.2.2
+  dio: ^5.7.0
+
+  # Json serialization
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
+
 
 dev_dependencies:
   build_runner: any

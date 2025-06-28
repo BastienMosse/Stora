@@ -13,15 +13,17 @@ void main() async {
   AppState appState = AppState();
   await appState.init();
 
-  // ThemeController themeController = ThemeController();
-  // themeController.init();
+  ThemeController themeController = ThemeController();
+  themeController.init(userPrefs);
+
+  themeController.switchTheme(ThemeType.light);
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: appState),
         ChangeNotifierProvider.value(value: userPrefs),
-        // ChangeNotifierProvider.value(value: themeController),
+        ChangeNotifierProvider.value(value: themeController),
       ],
       child: MainApp(),
     ),
