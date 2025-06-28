@@ -5,29 +5,33 @@ typedef AppLocale = Locale;
 class AppState extends ChangeNotifier {
   late FlutterSecureStorage _secureStorage;
 
-  String _email = '';
+  String _login = '';
   String _password = '';
+  bool _isAdmin = false;
 
-  String get Email => _email;
+  String get Login => _login;
   String get Password => _password;
+  bool get isAdmin => _isAdmin;
 
   Future<void> init() async {
     _secureStorage = const FlutterSecureStorage();
-    _email = await _secureStorage.read(key: 'user_email') ?? '';
+    _login = await _secureStorage.read(key: 'user_login') ?? '';
     _password = await _secureStorage.read(key: 'user_password') ?? '';
+    _isAdmin = false;
     notifyListeners();
   }
 
   Future<void> clear() async {
     await _secureStorage.deleteAll();
-    _email = '';
+    _login = '';
     _password = '';
+    _isAdmin = false;
     notifyListeners();
   }
 
-  Future<void> setEmail(String value) async {
-    _email = value;
-    await _secureStorage.write(key: 'user_email', value: value);
+  Future<void> setLogin(String value) async {
+    _login = value;
+    await _secureStorage.write(key: 'user_login', value: value);
     notifyListeners();
   }
 
@@ -35,5 +39,17 @@ class AppState extends ChangeNotifier {
     _password = value;
     await _secureStorage.write(key: 'user_password', value: value);
     notifyListeners();
+  }
+
+  void setIsAdmin(bool value) {
+    _isAdmin = value;
+    notifyListeners();
+  }
+
+  void logout() {
+    _login = '';
+    _password = '';
+    _isAdmin = false;
+    clear();
   }
 }

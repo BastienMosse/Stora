@@ -28,6 +28,13 @@ class UserPrefs extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ======= Login ======= //
+  bool get RememberMe => _prefs.getBool('remember_me') ?? false;
+  Future<void> setRememberMe(bool value) async {
+    await _prefs.setBool('remember_me', value);
+    notifyListeners();
+  }
+
   // ======= Locale ======= //
   AppLocale get Locale => AppLocale(_prefs.getString('language_code') ?? 'en');
   Future<void> setLocale(AppLocale code) async {
