@@ -9,4 +9,5 @@ abstract final class Routes {
   static const onboarding = '/onboarding';
   static const login = '/login';
   static const home = '/home';
+  static const stock = '/stock';
 }

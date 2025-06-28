@@ -19,5 +19,9 @@ GoRouter route = GoRouter(
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(path: Routes.home, builder: (context, state) => const HomeScreen()),
+    GoRoute(
+      path: Routes.stock,
+      builder: (context, state) => const GestionStockWidget(),
+    ),
   ],
 );
