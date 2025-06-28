@@ -7,7 +7,13 @@ class ThemeController extends ChangeNotifier {
   late ThemeType _currentType;
   late AppThemeBase _currentTheme;
 
-  void init() {
+  void init(UserPrefs userPrefs) {
+    _userPrefs = userPrefs;
+    _userPrefs.addListener(() {
+      if (_userPrefs.TypeTheme != _currentType) {
+        switchTheme(_userPrefs.TypeTheme);
+      }
+    });
     _currentType = _userPrefs.TypeTheme;
     switchTheme(_currentType);
     notifyListeners();
