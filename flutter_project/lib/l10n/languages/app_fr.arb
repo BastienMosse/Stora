@@ -14,5 +14,13 @@
 	"onBoarding_pageview3_title": "Alertes intelligentes",
 	"onBoarding_pageview3_desc" : "Recevez des notifications en cas de seuil critique.",
 	"onBoarding_pageview4_title": "Rapports détaillés",
-	"onBoarding_pageview4_desc" : "Analysez vos données pour optimiser votre gestion."
+	"onBoarding_pageview4_desc" : "Analysez vos données pour optimiser votre gestion.",
+
+	"homePage_menu": "Menu",
+	"homePage_stock": "Gestion des stocks",
+	"homePage_admin_log": "Gestion des logs",
+	"homePage_admin_employee": "Gestion des employés",
+
+	"stock_manage_page_title": "Gestion des stocks",
+	"stock_manage_page_bar_de_recherche": "chercher un produit par son nom"
 }

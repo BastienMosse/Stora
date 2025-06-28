@@ -14,6 +14,14 @@
 	"onBoarding_pageview3_title": "Smart alerts",
 	"onBoarding_pageview3_desc" : "Receive notifications in case of critical thresholds.",
 	"onBoarding_pageview4_title": "Detailed reports",
-	"onBoarding_pageview4_desc" : "Analyze your data to optimize your management."
+	"onBoarding_pageview4_desc" : "Analyze your data to optimize your management.",
+
+	"homePage_menu": "Menu",
+	"homePage_stock": "Stock management",
+	"homePage_admin_log": "Log management",
+	"homePage_admin_employee": "Employees management",
+
+	"stock_manage_page_title": "Stocks Managerment",
+	"stock_manage_page_bar_de_recherche": "search the product by his name"
+
 }
-  
