@@ -163,8 +163,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeController>(context, listen: false);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       body: SafeArea(
         child: Column(
           children: [

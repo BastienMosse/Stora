@@ -8,24 +8,58 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _emailController;
-  late FocusNode _emailFocusNode;
+  late final LoginScreenViewModel viewModel;
+
+  late TextEditingController _loginController;
+  late FocusNode _loginFocusNode;
 
   late TextEditingController _passwordController;
   late FocusNode _passwordFocusNode;
 
+  late AppState appState;
+  late UserPrefs userPrefs;
+  late ThemeController theme;
+
   bool obscurePassword = true;
+  bool _hasError = false;
 
   @override
   void initState() {
     super.initState();
-    final appState = Provider.of<AppState>(context, listen: false);
 
-    _emailController = TextEditingController(text: appState.Email);
-    _emailFocusNode = FocusNode();
+    _loginController = TextEditingController();
+    _loginController.addListener(_clearErrors);
+    _loginFocusNode = FocusNode();
 
-    _passwordController = TextEditingController(text: appState.Password);
+    _passwordController = TextEditingController();
+    _passwordController.addListener(_clearErrors);
     _passwordFocusNode = FocusNode();
+
+    viewModel = LoginScreenViewModel();
+  }
+
+  void _clearErrors() {
+    if (_hasError) {
+      setState(() {
+        _hasError = false;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    appState = context.read<AppState>();
+    userPrefs = context.read<UserPrefs>();
+    theme = context.read<ThemeController>();
+
+    viewModel.init(context);
+
+    if (userPrefs.RememberMe) {
+      _loginController.text = appState.Login;
+      _passwordController.text = appState.Password;
+    }
   }
 
   Widget inputField({
@@ -40,79 +74,116 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
-        autofocus: false,
-        autocorrect: false,
         obscureText: isPassword ? obscurePassword : false,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your ${label.toLowerCase()}';
+          }
+          return null;
+        },
+        style: TextStyle(color: theme.currentTheme.PrimaryText),
         decoration: InputDecoration(
-          isDense: true,
           labelText: label,
           labelStyle: TextStyle(
             fontSize: 16,
             letterSpacing: 0.0,
             fontWeight: FontWeight.w500,
             fontStyle: FontStyle.normal,
-            color: Colors.grey, // TODO : FlutterFlowTheme.of(context).secondaryText
+            color: theme.currentTheme.SecondaryText,
           ),
-          hintText: label.split(' ').first,
+          hintText: label,
           hintStyle: TextStyle(
             fontSize: 14,
             letterSpacing: 0.0,
             fontWeight: FontWeight.w400,
-            color: Colors.grey, // TODO : FlutterFlowTheme.of(context).secondaryText
+            color: theme.currentTheme.SecondaryText,
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.indigo, // TODO : FlutterFlowTheme.of(context).primary
-              width: 2,
+              color:
+                  _hasError
+                      ? theme.currentTheme.Error
+                      : theme.currentTheme.Primary,
+              width: _hasError ? 1 : 2,
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.indigo, // TODO : FlutterFlowTheme.of(context).primary
-              width: 2
+              color:
+                  _hasError
+                      ? theme.currentTheme.Error
+                      : theme.currentTheme.Primary,
+              width: _hasError ? 1 : 2,
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.red, // TODO : FlutterFlowTheme.of(context).error
-              width: 1,
-            ),
+            borderSide: BorderSide(color: theme.currentTheme.Error, width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.red, // TODO : FlutterFlowTheme.of(context).error
-              width: 1,
-            ),
+            borderSide: BorderSide(color: theme.currentTheme.Error, width: 1),
             borderRadius: BorderRadius.circular(8),
           ),
           filled: true,
-          fillColor: Colors.white, // TODO : FlutterFlowTheme.of(context).secondaryBackground
-          suffixIcon: isPassword ? IconButton(
-            icon: Icon(
-              obscurePassword ? Icons.visibility_off : Icons.visibility,
-            ),
-            onPressed: () {
-              setState(() {
-                obscurePassword = !obscurePassword;
-              });
-            },
-          ) : null,
+          fillColor: theme.currentTheme.SecondaryBackground,
+          suffixIcon:
+              isPassword
+                  ? IconButton(
+                    icon: Icon(
+                      obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
+                  )
+                  : null,
         ),
         keyboardType: keyboardType,
       ),
     );
   }
 
+  Widget loginButton({required String label}) {
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width * 0.2,
+      height: MediaQuery.sizeOf(context).height * 0.05,
+      child: ElevatedButton(
+        onPressed: () async {
+          await viewModel.login(
+            _loginController.text.trim(),
+            _passwordController.text.trim(),
+            onError: (message) {
+              setState(() {
+                _hasError = true;
+              });
+            },
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: theme.currentTheme.Primary,
+          foregroundColor: theme.currentTheme.PrimaryText,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          textStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+            letterSpacing: 0.0,
+            fontWeight: Theme.of(context).textTheme.titleSmall?.fontWeight,
+            fontStyle: Theme.of(context).textTheme.titleSmall?.fontStyle,
+          ),
+        ),
+        child: Text('Login', style: TextStyle(color: Color(0xFFFFFFFF))),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userPrefs = context.watch<UserPrefs>();
-    final appState = context.watch<AppState>();
-
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA), // blanc cassé
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       body: SafeArea(
         top: true,
         child: Align(
@@ -128,22 +199,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(-1, -1),
+                    alignment: AlignmentDirectional(0, 0),
                     child: Text(
                       'Sign In',
                       style: TextStyle(
                         fontSize: 40,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
+                        color: theme.currentTheme.PrimaryText,
                       ),
                     ),
                   ),
                   SizedBox(height: 40, child: VerticalDivider(thickness: 2)),
-                  TextButton(
-                    onPressed: () {
-                      // TODO: Add forgot password logic
-                    },
-                    child: Text('Forgot Password ?'),
+                  Align(
+                    alignment: AlignmentDirectional(0, 0),
+                    child: TextButton(
+                      onPressed: () {
+                        // TODO: Add forgot password logic
+                        throw UnimplementedError(
+                          'Forgot password functionality is not implemented yet.',
+                        );
+                      },
+                      child: Text('Forgot Password ?'),
+                    ),
                   ),
                 ],
               ),
@@ -151,10 +229,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Align(
                 alignment: AlignmentDirectional(0, 0),
                 child: inputField(
-                  label: 'Email address',
-                  controller: _emailController,
-                  focusNode: _emailFocusNode,
-                  keyboardType: TextInputType.emailAddress,
+                  label: 'Login',
+                  controller: _loginController,
+                  focusNode: _loginFocusNode,
+                  keyboardType: TextInputType.name,
                 ),
               ),
               const SizedBox(height: 16),
@@ -164,46 +242,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: 'Password',
                   controller: _passwordController,
                   focusNode: _passwordFocusNode,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.2,
-                    height: MediaQuery.sizeOf(context).height * 0.05,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // TODO: Add login logic
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.indigo, // TODO: FlutterFlowTheme.of(context).primary
-                        foregroundColor: Colors.white, // TODO: FlutterFlowTheme.of(context).primaryText
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        textStyle: Theme.of(
-                          context,
-                        ).textTheme.titleSmall?.copyWith(
-                          letterSpacing: 0.0,
-                          fontWeight:
-                              Theme.of(context).textTheme.titleSmall?.fontWeight,
-                          fontStyle:
-                              Theme.of(context).textTheme.titleSmall?.fontStyle,
-                        ),
-                      ),
-                      child: const Text('Login'),
-                    ),
+                  Checkbox(
+                    value: userPrefs.RememberMe,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        viewModel.toggleRememberMe(value ?? false);
+                      });
+                    },
+                  ),
+                  Text(
+                    'Remember me',
+                    style: TextStyle(color: theme.currentTheme.PrimaryText),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [loginButton(label: 'Login')],
+              ),
             ],
           ),
         ),

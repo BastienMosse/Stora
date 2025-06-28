@@ -11,12 +11,18 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late SplashScreenViewModel viewModel;
 
+  late final UserPrefs prefs;
+  late final ThemeController theme;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final prefs = Provider.of<UserPrefs>(context, listen: false);
-    viewModel = SplashScreenViewModel(this)..init(prefs);
+    prefs = Provider.of<UserPrefs>(context, listen: false);
+    theme = Provider.of<ThemeController>(context, listen: false);
+
+    viewModel = SplashScreenViewModel(this);
+    viewModel.init(prefs);
     viewModel.start(context);
   }
 
@@ -29,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkPrimary,
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       body: FadeTransition(
         opacity: viewModel.fadeInAnimation,
         child: Center(
@@ -51,13 +57,15 @@ class _SplashScreenState extends State<SplashScreen>
                 style: TextStyle(
                   fontFamily: titleFont,
                   fontSize: titleFontSize.toDouble(),
-                  color: darkTextDark,
+                  color: theme.currentTheme.PrimaryText,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 30),
-              const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(darkWidget),
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  theme.currentTheme.Primary,
+                ),
               ),
             ],
           ),

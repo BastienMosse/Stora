@@ -29,7 +29,7 @@ class SplashScreenViewModel {
       if (userPrefs.FirstLaunch) {
         context.go('/onboarding');
       } else {
-        context.go('/home');
+        context.go('/login');
       }
     });
   }

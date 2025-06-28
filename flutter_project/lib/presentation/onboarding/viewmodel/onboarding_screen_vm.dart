@@ -6,11 +6,14 @@ class OnboardingScreenViewModel {
   final PageController pageController = PageController();
   late final List<Map<String, String>> pages;
 
+  late final UserPrefs userPrefs;
+
   int currentPageIndex = 0;
   bool get isLastPage => currentPageIndex == pages.length - 1;
 
   void init(BuildContext context) {
     this.context = context;
+    userPrefs = context.watch<UserPrefs>();
     pages = [
       {
         'image': 'lib/assets/icons/check.jpg',
@@ -47,6 +50,7 @@ class OnboardingScreenViewModel {
   }
 
   void skipOnboarding() {
+    userPrefs.setFirstLaunch(false);
     context.pushReplacement('/login');
   }
 
