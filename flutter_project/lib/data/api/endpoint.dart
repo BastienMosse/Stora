@@ -1,10 +1,17 @@
 import '/index.dart';
 
 class Endpoints {
-  // ===== LOGIN / REGISTER ===== //
+  static Future<int> health() async {
+    final response = await ApiService.get('/api/health');
+    return response.statusCode;
+  }
+
+  // ================
+  // |     AUTH     |
+  // ================
+
   static Future<AuthResponse?> login(LoginRequest request) async {
     final response = await ApiService.post('/api/login', request.toJson());
-    print('Login test: ${response.statusCode} - ${response.body}');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       ApiService.jwt = json['token'];
@@ -13,16 +20,10 @@ class Endpoints {
     return null;
   }
 
-  static Future<AuthResponse?> register(RegisterRequest request) async {
-    final response = await ApiService.post('/api/register', request.toJson());
-    if (response.statusCode == 201) {
-      final json = jsonDecode(response.body);
-      return AuthResponse.fromJson(json);
-    }
-    return null;
-  }
+  // ====================
+  // |     PRODUCTS     |
+  // ====================
 
-  // ===== PRODUCTS ===== //
   static Future<ProductListResponse?> getProducts() async {
     final response = await ApiService.get('/api/products');
     if (response.statusCode == 200) {
@@ -46,7 +47,7 @@ class Endpoints {
     return null;
   }
 
-  static Future<ProductListResponse?> getProductById(int id) async {
+  static Future<ProductListResponse?> getProductById(String id) async {
     final response = await ApiService.get('/api/products/$id');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
@@ -55,7 +56,7 @@ class Endpoints {
     return null;
   }
 
-  static Future<Message?> deleteProductById(int id) async {
+  static Future<Message?> deleteProductById(String id) async {
     final response = await ApiService.delete('/api/products/$id');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
@@ -66,7 +67,7 @@ class Endpoints {
 
   static Future<ProductUpdateResponse?> postProductById(
     int id,
-    String file,
+    File file,
   ) async {
     final response = await ApiService.uploadFile(
       '/api/products/$id',
@@ -80,9 +81,13 @@ class Endpoints {
     return null;
   }
 
-  // ===== USERS ===== //
-  static Future<UserResponse?> getUser() async {
-    final response = await ApiService.get('/api/user');
+  // =================
+  // |     USERS     |
+  // =================
+
+  // GET /api/users/me
+  static Future<UserResponse?> getMeUser() async {
+    final response = await ApiService.get('/api/users/me');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return UserResponse.fromJson(json);
@@ -90,8 +95,29 @@ class Endpoints {
     return null;
   }
 
-  static Future<UserResponse?> getUserId(int userId) async {
-    final response = await ApiService.get('/api/user/$userId');
+  // GET /api/users
+  static Future<UserListResponse?> getUsers() async {
+    final response = await ApiService.get('/api/users');
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return UserListResponse.fromJson(json);
+    }
+    return null;
+  }
+
+  // POST /api/users
+  static Future<AuthResponse?> register(RegisterRequest request) async {
+    final response = await ApiService.post('/api/users', request.toJson());
+    if (response.statusCode == 201) {
+      final json = jsonDecode(response.body);
+      return AuthResponse.fromJson(json);
+    }
+    return null;
+  }
+
+  // GET /api/users/{id}
+  static Future<UserResponse?> getUserById(String userId) async {
+    final response = await ApiService.get('/api/users/$userId');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return UserResponse.fromJson(json);
@@ -99,17 +125,53 @@ class Endpoints {
     return null;
   }
 
+  // DELETE /api/users/{id}
+  static Future<Message?> deleteUserById(String id) async {
+    final response = await ApiService.delete('/api/users/$id');
+    if (response.statusCode == 201) {
+      final json = jsonDecode(response.body);
+      return Message.fromJson(json);
+    }
+    return null;
+  }
+
+  // PUT /api/users/upload/{id}
   static Future<Map<String, dynamic>?> uploadUserPhoto(
     String userId,
-    String file,
+    File file,
   ) async {
     final response = await ApiService.uploadFile(
-      '/api/upload/user/$userId',
+      '/api/users/upload/$userId',
       file,
       'photo',
     );
+
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
+    } else {
+      print('Erreur upload: ${response.statusCode} - ${response.body}');
+      return null;
+    }
+  }
+
+  // ================
+  // |     LOGS     |
+  // ================
+
+  static Future<LogsListResponse?> getLogs() async {
+    final response = await ApiService.get('/api/logs');
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return LogsListResponse.fromJson(json);
+    }
+    return null;
+  }
+
+  static Future<LogsListResponse?> getLogsId() async {
+    final response = await ApiService.get('/api/user');
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return LogsListResponse.fromJson(json);
     }
     return null;
   }

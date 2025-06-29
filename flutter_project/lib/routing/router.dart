@@ -20,8 +20,22 @@ GoRouter route = GoRouter(
     ),
     GoRoute(path: Routes.home, builder: (context, state) => const HomeScreen()),
     GoRoute(
+      path: Routes.settings,
+      builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
       path: Routes.stock,
       builder: (context, state) => const GestionStockWidget(),
+    ),
+    GoRoute(
+      path: Routes.employees,
+      builder: (context, state) => const EmployeesScreen(),
+    ),
+    GoRoute(
+      path: Routes.employeesDisplay,
+      builder: (context, state) {
+        return EmployeeDisplay(userId: state.extra as String);
+      },
     ),
   ],
 );

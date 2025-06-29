@@ -1,3 +1,4 @@
+export 'dart:io';
 export 'dart:async';
 export 'dart:convert';
 
@@ -11,19 +12,26 @@ export 'package:flutter_web_plugins/url_strategy.dart';
 export 'package:go_router/go_router.dart';
 export 'package:provider/provider.dart';
 export 'package:shared_preferences/shared_preferences.dart';
+export 'package:google_fonts/google_fonts.dart';
+export 'package:font_awesome_flutter/font_awesome_flutter.dart';
+export 'package:image_picker/image_picker.dart';
 
 // GoRouter
 export 'routing/router.dart';
+export 'routing/routes.dart';
 
 // Pages
 export 'presentation/app.dart';
 export 'presentation/splash/splash.dart';
 export 'presentation/onboarding/onboarding.dart';
+export 'presentation/login/login.dart';
+export 'presentation/home/home.dart';
 
-export 'presentation/home/home.dart'; // TODO
-export 'presentation/login/login.dart'; // TODO :  view model
-export 'presentation/settings/settings_screen.dart';
+export 'presentation/employees/employees.dart'; // TODO
+export 'presentation/employee_display/employee_display.dart'; // TODO
+export 'presentation/settings/settings.dart'; // TODO
 export 'presentation/gestionStock/gestionStock.dart'; // TODO
+export 'presentation/logs/log.dart';
 
 export 'package:fl_chart/fl_chart.dart';
 export 'package:flutter_svg/flutter_svg.dart';

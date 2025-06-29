@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late AppState appState;
   late UserPrefs userPrefs;
   late ThemeController theme;
+  late AppLocalizations locale;
 
   bool obscurePassword = true;
   bool _hasError = false;
@@ -53,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     appState = context.read<AppState>();
     userPrefs = context.read<UserPrefs>();
     theme = context.read<ThemeController>();
+    locale = AppLocalizations.of(context)!;
 
     viewModel.init(context);
 
@@ -201,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: AlignmentDirectional(0, 0),
                     child: Text(
-                      'Sign In',
+                      locale.login_signIn,
                       style: TextStyle(
                         fontSize: 40,
                         letterSpacing: 0.0,
@@ -220,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Forgot password functionality is not implemented yet.',
                         );
                       },
-                      child: Text('Forgot Password ?'),
+                      child: Text(locale.login_forgotPasswd),
                     ),
                   ),
                 ],
@@ -229,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Align(
                 alignment: AlignmentDirectional(0, 0),
                 child: inputField(
-                  label: 'Login',
+                  label: locale.login_credLogin,
                   controller: _loginController,
                   focusNode: _loginFocusNode,
                   keyboardType: TextInputType.name,
@@ -239,36 +241,43 @@ class _LoginScreenState extends State<LoginScreen> {
               Align(
                 alignment: AlignmentDirectional(0, 0),
                 child: inputField(
-                  label: 'Password',
+                  label: locale.login_credPassword,
                   controller: _passwordController,
                   focusNode: _passwordFocusNode,
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                 ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: userPrefs.RememberMe,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        viewModel.toggleRememberMe(value ?? false);
-                      });
-                    },
-                  ),
-                  Text(
-                    'Remember me',
-                    style: TextStyle(color: theme.currentTheme.PrimaryText),
-                  ),
-                ],
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.5,
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Checkbox(
+                      value: userPrefs.RememberMe,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          viewModel.toggleRememberMe(value ?? false);
+                        });
+                      },
+                    ),
+                    Text(
+                      locale.login_rememberMe,
+                      style: TextStyle(
+                        color: theme.currentTheme.PrimaryText,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [loginButton(label: 'Login')],
+                children: [loginButton(label: locale.login_login)],
               ),
             ],
           ),

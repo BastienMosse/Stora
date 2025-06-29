@@ -6,7 +6,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userPrefs = context.watch<UserPrefs>();
-    final appState = context.watch<AppState>();
 
     return Consumer<AppState>(
       builder: (context, appState, _) {

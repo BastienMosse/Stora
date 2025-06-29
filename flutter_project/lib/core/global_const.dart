@@ -5,6 +5,10 @@ const String appName = 'Stora';
 const String apiBaseUrl = 'http://10.0.2.2:5432';
 const int defaultTimeout = 30;
 
+// For updates
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
+
 // Font constants
 const String textFont = 'secondary family';
 const int textFontSize = 16;

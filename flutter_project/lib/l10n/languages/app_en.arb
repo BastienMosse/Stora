@@ -16,6 +16,13 @@
 	"onBoarding_pageview4_title": "Detailed reports",
 	"onBoarding_pageview4_desc" : "Analyze your data to optimize your management.",
 
+	"login_signIn" : "Sign in",
+	"login_forgotPasswd" : "Forgot Password",
+	"login_credLogin" : "Login",
+	"login_credPassword" : "Password",
+	"login_rememberMe" : "Remember me",
+	"login_login" : "Login",
+
 	"homePage_menu": "Menu",
 	"homePage_stock": "Stock management",
 	"homePage_admin_log": "Log management",

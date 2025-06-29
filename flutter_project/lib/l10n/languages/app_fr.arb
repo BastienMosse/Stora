@@ -16,6 +16,13 @@
 	"onBoarding_pageview4_title": "Rapports détaillés",
 	"onBoarding_pageview4_desc" : "Analysez vos données pour optimiser votre gestion.",
 
+	"login_signIn" : "Se connecter",
+	"login_forgotPasswd" : "Mot de passe oublié",
+	"login_credLogin" : "Login",
+	"login_credPassword" : "Mot de passe",
+	"login_rememberMe" : "Se souvenir de moi",
+	"login_login" : "Connexion",
+
 	"homePage_menu": "Menu",
 	"homePage_stock": "Gestion des stocks",
 	"homePage_admin_log": "Gestion des logs",

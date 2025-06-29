@@ -43,8 +43,10 @@ class LoginScreenViewModel {
         context.read<AppState>().setPassword(password);
       }
 
-      context.read<AppState>().setIsAdmin(response.user.role == Role.ADMIN.value);
-      
+      context.read<AppState>().setIsAdmin(
+        response.user.role == Role.ADMIN.value,
+      );
+
       context.go('/home');
     } catch (e) {
       onError(e.toString());

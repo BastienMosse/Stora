@@ -1,16 +1,14 @@
-import '/index.dart';
-
 class RegisterRequest {
   final String login;
   final String username;
   final String password;
-  final Role role;
+  final String role;
 
   RegisterRequest({
     required this.login,
     required this.password,
     required this.username,
-    this.role = Role.USER,
+    this.role = 'USER',
   }) : assert(role == 'USER' || role == 'ADMIN', 'role must be USER or ADMIN');
 
   Map<String, dynamic> toJson() {
@@ -18,7 +16,7 @@ class RegisterRequest {
       'login': login,
       'password': password,
       'username': username,
-      'role': role.value,
+      'role': role,
     };
   }
 }
