@@ -57,6 +57,8 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -129,13 +131,22 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                               const SizedBox(height: 8),
                               Text('role : ${viewModel.user?.role ?? ''}'),
                               const SizedBox(height: 8),
-                              Text('Born: ${viewModel.user?.birth ?? ''}'),
+                              Text(
+                                locale.employee_display_page_Born +
+                                    ' ${viewModel.user?.birth ?? ''}',
+                              ),
                               const SizedBox(height: 8),
-                              Text('Number : ${viewModel.user?.tel ?? ''}'),
+                              Text(
+                                locale.employee_display_page_phone +
+                                    ' ${viewModel.user?.tel ?? ''}',
+                              ),
                               const SizedBox(height: 8),
                               Text('email : ${viewModel.user?.email ?? ''}'),
                               const SizedBox(height: 8),
-                              Text('Pay : ${viewModel.user?.pay ?? ''} \$'),
+                              Text(
+                                locale.employee_display_page_pay +
+                                    ' ${viewModel.user?.pay ?? ''} \$',
+                              ),
                             ],
                           ),
                         ),
@@ -191,9 +202,9 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                         vertical: 12,
                       ),
                     ),
-                    child: const Text(
-                      'Modifier',
-                      style: TextStyle(fontSize: 16),
+                    child: Text(
+                      locale.employee_display_page_modify,
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                   ElevatedButton(
@@ -203,8 +214,8 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                         context.pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: const Text(
-                              'Utilisateur supprimé avec succès',
+                            content: Text(
+                              locale.employee_display_page_supr_log,
                             ),
                             duration: const Duration(seconds: 2),
                           ),

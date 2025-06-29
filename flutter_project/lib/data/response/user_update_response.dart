@@ -1,10 +1,11 @@
-class UpdateUserResponse {
-  final String message;
-  final String photo;
+import '/index.dart';
 
-  UpdateUserResponse({required this.message, required this.photo});
+class UserUpdateResponse {
+  final User user;
 
-  factory UpdateUserResponse.fromJson(Map<String, dynamic> json) {
-    return UpdateUserResponse(message: json['message'], photo: json['photo']);
+  UserUpdateResponse({required this.user});
+
+  factory UserUpdateResponse.fromJson(Map<String, dynamic> json) {
+    return UserUpdateResponse(user: User.fromJson(json['user']));
   }
 }

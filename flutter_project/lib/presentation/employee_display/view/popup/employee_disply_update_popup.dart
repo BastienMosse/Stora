@@ -1,7 +1,7 @@
 import '/index.dart';
 
 class EmployeeUpdatePopup extends StatefulWidget {
-  final UserResponse user;
+  final User user;
 
   const EmployeeUpdatePopup({super.key, required this.user});
 
@@ -35,6 +35,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
   }
 
   Future<void> _showImageOptions() async {
+    final locale = AppLocalizations.of(context)!;
     try {
       showModalBottomSheet(
         context: context,
@@ -44,7 +45,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
               children: [
                 ListTile(
                   leading: const Icon(Icons.photo_library),
-                  title: const Text('Galerie'),
+                  title: Text(locale.employee_display_update_popup_gallerie),
                   onTap: () {
                     Navigator.pop(context);
                     _pickImageFromGallery();
@@ -52,7 +53,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.photo_camera),
-                  title: const Text('Caméra'),
+                  title: Text(locale.employee_display_update_popup_camera),
                   onTap: () {
                     Navigator.pop(context);
                     _pickImageFromCamera();
@@ -60,7 +61,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.cancel),
-                  title: const Text('Annuler'),
+                  title: Text(locale.employee_display_update_popup_annuler),
                   onTap: () => Navigator.pop(context),
                 ),
               ],
@@ -69,7 +70,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
         },
       );
     } catch (e) {
-      print('Error showing image options: $e');
+      print(locale.employee_display_update_popup_err_img_opt + '$e');
     }
   }
 
@@ -102,12 +103,11 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
   }
 
   void _showImageError() {
+    final locale = AppLocalizations.of(context)!;
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Erreur: Image picker non disponible sur cet émulateur. Testez sur un appareil physique.',
-          ),
+        SnackBar(
+          content: Text(locale.employee_display_update_popup_err_img_disp),
           backgroundColor: Colors.orange,
           duration: Duration(seconds: 3),
         ),
@@ -128,6 +128,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
@@ -138,8 +139,8 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Create New Employee',
+                Text(
+                  locale.employee_display_update_popup_create,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
@@ -177,12 +178,17 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                     Expanded(
                       child: TextFormField(
                         controller: _loginController,
-                        decoration: const InputDecoration(
-                          labelText: 'First Name',
+                        decoration: InputDecoration(
+                          labelText:
+                              locale.employee_display_update_popup_firstname,
                           border: OutlineInputBorder(),
                         ),
                         validator:
-                            (v) => v == null || v.isEmpty ? 'Required' : null,
+                            (v) =>
+                                v == null || v.isEmpty
+                                    ? locale
+                                        .employee_display_update_popup_required
+                                    : null,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -204,7 +210,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                           _selectedRole = val;
                         });
                       },
-                      validator: (v) => v == null ? 'Required' : null,
+                      validator:
+                          (v) =>
+                              v == null
+                                  ? locale
+                                      .employee_display_update_popup_required
+                                  : null,
                     ),
                   ],
                 ),
@@ -218,7 +229,11 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                     suffixIcon: Icon(Icons.mail_outline),
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 StatefulBuilder(
@@ -227,7 +242,8 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                       controller: _passwdController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText:
+                            locale.employee_display_update_popup_password,
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -243,45 +259,61 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                         ),
                       ),
                       validator:
-                          (v) => v == null || v.isEmpty ? 'Required' : null,
+                          (v) =>
+                              v == null || v.isEmpty
+                                  ? locale
+                                      .employee_display_update_popup_required
+                                  : null,
                     );
                   },
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _dobController,
-                  decoration: const InputDecoration(
-                    labelText: 'Date of Birth',
-                    hintText: 'YYYY/MM/DD',
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_date,
+                    hintText: locale.employee_display_update_popup_date_ex,
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.calendar_today),
                   ),
                   keyboardType: TextInputType.datetime,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _phoneController,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number',
-                    hintText: '12 34 56 78 90',
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_phone,
+                    hintText: locale.employee_display_update_popup_phone_ex,
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.phone),
                   ),
                   keyboardType: TextInputType.phone,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _payController,
-                  decoration: const InputDecoration(
-                    labelText: 'Pay',
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_pay,
                     hintText: 'XXXX',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.monetization_on_sharp),
                   ),
                   keyboardType: TextInputType.number,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -289,7 +321,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () => Navigator.pop(context, false),
-                        child: const Text('Cancel'),
+                        child: Text(
+                          locale.employee_display_update_popup_annuler,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -300,7 +334,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                             // TODO : update
                           }
                         },
-                        child: const Text('Create'),
+                        child: Text(
+                          locale.employee_display_update_popup_create,
+                        ),
                       ),
                     ),
                   ],

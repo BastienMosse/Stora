@@ -47,6 +47,18 @@ class ApiService {
     );
   }
 
+  static Future<http.Response> patch(String path, Map<String, dynamic> body) {
+    return http.patch(
+      Uri.parse('$apiBaseUrl$path'),
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        if (jwt != null) 'Authorization': 'Bearer $jwt',
+      },
+      body: jsonEncode(body),
+    );
+  }
+
   static Future<http.Response> uploadFile(
     String path,
     File file,

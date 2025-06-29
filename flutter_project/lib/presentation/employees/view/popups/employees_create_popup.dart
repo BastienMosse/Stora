@@ -22,6 +22,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   File? _profileImage;
 
   Future<void> _showImageOptions() async {
+    final locale = AppLocalizations.of(context)!;
     try {
       showModalBottomSheet(
         context: context,
@@ -31,7 +32,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
               children: [
                 ListTile(
                   leading: const Icon(Icons.photo_library),
-                  title: const Text('Galerie'),
+                  title: Text(locale.employee_display_update_popup_gallerie),
                   onTap: () {
                     Navigator.pop(context);
                     _pickImageFromGallery();
@@ -39,7 +40,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.photo_camera),
-                  title: const Text('Caméra'),
+                  title: Text(locale.employee_display_update_popup_camera),
                   onTap: () {
                     Navigator.pop(context);
                     _pickImageFromCamera();
@@ -47,7 +48,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.cancel),
-                  title: const Text('Annuler'),
+                  title: Text(locale.employee_display_update_popup_annuler),
                   onTap: () => Navigator.pop(context),
                 ),
               ],
@@ -56,7 +57,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
         },
       );
     } catch (e) {
-      print('Error showing image options: $e');
+      print(locale.employee_display_update_popup_err_img_opt + ' $e');
     }
   }
 
@@ -89,12 +90,11 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   }
 
   void _showImageError() {
+    final locale = AppLocalizations.of(context)!;
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Erreur: Image picker non disponible sur cet émulateur. Testez sur un appareil physique.',
-          ),
+        SnackBar(
+          content: Text(locale.employee_display_update_popup_err_img_disp),
           backgroundColor: Colors.orange,
           duration: Duration(seconds: 3),
         ),
@@ -116,6 +116,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
@@ -126,8 +127,8 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Create New Employee',
+                Text(
+                  locale.employee_display_update_popup_create,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
@@ -165,24 +166,34 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                     Expanded(
                       child: TextFormField(
                         controller: _firstNameController,
-                        decoration: const InputDecoration(
-                          labelText: 'First Name',
+                        decoration: InputDecoration(
+                          labelText:
+                              locale.employee_display_update_popup_firstname,
                           border: OutlineInputBorder(),
                         ),
                         validator:
-                            (v) => v == null || v.isEmpty ? 'Required' : null,
+                            (v) =>
+                                v == null || v.isEmpty
+                                    ? locale
+                                        .employee_display_update_popup_required
+                                    : null,
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextFormField(
                         controller: _lastNameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Last Name',
+                        decoration: InputDecoration(
+                          labelText:
+                              locale.employee_display_create_popup_lastname,
                           border: OutlineInputBorder(),
                         ),
                         validator:
-                            (v) => v == null || v.isEmpty ? 'Required' : null,
+                            (v) =>
+                                v == null || v.isEmpty
+                                    ? locale
+                                        .employee_display_update_popup_required
+                                    : null,
                       ),
                     ),
                   ],
@@ -197,7 +208,11 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                     suffixIcon: Icon(Icons.mail_outline),
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 StatefulBuilder(
@@ -206,7 +221,8 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       controller: _passwdController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText:
+                            locale.employee_display_update_popup_password,
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -222,45 +238,61 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                         ),
                       ),
                       validator:
-                          (v) => v == null || v.isEmpty ? 'Required' : null,
+                          (v) =>
+                              v == null || v.isEmpty
+                                  ? locale
+                                      .employee_display_update_popup_required
+                                  : null,
                     );
                   },
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _dobController,
-                  decoration: const InputDecoration(
-                    labelText: 'Date of Birth',
-                    hintText: 'YYYY/MM/DD',
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_date,
+                    hintText: locale.employee_display_update_popup_date_ex,
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.calendar_today),
                   ),
                   keyboardType: TextInputType.datetime,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _phoneController,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number',
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_phone,
                     hintText: '12 34 56 78 90',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.phone),
                   ),
                   keyboardType: TextInputType.phone,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _payController,
-                  decoration: const InputDecoration(
-                    labelText: 'Pay',
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_pay,
                     hintText: 'XXXX',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.monetization_on_sharp),
                   ),
                   keyboardType: TextInputType.number,
-                  validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null || v.isEmpty
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<Role>(
@@ -281,7 +313,11 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       _selectedRole = val;
                     });
                   },
-                  validator: (v) => v == null ? 'Required' : null,
+                  validator:
+                      (v) =>
+                          v == null
+                              ? locale.employee_display_update_popup_required
+                              : null,
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -289,7 +325,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () => Navigator.pop(context, false),
-                        child: const Text('Cancel'),
+                        child: Text(
+                          locale.employee_display_update_popup_annuler,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -297,25 +335,31 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
-                            final request = RegisterRequest(
+                            final request = UserRegisterRequest(
                               login:
                                   '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
                               username:
                                   '${_firstNameController.text} ${_lastNameController.text}',
-                              // email: _emailController.text,
+                              email: _emailController.text,
                               password: _passwdController.text,
-                              // dateOfBirth: _dobController.text,
-                              // phoneNumber: _phoneController.text,
-                              // pay: double.tryParse(_payController.text) ?? 0.0,
-                              role: _selectedRole?.value ?? 'USER',
-                              // profileImage: _profileImage,
+                              birth:
+                                  _dobController.text.isNotEmpty
+                                      ? DateTime.tryParse(_dobController.text)
+                                      : null,
+                              tel: _phoneController.text,
+                              pay: double.tryParse(_payController.text) ?? 0.0,
+                              role: _selectedRole ?? Role.USER,
+                              note: '',
                             );
                             final response = await Endpoints.register(request);
 
                             if (response == null) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Error creating employee'),
+                                  content: Text(
+                                    locale
+                                        .employee_display_create_popup_err_create,
+                                  ),
                                   backgroundColor: Colors.red,
                                 ),
                               );
@@ -323,13 +367,16 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               if (_profileImage != null) {
                                 final uploadedImage =
                                     await Endpoints.uploadUserPhoto(
-                                      response.user.id,
+                                      response.id,
                                       _profileImage!,
                                     );
                                 if (uploadedImage == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text('Error uploading image'),
+                                      content: Text(
+                                        locale
+                                            .employee_display_create_popup_err_upload,
+                                      ),
                                       backgroundColor: Colors.red,
                                     ),
                                   );
@@ -337,7 +384,8 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Employee created successfully!',
+                                        locale
+                                            .employee_display_create_popup_succ_create,
                                       ),
                                       backgroundColor: Colors.green,
                                     ),
@@ -348,7 +396,8 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'Employee created successfully!',
+                                      locale
+                                          .employee_display_create_popup_succ_create,
                                     ),
                                     backgroundColor: Colors.green,
                                   ),
@@ -358,7 +407,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                             }
                           }
                         },
-                        child: const Text('Create'),
+                        child: Text(
+                          locale.employee_display_update_popup_create,
+                        ),
                       ),
                     ),
                   ],

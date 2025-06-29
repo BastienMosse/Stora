@@ -32,11 +32,12 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Filter Options'),
+          Text(locale.employee_filter_popup_option),
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: () => Navigator.of(context).pop(),
@@ -57,8 +58,8 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
             ),
             TextField(
               controller: employeeIdController,
-              decoration: const InputDecoration(
-                labelText: 'Employee ID',
+              decoration: InputDecoration(
+                labelText: locale.employee_filter_popup_EmpID,
                 suffixIcon: Icon(Icons.search),
               ),
             ),
@@ -68,14 +69,18 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
                 Expanded(
                   child: TextField(
                     controller: firstNameController,
-                    decoration: const InputDecoration(labelText: 'First Name'),
+                    decoration: InputDecoration(
+                      labelText: locale.employee_display_update_popup_firstname,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
                     controller: lastNameController,
-                    decoration: const InputDecoration(labelText: 'Last Name'),
+                    decoration: InputDecoration(
+                      labelText: locale.employee_display_create_popup_lastname,
+                    ),
                   ),
                 ),
               ],
@@ -95,7 +100,7 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
               lastNameController.clear();
             });
           },
-          child: const Text('Reset'),
+          child: Text(locale.employee_filter_popup_reset),
         ),
         ElevatedButton(
           onPressed: () {
@@ -112,7 +117,7 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
 
             context.pop();
           },
-          child: const Text('Apply'),
+          child: Text(locale.employee_filter_popup_apply),
         ),
       ],
     );

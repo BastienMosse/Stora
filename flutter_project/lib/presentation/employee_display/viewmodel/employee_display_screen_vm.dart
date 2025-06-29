@@ -6,7 +6,7 @@ class EmplyeeDisplayScreenViewModel {
   late ThemeController theme;
   late AppLocalizations locale;
 
-  late UserResponse? user;
+  late User? user;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -26,9 +26,9 @@ class EmplyeeDisplayScreenViewModel {
 
     _isLoading = true;
     try {
-      UserResponse? response = await Endpoints.getUserById(id);
+      UserGetResponse? response = await Endpoints.getUserById(id);
       if (response != null) {
-        user = response;
+        user = response.user;
       }
     } catch (e) {
       print('Error getting user : $e');

@@ -1,13 +1,11 @@
-class ProductUpdateResponse {
-  final String message;
-  final String photoUrl;
+import '/index.dart';
 
-  ProductUpdateResponse({required this.message, required this.photoUrl});
+class ProductUpdateResponse {
+  final Product products;
+
+  ProductUpdateResponse({required this.products});
 
   factory ProductUpdateResponse.fromJson(Map<String, dynamic> json) {
-    return ProductUpdateResponse(
-      message: json['message'] as String,
-      photoUrl: json['photoUrl'] as String,
-    );
+    return ProductUpdateResponse(products: Product.fromJson(json['product']));
   }
 }

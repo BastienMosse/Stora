@@ -30,8 +30,11 @@ class LoginScreenViewModel {
         return;
       }
 
-      LoginRequest request = LoginRequest(login: login, password: password);
-      AuthResponse? response = await Endpoints.login(request);
+      AuthLoginRequest request = AuthLoginRequest(
+        login: login,
+        password: password,
+      );
+      AuthLoginResponse? response = await Endpoints.login(request);
 
       if (response == null) {
         onError('Login failed. Please check your credentials.');

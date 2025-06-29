@@ -1,7 +1,7 @@
-import 'product_response.dart';
+import '/index.dart';
 
 class ProductListResponse {
-  final List<ProductResponse> products;
+  final List<Product> products;
 
   ProductListResponse({required this.products});
 
@@ -9,7 +9,7 @@ class ProductListResponse {
     return ProductListResponse(
       products:
           (json['products'] as List)
-              .map((item) => ProductResponse.fromJson(item))
+              .map((item) => Product.fromJson(item))
               .toList(),
     );
   }

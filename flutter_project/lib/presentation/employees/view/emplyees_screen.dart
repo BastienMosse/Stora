@@ -67,7 +67,8 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
     });
   }
 
-  Widget buildEmployeeCard(UserResponse user) {
+  Widget buildEmployeeCard(User user) {
+    final locale = AppLocalizations.of(context)!;
     return InkWell(
       onTap: () {
         context.push(Routes.employeesDisplay, extra: user.id);
@@ -127,7 +128,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                         ),
                       ),
                       Text(
-                        'username: ${user.username.isEmpty ? '-' : user.username}',
+                        locale.employee_screen_username+' ${user.username.isEmpty ? '-' : user.username}',
                         style: TextStyle(color: Colors.grey[700], fontSize: 15),
                       ),
                       Text(

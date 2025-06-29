@@ -1,38 +1,35 @@
-class User {
+class UserRegisterResponse {
   final String id;
-  final String login;
   final String username;
+  final String role;
+  final String password;
   final String birth;
   final String tel;
-  final String role;
   final String email;
-  final String photo;
   final String pay;
   final String note;
 
-  User({
+  UserRegisterResponse({
     required this.id,
-    required this.login,
     required this.username,
     required this.role,
+    required this.password,
     required this.birth,
     required this.tel,
     required this.email,
-    required this.photo,
     required this.pay,
     required this.note,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserRegisterResponse.fromJson(Map<String, dynamic> json) {
+    return UserRegisterResponse(
       id: json['id'],
-      login: json['login'],
       username: json['username'],
       role: json['role'],
+      password: json['password'],
       birth: json['birth'],
       tel: json['tel'],
       email: json['email'],
-      photo: json['photo'],
       pay: json['pay'],
       note: json['note'],
     );

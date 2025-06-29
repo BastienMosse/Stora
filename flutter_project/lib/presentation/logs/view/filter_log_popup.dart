@@ -33,9 +33,10 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
   late TextEditingController controller6;
   late FormFieldValidator validator6;
 
-  String? _selectedChip = 'All';
+  late AppLocalizations locale;
 
-  final List<String> options = ['All', 'Product', 'Employee', 'Customer'];
+  late String _selectedChip;
+  late List<String> options;
 
   @override
   void setState(VoidCallback callback) {
@@ -44,13 +45,14 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
 
   @override
   void initState() {
+    locale = AppLocalizations.of(context)!;
     super.initState();
     focusenode1 = FocusNode();
     controller1 = TextEditingController();
     validator1 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };
@@ -60,7 +62,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
     validator2 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };
@@ -70,7 +72,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
     validator3 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };
@@ -79,7 +81,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
     validator4 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };
@@ -88,7 +90,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
     validator5 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };
@@ -97,10 +99,23 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
     validator6 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    locale = AppLocalizations.of(context)!;
+    _selectedChip = locale.filter_log_popup_all;
+    options = [
+      locale.filter_log_popup_all,
+      locale.filter_log_popup_product,
+      locale.filter_log_popup_employee,
+      locale.filter_log_popup_customer,
+    ];
   }
 
   @override
@@ -138,7 +153,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Filter Options',
+                      locale.filter_log_popup_option_filter,
                       style: Theme.of(
                         context,
                       ).textTheme.headlineSmall!.copyWith(
@@ -178,7 +193,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Filter by Type',
+                      locale.filter_log_popup_type_filter,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w600,
@@ -237,7 +252,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Date Range',
+                      locale.filter_log_popup_date_range,
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14, // ou autre selon ton besoin
@@ -268,7 +283,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                   4,
                                 ),
                                 child: Text(
-                                  'Start Date',
+                                  locale.filter_log_popup_start_date,
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize:
@@ -362,7 +377,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                   4,
                                 ),
                                 child: Text(
-                                  'End Date',
+                                  locale.filter_log_popup_end_date,
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize:

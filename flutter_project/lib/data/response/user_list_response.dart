@@ -1,17 +1,15 @@
 import '/index.dart';
 
 class UserListResponse {
-  final List<UserResponse> users;
+  final List<User> users;
 
   UserListResponse({required this.users});
 
-  factory UserListResponse.fromJson(List json) {
+  factory UserListResponse.fromJson(Map<String, dynamic> json) {
     return UserListResponse(
       users:
-          json
-              .map(
-                (user) => UserResponse.fromJson(user as Map<String, dynamic>),
-              )
+          (json['user'] as List)
+              .map((item) => User.fromJson(item as Map<String, dynamic>))
               .toList(),
     );
   }

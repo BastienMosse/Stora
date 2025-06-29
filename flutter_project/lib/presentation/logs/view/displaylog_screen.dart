@@ -25,6 +25,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -39,7 +40,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white, size: 24),
             onPressed: () {
-              print('IconButton pressed ...');
+              print(locale.displaylog_screen_icon_pressed);
               Navigator.pop(context);
             },
           ),
@@ -54,7 +55,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    'Id : 123456789',
+                    'Id : 123456789', // FIXME
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
@@ -64,7 +65,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    'Change date of birth for SMITH John (id: 135792468)',
+                    '${locale.displaylog_screen_change_date_birth} SMITH John (id: 135792468)', // FIXME
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.normal,
                       fontSize: 18,
@@ -74,7 +75,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    'Detail :',
+                    locale.displaylog_screen_detail,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -82,14 +83,14 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                   ),
                 ),
                 Text(
-                  'Old :',
+                  locale.displaylog_screen_old,
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
                   ),
                 ),
                 Text(
-                  '24-12-1997',
+                  '24-12-1997', // FIXME
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
@@ -98,7 +99,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
-                    'New :',
+                    locale.displaylog_screen_new,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.normal,
                       fontSize: 16,
@@ -106,7 +107,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                   ),
                 ),
                 Text(
-                  '12-10-1998',
+                  '12-10-1998', // FIXME
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
@@ -128,7 +129,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Revert Log',
+                    locale.displaylog_screen_revert_log,
                     style: TextStyle(
                       color: Colors.white, // couleur du texte, adapte si besoin
                       fontWeight: FontWeight.w600,

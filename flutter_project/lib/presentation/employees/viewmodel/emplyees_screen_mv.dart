@@ -9,8 +9,8 @@ class EmplyeesScreenViewModel {
   late FocusNode searchNode;
   late TextEditingController searchController;
 
-  late List<UserResponse> userList;
-  late List<UserResponse> filteredUserList;
+  late List<User> userList;
+  late List<User> filteredUserList;
   EmployeesFilterData? currentFilters;
 
   bool _isLoading = false;
@@ -38,7 +38,7 @@ class EmplyeesScreenViewModel {
 
     _isLoading = true;
     try {
-      UserListResponse? response = await Endpoints.getUsers();
+      UserListResponse? response = await Endpoints.getUserList();
       userList = response != null ? response.users : [];
       filteredUserList = List.from(userList);
       applyFilters();
