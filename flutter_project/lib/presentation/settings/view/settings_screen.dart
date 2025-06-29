@@ -11,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   String? logDuration = '7';
 
-  final colorPalette = '';
+  final List<Color> _colorPalette = [];
 
   @override
   void initState() {
@@ -97,22 +97,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
             separatorBuilder: (_, __) => const SizedBox(width: 10),
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () => userPrefs.setPrimaryColor(_colorPalette[index]),
+                onTap: () =>{},// userPrefs.setPrimaryColor(_colorPalette[index]),
                 child: Container(
                   width: 50,
                   decoration: BoxDecoration(
                     color: _colorPalette[index],
                     borderRadius: BorderRadius.circular(8),
-                    border:
-                        userPrefs.primaryColor.value ==
+                    border:null,
+                        /*userPrefs.primaryColor.value ==
                                 _colorPalette[index].value
                             ? Border.all(color: Colors.black, width: 2)
-                            : null,
+                            : null,*/
                   ),
                   child:
-                      userPrefs.primaryColor.value == _colorPalette[index].value
+                      /*userPrefs.primaryColor.value == _colorPalette[index].value
                           ? const Icon(Icons.check, color: Colors.white)
-                          : null,
+                          :*/ null,
                 ),
               );
             },
@@ -152,14 +152,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+
   // Méthode pour initialiser depuis SharedPreferences
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    logDuration = prefs.getString('log_duration') ?? '30'; // Valeur par défaut
-    notifyListeners();
+    //logDuration = prefs.getString('log_duration') ?? '30'; // Valeur par défaut
+    //notifyListeners();
   }
 
-  Future<void> setLogDuration(String duration) async {
+    Future<void> setLogDuration(String duration) async {
     // Validation des valeurs autorisées
     const validDurations = {'7', '30', '60', '90', '365'};
     if (!validDurations.contains(duration)) {
@@ -171,45 +172,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await prefs.setString('log_duration', duration);
 
     // Mise à jour de l'état local
-    logDuration = duration;
-    notifyListeners(); // Notifie les écouteurs du changement
+    //logDuration = duration;
+    //notifyListeners(); // Notifie les écouteurs du changement
   }
 
-  Widget _buildLogDurationDropdown() {
-    final userPrefs = context.watch<UserPrefs>();
-    final theme = Theme.of(context); // Utilisation du Theme standard
-    final loc = AppLocalizations.of(context)!;
+Widget _buildLogDurationDropdown() {
+  final userPrefs = context.watch<UserPrefs>();
+  final theme = Theme.of(context); // Utilisation du Theme standard
+  final loc = AppLocalizations.of(context)!;
 
-    // Définition des constantes pour les valeurs
-    const durations = {
-      '7': '7',
-      '30': '30',
-      '60': '60',
-      '90': '90',
-      '365': '365',
-    };
+  // Définition des constantes pour les valeurs
+  const durations = {
+    '7': '7',
+    '30': '30',
+    '60': '60', 
+    '90': '90',
+    '365': '365',
+  };
 
-    return DropdownButton<String>(
-      isExpanded: true,
-      value: logDuration ?? '30', // Valeur par défaut '30'
-      dropdownColor: theme.cardColor, // Style cohérent avec le thème
-      style: theme.textTheme.bodyMedium,
-      onChanged: (String? newValue) async {
-        if (newValue != null) {
-          // Sauvegarde immédiate dans les préférences
-          await userPrefs.setLogDuration(newValue);
-          setState(() => logDuration = newValue);
-        }
-      },
-      items:
-          durations.entries.map((entry) {
-            return DropdownMenuItem<String>(
-              value: entry.key,
-              child: Text('${entry.value} ${loc.settings_days}'),
-            );
-          }).toList(),
-    );
-  }
+  return DropdownButton<String>(
+    isExpanded: true,
+    value: logDuration ?? '30', // Valeur par défaut '30'
+    dropdownColor: theme.cardColor, // Style cohérent avec le thème
+    style: theme.textTheme.bodyMedium,
+    onChanged: (String? newValue) async {
+      if (newValue != null) {
+        //await userPrefs.setLogDuration(newValue);
+        setState(() => logDuration = newValue);
+      }
+    },
+    items: durations.entries.map((entry) {
+      return DropdownMenuItem<String>(
+        value: entry.key,
+        child: Text('${entry.value} ${loc.settings_days}'),
+      );
+    }).toList(),
+  );
+}
 
   Widget _buildContactButton(BuildContext context) {
     return ElevatedButton.icon(

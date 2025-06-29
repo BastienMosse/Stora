@@ -37,6 +37,7 @@
 	"settings_logs_duration" : "Durée des logs : ",
 	"settings_contact" : "Contactez-nous",
 	"settings_days" : "jours",
+	"selectThemeColor" :"Couleur de l'interface: ",
 
 	"employee_display_page_Born": "née(e) le :",
 	"employee_display_page_phone": "n° de téléphone :",
@@ -44,6 +45,7 @@
 	"employee_display_page_modify": "Modifier",
 	"employee_display_page_supr_log": "Utilisateur supprimé avec succès",
 	"employee_display_page_supr": "Supprimer",
+	
 
 	"employee_display_update_popup_create": "Créer un nouvel employé",
 	"employee_display_update_popup_gallerie": "Galerie",
@@ -72,6 +74,10 @@
 	"employee_filter_popup_apply":"Appliquer",
 
 	"employee_screen_username":"username :",
+	"employee_screen_Employer":"Employer",
+	"employee_screen_hint":"Rechercher...",
+	"employee_screen_err":"Erreur",
+	"employee_screen_retry":"réessayer",
 	
 
 	"displaylog_screen_icon_pressed" : "IconButton appuyé ...",
@@ -81,16 +87,30 @@
 	"displaylog_screen_new" : "Nouveau : ",
 	"displaylog_screen_revert_log" : "Inverser le protocole : ",
 
-	"filter_log_popup_all" :  "Tous",
+	"filter_log_popup_all" : "Tous",
 	"filter_log_popup_please_enter_value": "Merci d'entrer une valeur",
-	"filter_log_popup_product" :  "Produit",
-	"filter_log_popup_employee" :  "Employé",
-	"filter_log_popup_customer" :  "Client",
-	"filter_log_popup_option_filter" :  "Option de filtre",
-	"filter_log_popup_type_filter" :  "Filtrer par type",
-	"filter_log_popup_date_range" :  "Plage de dates",
-	"filter_log_popup_start_date" :  "Date de début",
-	"filter_log_popup_end_date" :  "Date de fin"
+	"filter_log_popup_product" : "Produit",
+	"filter_log_popup_employee" : "Employé",
+	"filter_log_popup_customer" : "Client",
+	"filter_log_popup_option_filter" : "Option de filtre",
+	"filter_log_popup_type_filter" : "Filtrer par type",
+	"filter_log_popup_date_range" : "Plage de dates",
+	"filter_log_popup_start_date" : "Date de début",
+	"filter_log_popup_end_date" : "Date de fin",
+	"filter_log_popup_product_detail" : "Détail du produit",
+	"filter_log_popup_product_id" :  "ID du produit",
+	"filter_log_popup_employee_detail" : "Informations supplémentaires relative à l'employé",
+	"filter_log_popup_employee_id" : "ID de l'employé",
+	"filter_log_popup_first_name" : "Prénom",
+	"filter_log_popup_last_name" : "Nom",
+	"filter_log_popup_cancel" : "Annuler",
+	"filter_log_popup_reset" : "Réinitialiser",
+	"filter_log_popup_apply_filter" : "Appliquer le filtre"
+
+
+
+
+
 
 
 

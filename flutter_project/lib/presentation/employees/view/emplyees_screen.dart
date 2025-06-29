@@ -158,7 +158,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
           },
         ),
         title: Text(
-          'Employee',
+          locale.employee_screen_Employer,
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 30,
@@ -220,7 +220,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                           },
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText: 'Search ...',
+                            hintText: locale.employee_screen_hint,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(8),
@@ -259,10 +259,10 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('Erreur: ${snapshot.error}'),
+                                    Text(locale.employee_screen_err+': ${snapshot.error}'),
                                     ElevatedButton(
                                       onPressed: _refreshData,
-                                      child: Text('Retry'),
+                                      child: Text(locale.employee_screen_retry),
                                     ),
                                   ],
                                 ),

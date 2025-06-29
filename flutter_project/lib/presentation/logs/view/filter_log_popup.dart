@@ -467,7 +467,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Product Details',
+                      locale.filter_log_popup_product_detail,
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize:
@@ -490,7 +490,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                         letterSpacing: 0.0,
                       ),
                       decoration: InputDecoration(
-                        hintText: 'Product ID',
+                        hintText: locale.filter_log_popup_product_id,
                         hintStyle: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(fontFamily: 'Inter', letterSpacing: 0.0),
                         enabledBorder: OutlineInputBorder(
@@ -539,7 +539,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Employee Details',
+                          locale.filter_log_popup_employee_detail,
                           style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize:
@@ -565,7 +565,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                             letterSpacing: 0.0,
                           ),
                           decoration: InputDecoration(
-                            hintText: 'Employee ID',
+                            hintText: locale.filter_log_popup_employee_id,
                             hintStyle: Theme.of(
                               context,
                             ).textTheme.bodyMedium?.copyWith(
@@ -629,7 +629,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                       4,
                                     ),
                                     child: Text(
-                                      'First Name',
+                                      locale.filter_log_popup_first_name,
                                       style: TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize:
@@ -659,7 +659,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: 'First Name',
+                                      hintText: locale.filter_log_popup_first_name,
                                       hintStyle: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium?.copyWith(
@@ -722,7 +722,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                       4,
                                     ),
                                     child: Text(
-                                      'Last Name',
+                                      locale.filter_log_popup_last_name,
                                       style: TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize:
@@ -752,7 +752,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: 'Last Name',
+                                      hintText: locale.filter_log_popup_last_name,
                                       hintStyle: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium?.copyWith(
@@ -830,7 +830,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            'Cancel',
+                            locale.filter_log_popup_cancel,
                             style: TextStyle(
                               color:
                                   Colors
@@ -880,7 +880,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            'Reset',
+                            locale.filter_log_popup_reset,
                             style: Theme.of(
                               context,
                             ).textTheme.titleSmall?.copyWith(
@@ -917,7 +917,7 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            'Apply Filters',
+                            locale.filter_log_popup_apply_filter,
                             style: TextStyle(
                               color:
                                   Colors

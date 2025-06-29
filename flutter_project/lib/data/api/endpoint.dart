@@ -197,8 +197,8 @@ class Endpoints {
   // |     LOGS     |
   // ================
 
-  /*
-  static Future<LogsListResponse?> getLogs() async {
+  // GET /api/logs
+  static Future<LogsListResponse?> getLogsList() async {
     final response = await ApiService.get('/api/logs');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
@@ -207,14 +207,54 @@ class Endpoints {
     return null;
   }
 
-  static Future<LogsListResponse?> getLogsId() async {
-    final response = await ApiService.get('/api/user');
+  // GET /api/logs/{id}
+  static Future<LogsGetResponse?> getLogById(String logId) async {
+    final response = await ApiService.get('/api/logs/$logId');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      return LogsListResponse.fromJson(json);
+      return LogsGetResponse.fromJson(json);
     }
     return null;
   }
 
-  */
+  // POST /api/undo
+  static Future<LogUndoResponse?> undoLog() async {
+    final response = await ApiService.post('/api/undo', {});
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return LogUndoResponse.fromJson(json);
+    }
+    return null;
+  }
+
+  // POST /api/undo
+  static Future<LogBackupResponse?> backupLog() async {
+    final response = await ApiService.post('/api/backup', {});
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return LogBackupResponse.fromJson(json);
+    }
+    return null;
+  }
+
+  // POST /api/restore
+  static Future<Message?> restoreLog(LogRestoreRequests request) async {
+    final response = await ApiService.post('/api/restore', request.toJson());
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return Message.fromJson(json);
+    }
+    return null;
+  }
+  
+  // POST /api/restore
+  static Future<Message?> archiveeLog() async {
+    final response = await ApiService.post('/api/restore', {});
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return Message.fromJson(json);
+    }
+    return null;
+  }
 }
+

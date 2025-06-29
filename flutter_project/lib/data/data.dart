@@ -8,8 +8,7 @@ export 'requests/user_register_request.dart';
 export 'requests/user_update_request.dart';
 export 'requests/product_create_request.dart';
 export 'requests/product_update_request.dart';
-// export 'requests/logs_request.dart';
-// export 'requests/product_request.dart';
+export 'requests/log_restore_requests.dart';
 
 // Responses
 export 'response/auth_login_response.dart';
@@ -22,14 +21,15 @@ export 'response/product_list_response.dart';
 export 'response/product_create_response.dart';
 export 'response/product_get_response.dart';
 export 'response/product_update_response.dart';
-// export 'response/logs_response.dart';
-// export 'response/logs_list_response.dart';
-// export 'response/product_response.dart';
-// export 'response/product_update_response.dart';
+export 'response/log_list_response.dart';
+export 'response/log_get_response.dart';
+export 'response/log_undo_response.dart';
+export 'response/log_backup_response.dart';
 
 // Utils
 export 'utils/user.dart';
 export 'utils/product.dart';
+export 'utils/log.dart';
 
 export 'utils/action.dart';
 export 'utils/message.dart';
