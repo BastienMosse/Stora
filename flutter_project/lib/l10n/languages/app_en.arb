@@ -42,11 +42,17 @@
 	"employee_display_page_Born": "Born :",
 	"employee_display_page_phone": "Phone :",
 	"employee_display_page_pay": "Pay :",
-	"employee_display_page_modify": "Modify",
+	"employee_display_page_modify": "Edit",
 	"employee_display_page_supr_log": "User successfully deleted",
 	"employee_display_page_supr": "Delete",
 
 	"employee_display_update_update_create": "Update employee",
+	"employee_display_update_update_login": "Login",
+	"employee_display_update_update_button": "Update employee",
+	"employee_display_update_popup_success": "Successfully updated",
+	"employee_display_update_popup_error": "Error while updating",
+	"employee_display_update_popup_note": "Note",
+
 	"employee_display_update_popup_create": "Create new employee",
 	"employee_display_update_popup_gallerie": "Galery",
 	"employee_display_update_popup_camera": "Camera",

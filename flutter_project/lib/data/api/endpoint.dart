@@ -30,7 +30,7 @@ class Endpoints {
     UserRegisterRequest request,
   ) async {
     final response = await ApiService.post('api/register', request.toJson());
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final json = jsonDecode(response.body);
       return UserRegisterResponse.fromJson(json);
     }
@@ -103,7 +103,6 @@ class Endpoints {
       file,
       'photo',
     );
-
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {

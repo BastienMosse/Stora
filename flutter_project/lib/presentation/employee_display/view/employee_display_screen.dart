@@ -15,6 +15,8 @@ class EmployeeDisplay extends StatefulWidget {
 class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
   late EmplyeeDisplayScreenViewModel viewModel;
 
+  late ThemeController theme;
+
   bool _isRefreshing = false;
 
   @override
@@ -65,13 +67,20 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    theme = context.watch<ThemeController>();
+
     final locale = AppLocalizations.of(context)!;
+    final imageWidth = MediaQuery.of(context).size.width * 0.4;
+    final imageHeight = MediaQuery.of(context).size.height * 0.2;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: theme.currentTheme.Primary,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(
+            Icons.arrow_back,
+            color: theme.currentTheme.PrimaryBackground,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
         elevation: 2,
@@ -88,45 +97,78 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        viewModel.user?.photo != null &&
-                                viewModel.user!.photo.isNotEmpty
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                viewModel.user!.photo.replaceFirst(
-                                  'localhost',
-                                  '10.0.2.2',
-                                ),
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.2,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                            : Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: Colors.blueAccent,
-                                  width: 2,
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.person,
-                                size: 64,
-                                color: Colors.grey,
-                              ),
+                        Container(
+                          width: imageWidth,
+                          height: imageHeight,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: theme.currentTheme.Primary,
+                              width: 2,
                             ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child:
+                                (viewModel.user?.photo != null &&
+                                        viewModel.user!.photo.isNotEmpty)
+                                    ? Image.network(
+                                      viewModel.user!.photo,
+                                      width: imageWidth,
+                                      height: imageHeight,
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (
+                                        context,
+                                        child,
+                                        loadingProgress,
+                                      ) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value:
+                                                loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        (loadingProgress
+                                                                .expectedTotalBytes ??
+                                                            1)
+                                                    : null,
+                                          ),
+                                        );
+                                      },
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Center(
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: 64,
+                                                  color:
+                                                      theme
+                                                          .currentTheme
+                                                          .SecondaryText,
+                                                ),
+                                              ),
+                                    )
+                                    : Center(
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 64,
+                                        color: theme.currentTheme.SecondaryText,
+                                      ),
+                                    ),
+                          ),
+                        ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${viewModel.user?.username ?? ''}',
+                                viewModel.user?.username ?? '',
                                 style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
@@ -140,7 +182,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                               Text('role : ${viewModel.user?.role ?? ''}'),
                               const SizedBox(height: 8),
                               Text(
-                                '${locale.employee_display_page_Born} ${viewModel.user?.birth ?? ''}',
+                                '${locale.employee_display_page_Born} ${viewModel.user?.birth != null ? viewModel.user!.birth.split('T').first : ''}',
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -158,12 +200,16 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Note',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          locale.employee_display_update_popup_note,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -171,11 +217,14 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       height: 80,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5F5),
+                        color: theme.currentTheme.SecondaryBackground,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(12),
                         ),
-                        border: Border.all(color: Colors.blue, width: 1),
+                        border: Border.all(
+                          color: theme.currentTheme.Primary,
+                          width: 1,
+                        ),
                       ),
                       child: Align(
                         alignment: Alignment.topLeft,
@@ -186,57 +235,84 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      final updated = await showDialog<bool>(
-                        context: context,
-                        builder:
-                            (context) =>
-                                EmployeeUpdatePopup(user: viewModel.user!),
-                      );
-                      if (updated == true) {
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await showDialog<bool>(
+                          context: context,
+                          builder:
+                              (context) =>
+                                  EmployeeUpdatePopup(user: viewModel.user!),
+                        );
                         await _refreshData();
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.currentTheme.Primary,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        textStyle: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      locale.employee_display_page_modify,
-                      style: const TextStyle(fontSize: 16),
+                      child: Text(
+                        locale.employee_display_page_modify,
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryBackground,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        viewModel.deleteUser(widget.userId);
-                        context.pop();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              locale.employee_display_page_supr_log,
+                  const SizedBox(width: 16),
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          viewModel.deleteUser(widget.userId);
+                          context.pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                locale.employee_display_page_supr_log,
+                              ),
+                              duration: const Duration(seconds: 2),
                             ),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
+                          );
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.currentTheme.Primary,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        textStyle: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'Supprimer',
-                      style: TextStyle(fontSize: 16),
+                      child: Text(
+                        locale.employee_display_page_supr,
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryBackground,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 ],

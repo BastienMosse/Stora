@@ -6,6 +6,6 @@ class UserUpdateResponse {
   UserUpdateResponse({required this.user});
 
   factory UserUpdateResponse.fromJson(Map<String, dynamic> json) {
-    return UserUpdateResponse(user: User.fromJson(json['user']));
+    return UserUpdateResponse(user: User.fromJson(json));
   }
 }

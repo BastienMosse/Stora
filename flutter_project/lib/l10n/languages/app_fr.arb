@@ -48,6 +48,12 @@
 	
 
 	"employee_display_update_update_create": "Modifier un employé",
+	"employee_display_update_update_login": "Login",
+	"employee_display_update_update_button": "Mettre a jour",
+	"employee_display_update_popup_success": "Mise à jour réussie",
+	"employee_display_update_popup_error": "Erreur lors de la mise à jour",
+	"employee_display_update_popup_note": "Note",
+
 	"employee_display_update_popup_create": "Créer un nouvel employé",
 	"employee_display_update_popup_gallerie": "Galerie",
 	"employee_display_update_popup_camera": "Caméra",
