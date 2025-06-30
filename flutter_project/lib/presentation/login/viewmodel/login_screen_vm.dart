@@ -8,14 +8,16 @@ class LoginScreenViewModel {
 
   void init(BuildContext context) {
     if (_context != null) return;
-    
+
     locale = AppLocalizations.of(context)!;
     _context = context;
   }
 
   BuildContext get context {
     if (_context == null) {
-      throw StateError('LoginScreenViewModel not initialized. Call init() first.');
+      throw StateError(
+        'LoginScreenViewModel not initialized. Call init() first.',
+      );
     }
     return _context!;
   }
@@ -31,7 +33,6 @@ class LoginScreenViewModel {
   }
 
   Future<void> login(
-    
     String login,
     String password, {
     required Function(String) onError,
@@ -42,7 +43,10 @@ class LoginScreenViewModel {
         return;
       }
 
-      AuthLoginRequest request = AuthLoginRequest(login: login,password: password);
+      AuthLoginRequest request = AuthLoginRequest(
+        login: login,
+        password: password,
+      );
       AuthLoginResponse? response = await Endpoints.login(request);
 
       if (response == null) {

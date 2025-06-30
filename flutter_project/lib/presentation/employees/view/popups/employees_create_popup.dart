@@ -57,7 +57,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
         },
       );
     } catch (e) {
-      print(locale.employee_display_update_popup_err_img_opt + ' $e');
+      print('${locale.employee_display_update_popup_err_img_opt} $e');
     }
   }
 
@@ -215,6 +215,38 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               : null,
                 ),
                 const SizedBox(height: 12),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    return TextFormField(
+                      controller: _passwdController,
+                      obscureText: _obscurePassword,
+                      decoration: InputDecoration(
+                        labelText:
+                            locale.employee_display_update_popup_password,
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
+                      ),
+                      validator:
+                          (v) =>
+                              v == null || v.isEmpty
+                                  ? locale
+                                      .employee_display_update_popup_required
+                                  : null,
+                    );
+                  },
+                ),
+                const SizedBox(height: 12),
                 TextFormField(
                   controller: _dobController,
                   decoration: InputDecoration(
@@ -304,11 +336,14 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             final request = UserRegisterRequest(
-                              login: '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
-                              username: '${_firstNameController.text} ${_lastNameController.text}',
+                              login:
+                                  '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
+                              username:
+                                  '${_firstNameController.text} ${_lastNameController.text}',
                               email: _emailController.text,
                               password: _passwdController.text,
-                              birth: _dobController.text.isNotEmpty
+                              birth:
+                                  _dobController.text.isNotEmpty
                                       ? DateTime.tryParse(_dobController.text)
                                       : null,
                               tel: _phoneController.text,

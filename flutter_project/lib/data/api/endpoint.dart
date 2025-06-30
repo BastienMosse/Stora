@@ -166,7 +166,10 @@ class Endpoints {
     String id,
     ProductUpdateRequest request,
   ) async {
-    final response = await ApiService.patch('api/products/$id', request.toJson());
+    final response = await ApiService.patch(
+      'api/products/$id',
+      request.toJson(),
+    );
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return ProductUpdateResponse.fromJson(json);
@@ -246,7 +249,7 @@ class Endpoints {
     }
     return null;
   }
-  
+
   // POST /api/restore
   static Future<Message?> archiveeLog() async {
     final response = await ApiService.post('api/restore', {});
@@ -257,4 +260,3 @@ class Endpoints {
     return null;
   }
 }
-

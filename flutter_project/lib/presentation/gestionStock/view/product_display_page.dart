@@ -149,7 +149,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Jojo',//Fixme
+                                        'Jojo', //Fixme
                                         style: GoogleFonts.inter(
                                           fontSize: 25,
                                           fontWeight: FontWeight.w600,
@@ -165,7 +165,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        'id : 908765742',//Fixme
+                                        'id : 908765742', //Fixme
                                         style: GoogleFonts.inter(
                                           fontSize: 15,
                                           fontWeight:
@@ -278,7 +278,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '58',//FIXME
+                                    '58', //FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -325,7 +325,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '2',//FIXME
+                                    '2', //FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -372,7 +372,14 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Bat. '+'A'+locale.stock_cerate_row+ 'B' +' Col. '+'4'+ locale.stock_cerate_height +'7', //FIXME
+                                    'Bat. ' +
+                                        'A' +
+                                        locale.stock_cerate_row +
+                                        'B' +
+                                        ' Col. ' +
+                                        '4' +
+                                        locale.stock_cerate_height +
+                                        '7', //FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -436,7 +443,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                   0,
                                 ),
                                 child: Text(
-                                  'low quality product -> reduce quantity',//FIXME
+                                  'low quality product -> reduce quantity', //FIXME
                                   style: GoogleFonts.inter(
                                     fontWeight:
                                         FontWeight
@@ -478,7 +485,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           showTitles: true,
                                           reservedSize: 40,
                                         ),
-                                        axisNameWidget:  Text(
+                                        axisNameWidget: Text(
                                           locale.stock_display_quantity,
                                           style: TextStyle(fontSize: 14),
                                         ),
@@ -489,7 +496,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           showTitles: true,
                                           reservedSize: 32,
                                         ),
-                                        axisNameWidget:  Text(
+                                        axisNameWidget: Text(
                                           locale.stock_display_temps,
                                           style: TextStyle(fontSize: 14),
                                         ),

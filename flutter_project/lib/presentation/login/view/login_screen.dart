@@ -72,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget inputField({
-
     required String label,
     required TextEditingController controller,
     required FocusNode focusNode,
@@ -185,7 +184,10 @@ class _LoginScreenState extends State<LoginScreen> {
             fontStyle: Theme.of(context).textTheme.titleSmall?.fontStyle,
           ),
         ),
-        child: Text(locale.login_screen_login, style: TextStyle(color: Color(0xFFFFFFFF))),
+        child: Text(
+          locale.login_screen_login,
+          style: TextStyle(color: Color(0xFFFFFFFF)),
+        ),
       ),
     );
   }

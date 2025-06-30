@@ -34,7 +34,9 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
     deliv = deliv_init;
     quantity = quantity_init;
     soll = soll_init;
-    controller = TextEditingController(text: 'Lorem ipsum dolor sit amet');//Fixme
+    controller = TextEditingController(
+      text: 'Lorem ipsum dolor sit amet',
+    ); //Fixme
   }
 
   @override
@@ -672,7 +674,8 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade100,
-                                hintText: locale.product_update_popup_enter_note,
+                                hintText:
+                                    locale.product_update_popup_enter_note,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none,
@@ -713,7 +716,8 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                         ),
                       ),
                       child: Text(
-                        locale.filter_log_popup_cancel, // "Cancel" en français si tu veux
+                        locale
+                            .filter_log_popup_cancel, // "Cancel" en français si tu veux
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,

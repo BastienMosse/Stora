@@ -97,14 +97,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             separatorBuilder: (_, __) => const SizedBox(width: 10),
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () =>{},// userPrefs.setPrimaryColor(_colorPalette[index]),
+                onTap:
+                    () =>
+                        {}, // userPrefs.setPrimaryColor(_colorPalette[index]),
                 child: Container(
                   width: 50,
                   decoration: BoxDecoration(
                     color: _colorPalette[index],
                     borderRadius: BorderRadius.circular(8),
-                    border:null,
-                        /*userPrefs.primaryColor.value ==
+                    border: null,
+                    /*userPrefs.primaryColor.value ==
                                 _colorPalette[index].value
                             ? Border.all(color: Colors.black, width: 2)
                             : null,*/
@@ -112,7 +114,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child:
                       /*userPrefs.primaryColor.value == _colorPalette[index].value
                           ? const Icon(Icons.check, color: Colors.white)
-                          :*/ null,
+                          :*/
+                      null,
                 ),
               );
             },
@@ -152,7 +155,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-
   // Méthode pour initialiser depuis SharedPreferences
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
@@ -160,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     //notifyListeners();
   }
 
-    Future<void> setLogDuration(String duration) async {
+  Future<void> setLogDuration(String duration) async {
     // Validation des valeurs autorisées
     const validDurations = {'7', '30', '60', '90', '365'};
     if (!validDurations.contains(duration)) {
@@ -176,39 +178,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
     //notifyListeners(); // Notifie les écouteurs du changement
   }
 
-Widget _buildLogDurationDropdown() {
-  final userPrefs = context.watch<UserPrefs>();
-  final theme = Theme.of(context); // Utilisation du Theme standard
-  final loc = AppLocalizations.of(context)!;
+  Widget _buildLogDurationDropdown() {
+    final userPrefs = context.watch<UserPrefs>();
+    final theme = Theme.of(context); // Utilisation du Theme standard
+    final loc = AppLocalizations.of(context)!;
 
-  // Définition des constantes pour les valeurs
-  const durations = {
-    '7': '7',
-    '30': '30',
-    '60': '60', 
-    '90': '90',
-    '365': '365',
-  };
+    // Définition des constantes pour les valeurs
+    const durations = {
+      '7': '7',
+      '30': '30',
+      '60': '60',
+      '90': '90',
+      '365': '365',
+    };
 
-  return DropdownButton<String>(
-    isExpanded: true,
-    value: logDuration ?? '30', // Valeur par défaut '30'
-    dropdownColor: theme.cardColor, // Style cohérent avec le thème
-    style: theme.textTheme.bodyMedium,
-    onChanged: (String? newValue) async {
-      if (newValue != null) {
-        //await userPrefs.setLogDuration(newValue);
-        setState(() => logDuration = newValue);
-      }
-    },
-    items: durations.entries.map((entry) {
-      return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text('${entry.value} ${loc.settings_days}'),
-      );
-    }).toList(),
-  );
-}
+    return DropdownButton<String>(
+      isExpanded: true,
+      value: logDuration ?? '30', // Valeur par défaut '30'
+      dropdownColor: theme.cardColor, // Style cohérent avec le thème
+      style: theme.textTheme.bodyMedium,
+      onChanged: (String? newValue) async {
+        if (newValue != null) {
+          //await userPrefs.setLogDuration(newValue);
+          setState(() => logDuration = newValue);
+        }
+      },
+      items:
+          durations.entries.map((entry) {
+            return DropdownMenuItem<String>(
+              value: entry.key,
+              child: Text('${entry.value} ${loc.settings_days}'),
+            );
+          }).toList(),
+    );
+  }
 
   Widget _buildContactButton(BuildContext context) {
     return ElevatedButton.icon(

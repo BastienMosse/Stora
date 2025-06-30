@@ -42,7 +42,9 @@ class OnboardingScreenViewModel {
 
   BuildContext get context {
     if (_context == null) {
-      throw StateError('OnboardingScreenViewModel not initialized. Call init() first.');
+      throw StateError(
+        'OnboardingScreenViewModel not initialized. Call init() first.',
+      );
     }
     return _context!;
   }

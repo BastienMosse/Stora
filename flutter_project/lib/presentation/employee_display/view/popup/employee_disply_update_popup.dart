@@ -18,7 +18,6 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
   final _phoneController = TextEditingController();
   final _payController = TextEditingController();
   Role? _selectedRole;
-  bool _obscurePassword = true;
 
   File? _profileImage;
 

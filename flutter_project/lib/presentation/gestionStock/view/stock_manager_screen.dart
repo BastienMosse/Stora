@@ -30,7 +30,6 @@ class _GestionStockWidgetState extends State<GestionStockWidget> {
 
     focusenode = FocusNode();
     controller = TextEditingController();
-    
   }
 
   @override

@@ -165,8 +165,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                                     fontStyle: FontStyle.normal,
                                   ),
                                   hintText:
-                                      locale!
-                                          .stock_manage_page_bar_de_recherche,
+                                      locale.stock_manage_page_bar_de_recherche,
                                   hintStyle: GoogleFonts.inter(
                                     fontWeight: FontWeight.w400,
                                     fontStyle: FontStyle.normal,
