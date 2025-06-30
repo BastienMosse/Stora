@@ -217,13 +217,17 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                                   if (isActiveID) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add(locale.filter_log_popup_product_id);
+                                      order.add(
+                                        locale.filter_log_popup_product_id,
+                                      );
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove(locale.filter_log_popup_product_id);
+                                      order.remove(
+                                        locale.filter_log_popup_product_id,
+                                      );
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -273,13 +277,17 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                                   if (isActiveQuantity) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add(locale.filter_log_popup_employee_id);
+                                      order.add(
+                                        locale.filter_log_popup_employee_id,
+                                      );
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove(locale.filter_log_popup_employee_id);
+                                      order.remove(
+                                        locale.filter_log_popup_employee_id,
+                                      );
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -329,13 +337,17 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                                   if (isActiveQuantity) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add(locale.sort_log_popup_employee_name);
+                                      order.add(
+                                        locale.sort_log_popup_employee_name,
+                                      );
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove(locale.sort_log_popup_employee_name);
+                                      order.remove(
+                                        locale.sort_log_popup_employee_name,
+                                      );
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }

@@ -26,6 +26,12 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
   void initState() {
     super.initState();
     viewModel = StockDisplayScreenViewModel();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
   }
 
   @override
@@ -538,7 +544,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           showTitles: true,
                                           reservedSize: 40,
                                         ),
-                                        axisNameWidget:  Text(
+                                        axisNameWidget: Text(
                                           locale.stock_display_quantity,
                                           style: TextStyle(fontSize: 14),
                                         ),
@@ -549,7 +555,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           showTitles: true,
                                           reservedSize: 32,
                                         ),
-                                        axisNameWidget:  Text(
+                                        axisNameWidget: Text(
                                           locale.stock_display_temps,
                                           style: TextStyle(fontSize: 14),
                                         ),

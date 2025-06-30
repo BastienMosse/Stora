@@ -1,5 +1,7 @@
 import '/index.dart';
 
+import '../viewmodel/splash_screen_vm.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

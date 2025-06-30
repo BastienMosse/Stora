@@ -1,7 +1,7 @@
 import '/index.dart';
 
 class OnboardingScreenViewModel {
-  late final BuildContext context;
+  BuildContext? _context;
 
   final PageController pageController = PageController();
   late final List<Map<String, String>> pages;
@@ -12,7 +12,9 @@ class OnboardingScreenViewModel {
   bool get isLastPage => currentPageIndex == pages.length - 1;
 
   void init(BuildContext context) {
-    this.context = context;
+    if (_context != null) return;
+
+    _context = context;
     userPrefs = context.watch<UserPrefs>();
     pages = [
       {
@@ -38,6 +40,15 @@ class OnboardingScreenViewModel {
     ];
   }
 
+  BuildContext get context {
+    if (_context == null) {
+      throw StateError(
+        'OnboardingScreenViewModel not initialized. Call init() first.',
+      );
+    }
+    return _context!;
+  }
+
   void nextPage() {
     if (isLastPage) {
       skipOnboarding();
@@ -60,5 +71,6 @@ class OnboardingScreenViewModel {
 
   void dispose() {
     pageController.dispose();
+    _context = null;
   }
 }

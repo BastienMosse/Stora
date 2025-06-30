@@ -220,7 +220,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    locale.stock_cerate_name+' : ',//Name
+                                    locale.stock_cerate_name + ' : ', //Name
                                     style: GoogleFonts.inter(
                                       fontWeight:
                                           FontWeight
@@ -356,7 +356,8 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                               letterSpacing: 0.0,
                                               color: Colors.grey[700],
                                             ),
-                                            hintText: locale.stock_cerate_enterID,
+                                            hintText:
+                                                locale.stock_cerate_enterID,
                                             hintStyle: GoogleFonts.inter(
                                               fontWeight: FontWeight.w400,
                                               fontStyle: FontStyle.normal,
@@ -1088,7 +1089,8 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                                   FontStyle.normal,
                                               letterSpacing: 0.0,
                                             ),
-                                            hintText: locale.stock_cerate_height,
+                                            hintText:
+                                                locale.stock_cerate_height,
                                             hintStyle: GoogleFonts.inter(
                                               fontWeight:
                                                   Theme.of(context)

@@ -1,5 +1,4 @@
 import '/index.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
   }
 
   @override

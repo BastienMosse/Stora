@@ -16,6 +16,8 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   final _dobController = TextEditingController();
   final _phoneController = TextEditingController();
   final _payController = TextEditingController();
+  final _noteController = TextEditingController();
+
   Role? _selectedRole;
   bool _obscurePassword = true;
 
@@ -57,7 +59,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
         },
       );
     } catch (e) {
-      print(locale.employee_display_update_popup_err_img_opt + ' $e');
+      print('${locale.employee_display_update_popup_err_img_opt} $e');
     }
   }
 
@@ -111,6 +113,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
     _dobController.dispose();
     _phoneController.dispose();
     _payController.dispose();
+    _noteController.dispose();
     super.dispose();
   }
 
@@ -319,6 +322,18 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               ? locale.employee_display_update_popup_required
                               : null,
                 ),
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _noteController,
+                  decoration: InputDecoration(
+                    labelText: locale.employee_display_update_popup_note,
+                    hintText: locale.employee_display_update_popup_note,
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.note),
+                  ),
+                  keyboardType: TextInputType.text,
+                  maxLines: 3,
+                ),
                 const SizedBox(height: 20),
                 Row(
                   children: [
@@ -336,17 +351,20 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             final request = UserRegisterRequest(
-                              login: '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
-                              username: '${_firstNameController.text} ${_lastNameController.text}',
+                              login:
+                                  '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
+                              username:
+                                  '${_firstNameController.text} ${_lastNameController.text}',
                               email: _emailController.text,
                               password: _passwdController.text,
-                              birth: _dobController.text.isNotEmpty
+                              birth:
+                                  _dobController.text.isNotEmpty
                                       ? DateTime.tryParse(_dobController.text)
                                       : null,
                               tel: _phoneController.text,
                               pay: double.tryParse(_payController.text) ?? 0.0,
                               role: _selectedRole ?? Role.USER,
-                              note: '',
+                              note: _noteController.text,
                             );
                             final response = await Endpoints.register(request);
 
@@ -364,7 +382,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               if (_profileImage != null) {
                                 final uploadedImage =
                                     await Endpoints.uploadUserPhoto(
-                                      response.id,
+                                      response.user.id,
                                       _profileImage!,
                                     );
                                 if (uploadedImage == null) {

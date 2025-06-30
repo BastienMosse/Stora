@@ -164,7 +164,8 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                                     textInputAction:
                                         TextInputAction.done, // Ajouté !
                                     decoration: InputDecoration(
-                                      hintText: locale.stock_filter_key_word_hint,
+                                      hintText:
+                                          locale.stock_filter_key_word_hint,
                                       filled: true,
                                       fillColor: Colors.grey.shade100,
                                       border: OutlineInputBorder(
@@ -416,7 +417,8 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                                     textInputAction:
                                         TextInputAction.done, // Ajouté !
                                     decoration: InputDecoration(
-                                      hintText: locale.stock_filter_key_cat_hint,
+                                      hintText:
+                                          locale.stock_filter_key_cat_hint,
                                       filled: true,
                                       fillColor: Colors.grey.shade100,
                                       border: OutlineInputBorder(

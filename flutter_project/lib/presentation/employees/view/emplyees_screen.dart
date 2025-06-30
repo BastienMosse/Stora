@@ -2,6 +2,7 @@ import '/index.dart';
 
 import 'popups/employees_filter_popup.dart';
 import 'popups/employees_create_popup.dart';
+import '../viewmodel/emplyees_screen_mv.dart';
 
 class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
@@ -23,6 +24,13 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   @override
   void initState() {
     super.initState();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
+
     viewModel = EmplyeesScreenViewModel();
   }
 
@@ -76,12 +84,12 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueAccent, width: 2),
+          border: Border.all(color: theme.currentTheme.Primary, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Card(
           elevation: 0,
-          color: Colors.white,
+          color: theme.currentTheme.PrimaryBackground,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -95,7 +103,10 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                   height: 56,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.blueAccent, width: 2),
+                    border: Border.all(
+                      color: theme.currentTheme.Primary,
+                      width: 2,
+                    ),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -108,11 +119,15 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                                 return Icon(
                                   Icons.person,
                                   size: 32,
-                                  color: Colors.grey,
+                                  color: theme.currentTheme.SecondaryBackground,
                                 );
                               },
                             )
-                            : Icon(Icons.person, size: 32, color: Colors.grey),
+                            : Icon(
+                              Icons.person,
+                              size: 32,
+                              color: theme.currentTheme.SecondaryText,
+                            ),
                   ),
                 ),
                 SizedBox(width: 16),
@@ -128,12 +143,18 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                         ),
                       ),
                       Text(
-                        locale.employee_screen_username+' ${user.username.isEmpty ? '-' : user.username}',
-                        style: TextStyle(color: Colors.grey[700], fontSize: 15),
+                        '${locale.employee_screen_username} ${user.username.isEmpty ? '-' : user.username}',
+                        style: TextStyle(
+                          color: theme.currentTheme.SecondaryText,
+                          fontSize: 15,
+                        ),
                       ),
                       Text(
                         'email: ${user.email.isEmpty ? '-' : user.email}',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                        style: TextStyle(
+                          color: theme.currentTheme.SecondaryText,
+                          fontSize: 14,
+                        ),
                       ),
                     ],
                   ),
@@ -152,7 +173,11 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.grey, size: 24),
+          icon: Icon(
+            Icons.arrow_back,
+            color: theme.currentTheme.PrimaryText,
+            size: 24,
+          ),
           onPressed: () {
             context.pop();
           },
@@ -162,7 +187,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 30,
-            color: Colors.black,
+            color: theme.currentTheme.PrimaryText,
           ),
         ),
         centerTitle: true,
@@ -195,14 +220,14 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     },
                     icon: Container(
                       decoration: BoxDecoration(
-                        color: Colors.purple,
+                        color: theme.currentTheme.Primary,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       width: 40,
                       height: 40,
-                      child: const Icon(
+                      child: Icon(
                         Icons.filter_alt,
-                        color: Colors.blueAccent,
+                        color: theme.currentTheme.SecondaryBackground,
                         size: 24,
                       ),
                     ),
@@ -212,6 +237,13 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Container(
                         width: 200,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: theme.currentTheme.Primary,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: TextFormField(
                           controller: viewModel.searchController,
                           focusNode: viewModel.searchNode,
@@ -230,10 +262,10 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: Colors.black,
+                            fillColor: theme.currentTheme.SecondaryBackground,
                             prefixIcon: Icon(
-                              FontAwesomeIcons.search,
-                              color: Colors.blue,
+                              FontAwesomeIcons.magnifyingGlass,
+                              color: theme.currentTheme.Primary,
                               size: 18,
                             ),
                           ),
@@ -259,7 +291,9 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(locale.employee_screen_err+': ${snapshot.error}'),
+                                    Text(
+                                      '${locale.employee_screen_err}: ${snapshot.error}',
+                                    ),
                                     ElevatedButton(
                                       onPressed: _refreshData,
                                       child: Text(locale.employee_screen_retry),
@@ -300,7 +334,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: theme.currentTheme.Primary,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -309,16 +343,16 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
+                        color: theme.currentTheme.SecondaryBackground,
                         fontFamily: GoogleFonts.interTight().fontFamily,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       '+',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: theme.currentTheme.SecondaryBackground,
                       ),
                     ),
                   ),
