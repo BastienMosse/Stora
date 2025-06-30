@@ -31,7 +31,7 @@ GoRouter route = GoRouter(
       path: Routes.stockDisplay,
       builder: (context, state) {
         return ProductDisplayWidget(productId: state.extra as String);
-      }
+      },
     ),
     GoRoute(
       path: Routes.employees,

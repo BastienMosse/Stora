@@ -26,11 +26,12 @@ export 'presentation/splash/splash.dart';
 export 'presentation/onboarding/onboarding.dart';
 export 'presentation/login/login.dart';
 export 'presentation/home/home.dart';
+export 'presentation/stock/stock.dart';
+export 'presentation/stock_display/stock_display.dart';
+export 'presentation/employees/employees.dart';
+export 'presentation/employee_display/employee_display.dart';
 
-export 'presentation/employees/employees.dart'; // TODO
-export 'presentation/employee_display/employee_display.dart'; // TODO
 export 'presentation/settings/settings.dart'; // TODO
-export 'presentation/gestionStock/gestionStock.dart'; // TODO
 export 'presentation/logs/log.dart';
 
 export 'package:fl_chart/fl_chart.dart';

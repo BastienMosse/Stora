@@ -5,12 +5,9 @@ class ProductListResponse {
 
   ProductListResponse({required this.products});
 
-  factory ProductListResponse.fromJson(Map<String, dynamic> json) {
+  factory ProductListResponse.fromJson(List json) {
     return ProductListResponse(
-      products:
-          (json['products'] as List)
-              .map((item) => Product.fromJson(item))
-              .toList(),
+      products: json.map((product) => Product.fromJson(product)).toList(),
     );
   }
 }

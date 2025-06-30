@@ -10,8 +10,10 @@ abstract final class Routes {
   static const login = '/login';
   static const home = '/home';
   static const settings = '/settings';
+
   static const stock = '/stock';
+  static const stockDisplay = '/stock_display';
+
   static const employees = '/employees';
   static const employeesDisplay = '/employees_display';
-  static const stockDisplay = '/productDisplay';
 }

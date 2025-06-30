@@ -1,13 +1,14 @@
 import '/index.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+import 'popup/stock_display_update_popup.dart';
+import '../viewmodel/stock_display_screen_vm.dart';
 
 class ProductDisplayWidget extends StatefulWidget {
   final String productId;
-   
-  const ProductDisplayWidget({super.key,required this.productId});
- 
+
+  const ProductDisplayWidget({super.key, required this.productId});
+
   static String routeName = 'ProductDisplay';
   static String routePath = '/productDisplay';
 
@@ -17,11 +18,11 @@ class ProductDisplayWidget extends StatefulWidget {
 
 class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
- 
+
   late StockDisplayScreenViewModel viewModel;
 
   bool _isRefreshing = false;
-  
+
   @override
   void initState() {
     super.initState();
@@ -77,11 +78,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
     final locale = AppLocalizations.of(context)!;
     final Random random = Random();
     final int pointCount = 5;
-    final spots = 
-    List.generate(
+    final spots = List.generate(
       5,
       (i) => FlSpot(i.toDouble(), random.nextDouble() * 10),
-    );//FIXME
+    ); //FIXME
     //appelle api get id
     return GestureDetector(
       onTap: () {
@@ -167,38 +167,42 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                viewModel.product?.photoUrl != null &&
-                                viewModel.product!.photoUrl.isNotEmpty
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                viewModel.product!.photoUrl.replaceFirst(
-                                  'localhost',
-                                  '10.0.2.2',
-                                ),
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.2,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                            : Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: Colors.blueAccent,
-                                  width: 2,
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.person,
-                                size: 64,
-                                color: Colors.grey,
-                              ),
-                            ),
+                                viewModel.product?.photo != null &&
+                                        viewModel.product!.photo.isNotEmpty
+                                    ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        viewModel.product!.photo,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                            0.4,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                            0.2,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                    : Container(
+                                      width:
+                                          MediaQuery.of(context).size.width *
+                                          0.4,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                          0.2,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: Colors.blueAccent,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.person,
+                                        size: 64,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                     15,
@@ -211,64 +215,71 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: 
-                                      viewModel.product?.photoUrl != null ? 
-                                      [
-                                      Text(
-                                        viewModel.product!.name,//Fixme
-                                        style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.fontStyle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.color,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        'id : ${viewModel.product!.id}',//Fixme
-                                        style: GoogleFonts.inter(
-                                          fontSize: 15,
-                                          fontWeight:
-                                              Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.fontWeight,
-                                          fontStyle:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.fontStyle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.color,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        'Description : ${viewModel.product!.description}',
-                                        style: GoogleFonts.inter(
-                                          fontWeight:
-                                              Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.fontWeight,
-                                          fontStyle:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.fontStyle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.color,
-                                        ),
-                                      )]:[]
-                                    
+                                    children:
+                                        viewModel.product?.photo != null
+                                            ? [
+                                              Text(
+                                                viewModel.product!.name, //Fixme
+                                                style: GoogleFonts.inter(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontStyle,
+                                                  color:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.color,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                'id : ${viewModel.product!.id}', //Fixme
+                                                style: GoogleFonts.inter(
+                                                  fontSize: 15,
+                                                  fontWeight:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontWeight,
+                                                  fontStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontStyle,
+                                                  color:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.color,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                'Description : ${viewModel.product!.description}',
+                                                style: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontWeight,
+                                                  fontStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontStyle,
+                                                  color:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.color,
+                                                ),
+                                              ),
+                                            ]
+                                            : [],
                                   ),
                                 ),
                               ],
@@ -297,7 +308,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    viewModel.product?.stockQuantity != null ?viewModel.product!.stockQuantity.toString() : "ERROR serveur" , //EDIT
+                                    viewModel.product?.stockQuantity != null
+                                        ? viewModel.product!.stockQuantity
+                                            .toString()
+                                        : "ERROR serveur", //EDIT
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -344,7 +358,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    viewModel.product?.stockQuantity != null ?viewModel.product!.stockQuantity.toString() : "ERROR serveur" ,//FIXME
+                                    viewModel.product?.stockQuantity != null
+                                        ? viewModel.product!.stockQuantity
+                                            .toString()
+                                        : "ERROR serveur", //FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -391,7 +408,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    viewModel.product?.stockQuantity != null ?viewModel.product!.stockQuantity.toString() : "ERROR serveur" ,//EDIT,//FIXME
+                                    viewModel.product?.stockQuantity != null
+                                        ? viewModel.product!.stockQuantity
+                                            .toString()
+                                        : "ERROR serveur", //EDIT,//FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -438,7 +458,14 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Bat. '+'A'+locale.stock_cerate_row+ 'B' +' Col. '+'4'+ locale.stock_cerate_height +'7', //EDIT
+                                    'Bat. ' +
+                                        'A' +
+                                        locale.stock_cerate_row +
+                                        'B' +
+                                        ' Col. ' +
+                                        '4' +
+                                        locale.stock_cerate_height +
+                                        '7', //EDIT
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -478,7 +505,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 ),
                               ),
                             ),
-                            Container( 
+                            Container(
                               width: 450,
                               height: 100,
                               decoration: BoxDecoration(
@@ -502,7 +529,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                   0,
                                 ),
                                 child: Text(
-                                  viewModel.product?.stockQuantity != null ?viewModel.product!.stockQuantity.toString() : "" ,//EDIT,//FIXME
+                                  viewModel.product?.stockQuantity != null
+                                      ? viewModel.product!.stockQuantity
+                                          .toString()
+                                      : "", //EDIT,//FIXME
                                   style: GoogleFonts.inter(
                                     fontWeight:
                                         FontWeight
@@ -517,7 +547,8 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                             ),
                           ],
                         ),
-                        Column( //EDIT Graphe
+                        Column(
+                          //EDIT Graphe
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
@@ -710,9 +741,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 height: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    if (viewModel.product?.id != null)
-                                    {
-                                      Endpoints.deleteProductById(viewModel.product!.id);
+                                    if (viewModel.product?.id != null) {
+                                      Endpoints.deleteProductById(
+                                        viewModel.product!.id,
+                                      );
                                     }
                                     print(locale.stock_dispay_button_press);
                                     context.pop();

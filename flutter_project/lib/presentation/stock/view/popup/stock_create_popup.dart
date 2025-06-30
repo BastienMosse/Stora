@@ -1,14 +1,13 @@
 import '/index.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class ProductCreateWidget extends StatefulWidget {
-  const ProductCreateWidget({super.key});
+class StockCreatePopup extends StatefulWidget {
+  const StockCreatePopup({super.key});
 
   @override
-  State<ProductCreateWidget> createState() => _ProductCreateWidgetState();
+  State<StockCreatePopup> createState() => _StockCreatePopupState();
 }
 
-class _ProductCreateWidgetState extends State<ProductCreateWidget> {
+class _StockCreatePopupState extends State<StockCreatePopup> {
   late FocusNode focusenode1;
   late TextEditingController controller1;
   late FormFieldValidator validator1;
