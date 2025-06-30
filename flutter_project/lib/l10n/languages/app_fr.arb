@@ -31,6 +31,9 @@
 	"stock_manage_page_title": "Gestion des stocks",
 	"stock_manage_page_bar_de_recherche": "chercher un produit par son nom",
 
+	"log_manage_screen_page_title": "Gestion des logs",
+
+
 	"settings_title": "Paramètres",
 	"settings_topic": "Topic :",
 	"settings_language": "Langue : ",
