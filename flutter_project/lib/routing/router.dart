@@ -28,6 +28,12 @@ GoRouter route = GoRouter(
       builder: (context, state) => const GestionStockWidget(),
     ),
     GoRoute(
+      path: Routes.stockDisplay,
+      builder: (context, state) {
+        return ProductDisplayWidget(productId: state.extra as String);
+      }
+    ),
+    GoRoute(
       path: Routes.employees,
       builder: (context, state) => const EmployeesScreen(),
     ),

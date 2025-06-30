@@ -16,6 +16,16 @@ class _GestionStockWidgetState extends State<GestionStockWidget> {
   late FormFieldValidator validator;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late AppState appState;
+  late UserPrefs userPrefs;
+  late ThemeController theme;
+  late AppLocalizations locale;
+
+
+  late StockScreenViewModel viewModel;
+
+  bool _isRefreshing = false;
+
   @override
   void initState() {
     final locale = AppLocalizations.of(context)!;
@@ -30,10 +40,122 @@ class _GestionStockWidgetState extends State<GestionStockWidget> {
       return null;
     };
   }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!context.watch<AppState>().isAdmin) {
+      context.go(Routes.home);
+    }
+
+    appState = context.read<AppState>();
+    theme = context.read<ThemeController>();
+    locale = AppLocalizations.of(context)!;
+
+    viewModel.init(context);
+    //routeObserver.subscribe(this, ModalRoute.of(context)!);EDIT
+  }
+
+  @override
+  void didPopNext() {
+    //EDIT routeObserver.unsubscribe(this);
+    viewModel.dispose();
+    _refreshData();
+  }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> _refreshData() async {
+    if (_isRefreshing) return;
+
+    setState(() {
+      _isRefreshing = true;
+    });
+
+    await viewModel.refreshProductList();
+
+    setState(() {
+      _isRefreshing = false;
+    });
+  }
+
+  Widget buildStockCard(Product product){
+    return InkWell(
+      onTap: () {
+        context.push(Routes.stockDisplay, extra: product.id);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.blueAccent, width: 2),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Card(
+          elevation: 0,
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          margin: EdgeInsets.zero,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.blueAccent, width: 2),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child:
+                        product.photoUrl.isNotEmpty
+                            ? Image.network(
+                              product.photoUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(
+                                  Icons.person,
+                                  size: 32,
+                                  color: Colors.grey,
+                                );
+                              },
+                            )
+                            : Icon(Icons.person, size: 32, color: Colors.grey),
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'id: ${product.id}',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                '${product.price} \$'
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -247,333 +369,45 @@ class _GestionStockWidgetState extends State<GestionStockWidget> {
                       ],
                     ),
                   ),
-                  //1* elt liste
-                  /*Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                        child: Container(
-                          width: 360,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.deepOrange,
-                            borderRadius: BorderRadius.circular(24),
-                            shape: BoxShape.rectangle,
-                            border: Border.all(
-                              color: Colors.yellow,
-                            ),
-                          ),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              Navigator.pushNamed(context, '/productDisplay'); 
-                            },
-                            child: Row( ////////////////////////////
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        'https://images.unsplash.com/photo-1587654780291-39c9404d746b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw5fHxibG9ja3xlbnwwfHx8fDE3NDc4NjIzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.cover,
-                                      ),
+                  Expanded(
+                    child:
+                    _isRefreshing
+                        ? Center(child: CircularProgressIndicator())
+                        : FutureBuilder<void>(
+                          future: viewModel.fetchProductList(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(locale.employee_screen_err+': ${snapshot.error}'),
+                                    ElevatedButton(
+                                      onPressed: _refreshData,
+                                      child: Text(locale.employee_screen_retry),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Align(
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 10, 0, 0),
-                                          child: Text(
-                                            'Random lego piece',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: AlignmentDirectional(-1, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 10, 0, 0),
-                                          child: Text(
-                                            'id : 987654321',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  fontSize: 13,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                              );
+                            } else {
+                              return RefreshIndicator(
+                                onRefresh: _refreshData,
+                                child: ListView.builder(
+                                  itemCount: viewModel.filteredProductList.length,
+                                  itemBuilder: (context, index) {
+                                    return buildStockCard(
+                                      viewModel.filteredProductList[index],
+                                    );
+                                  },
                                 ),
-                                Align(
-                                  alignment: AlignmentDirectional(1, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        95, 0, 0, 0),
-                                    child: Text(
-                                      '3.85 â¬',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            fontSize: 17,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                              );
+                            }
+                          },
                         ),
-                      ),
-                    ),*/
-                  //2°elt
-                  /*Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                        child: Container(
-                          width: 360,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(24),
-                            shape: BoxShape.rectangle,
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed(ProductDisplayWidget.routeName);
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        'https://images.unsplash.com/photo-1610483178766-8092d96033f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMnx8bGVnb3xlbnwwfHx8fDE3NDc1ODc1Nzd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Align(
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 10, 0, 0),
-                                          child: Text(
-                                            'Jojo',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: AlignmentDirectional(-1, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 10, 0, 0),
-                                          child: Text(
-                                            'id: 908765742',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  fontSize: 13,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(1, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        140, 0, 0, 0),
-                                    child: Text(
-                                      '7.43 â¬',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            fontSize: 17,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),*/
+                  ),
                 ],
               ),
               Builder(

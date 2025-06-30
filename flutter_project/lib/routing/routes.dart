@@ -13,4 +13,5 @@ abstract final class Routes {
   static const stock = '/stock';
   static const employees = '/employees';
   static const employeesDisplay = '/employees_display';
+  static const stockDisplay = '/productDisplay';
 }
