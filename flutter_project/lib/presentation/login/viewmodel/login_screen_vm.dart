@@ -3,13 +3,23 @@ import '/index.dart';
 late AppLocalizations locale;
 
 class LoginScreenViewModel {
-  late final BuildContext context;
-
+  BuildContext? _context;
   late final UserPrefs userPrefs;
 
   void init(BuildContext context) {
+    if (_context != null) return;
+
     locale = AppLocalizations.of(context)!;
-    this.context = context;
+    _context = context;
+  }
+
+  BuildContext get context {
+    if (_context == null) {
+      throw StateError(
+        'LoginScreenViewModel not initialized. Call init() first.',
+      );
+    }
+    return _context!;
   }
 
   void toggleRememberMe(bool value) {
@@ -23,7 +33,6 @@ class LoginScreenViewModel {
   }
 
   Future<void> login(
-    
     String login,
     String password, {
     required Function(String) onError,
@@ -34,7 +43,10 @@ class LoginScreenViewModel {
         return;
       }
 
-      AuthLoginRequest request = AuthLoginRequest(login: login,password: password);
+      AuthLoginRequest request = AuthLoginRequest(
+        login: login,
+        password: password,
+      );
       AuthLoginResponse? response = await Endpoints.login(request);
 
       if (response == null) {
@@ -57,5 +69,7 @@ class LoginScreenViewModel {
     }
   }
 
-  void dispose() {}
+  void dispose() {
+    _context = null;
+  }
 }

@@ -1,6 +1,8 @@
 import '/index.dart';
+
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, TargetPlatform;
+import '../viewmodel/onboarding_screen_vm.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -67,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
-              color: theme.currentTheme.SecondaryText
+              color: theme.currentTheme.SecondaryText,
             ),
           ),
         ],

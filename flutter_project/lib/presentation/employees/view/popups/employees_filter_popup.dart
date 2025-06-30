@@ -11,10 +11,8 @@ class EmployeesFilterPopup extends StatefulWidget {
 }
 
 class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
-  String gender = 'All';
   final TextEditingController startDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
-  final TextEditingController employeeIdController = TextEditingController();
   final TextEditingController loginController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -24,7 +22,6 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
   void dispose() {
     startDateController.dispose();
     endDateController.dispose();
-    employeeIdController.dispose();
     loginController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
@@ -66,13 +63,6 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
                 suffixIcon: Icon(Icons.search),
               ),
             ),
-            TextField(
-              controller: employeeIdController,
-              decoration: InputDecoration(
-                labelText: locale.employee_filter_popup_EmpID,
-                suffixIcon: Icon(Icons.search),
-              ),
-            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -107,7 +97,6 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
             setState(() {
               startDateController.clear();
               endDateController.clear();
-              employeeIdController.clear();
               loginController.clear();
               firstNameController.clear();
               lastNameController.clear();
@@ -125,7 +114,6 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
           onPressed: () {
             final filterData = EmployeesFilterData(
               login: loginController.text,
-              employeeId: employeeIdController.text,
               firstName: firstNameController.text,
               lastName: lastNameController.text,
             );

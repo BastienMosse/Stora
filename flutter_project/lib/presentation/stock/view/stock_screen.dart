@@ -1,24 +1,26 @@
 import '/index.dart';
 
-import 'popups/employees_filter_popup.dart';
-import 'popups/employees_create_popup.dart';
+import 'popup/stock_sort_popup.dart';
+import 'popup/stock_create_popup.dart';
+import 'popup/stock_filter_popup.dart';
+import '../viewmodel/stock_screen_vm.dart';
 
-import '../viewmodel/emplyees_screen_mv.dart';
-
-class EmployeesScreen extends StatefulWidget {
-  const EmployeesScreen({super.key});
+class GestionStockWidget extends StatefulWidget {
+  const GestionStockWidget({super.key});
 
   @override
-  State<EmployeesScreen> createState() => _EmployeesScreenState();
+  State<GestionStockWidget> createState() => _GestionStockWidgetState();
 }
 
-class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
+class _GestionStockWidgetState extends State<GestionStockWidget>
+    with RouteAware {
   late AppState appState;
   late UserPrefs userPrefs;
   late ThemeController theme;
   late AppLocalizations locale;
 
-  late EmplyeesScreenViewModel viewModel;
+  late StockScreenViewModel viewModel;
+  late Future<void> _initialFetchFuture;
 
   bool _isRefreshing = false;
 
@@ -32,7 +34,8 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
       });
     }
 
-    viewModel = EmplyeesScreenViewModel();
+    viewModel = StockScreenViewModel();
+    _initialFetchFuture = viewModel.fetchProductList();
   }
 
   @override
@@ -70,17 +73,17 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
       _isRefreshing = true;
     });
 
-    await viewModel.refreshUserList();
+    await viewModel.refreshProductList();
 
     setState(() {
       _isRefreshing = false;
     });
   }
 
-  Widget buildEmployeeCard(User user) {
+  Widget buildStockCard(Product product) {
     return InkWell(
       onTap: () {
-        context.push(Routes.employeesDisplay, extra: user.id);
+        context.push(Routes.stockDisplay, extra: product.id);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
@@ -112,9 +115,9 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child:
-                        user.photo.isNotEmpty
+                        product.photo.isNotEmpty
                             ? Image.network(
-                              user.photo,
+                              product.photo,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Icon(
@@ -137,21 +140,21 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.login,
+                        product.name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
                       Text(
-                        '${locale.employee_screen_username} ${user.username.isEmpty ? '-' : user.username}',
+                        'id: ${product.id}',
                         style: TextStyle(
                           color: theme.currentTheme.SecondaryText,
                           fontSize: 15,
                         ),
                       ),
                       Text(
-                        'email: ${user.email.isEmpty ? '-' : user.email}',
+                        '${product.price} \$',
                         style: TextStyle(
                           color: theme.currentTheme.SecondaryText,
                           fontSize: 15,
@@ -171,9 +174,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.currentTheme.PrimaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.currentTheme.Primary,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(
@@ -186,14 +187,14 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
           },
         ),
         title: Text(
-          locale.employee_screen_Employer,
+          locale.stock_manage_page_title,
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 30,
-            color: theme.currentTheme.PrimaryBackground,
+            color: theme.currentTheme.PrimaryText,
           ),
         ),
-        centerTitle: true,
+        centerTitle: false,
       ),
       body: SafeArea(
         top: true,
@@ -202,7 +203,6 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(height: 16),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,11 +210,12 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                   IconButton(
                     iconSize: 40,
                     padding: EdgeInsets.zero,
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      await showDialog(
                         context: context,
                         builder:
-                            (context) => EmployeesFilterPopup(
+                            (context) => StockFilterPopup(
+                              initialFilters: viewModel.currentFilters,
                               onFiltersApplied: (filterData) {
                                 viewModel.setFilters(filterData);
                                 setState(() {});
@@ -231,7 +232,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       height: 40,
                       child: Icon(
                         Icons.filter_alt,
-                        color: theme.currentTheme.PrimaryBackground,
+                        color: theme.currentTheme.SecondaryBackground,
                         size: 24,
                       ),
                     ),
@@ -256,7 +257,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                           },
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText: locale.employee_screen_hint,
+                            hintText: locale.stock_manage_page_bar_de_recherche,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(8),
@@ -277,6 +278,36 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       ),
                     ),
                   ),
+                  IconButton(
+                    iconSize: 40,
+                    padding: EdgeInsets.zero,
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder:
+                            (context) => StockSortPopup(
+                              initialSorts: viewModel.currentSorts,
+                              onSortsApplied: (sortData) {
+                                viewModel.setSortOrder(sortData);
+                                setState(() {});
+                              },
+                            ),
+                      );
+                    },
+                    icon: Container(
+                      decoration: BoxDecoration(
+                        color: theme.currentTheme.Primary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.sort,
+                        color: theme.currentTheme.SecondaryBackground,
+                        size: 24,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 16),
@@ -285,7 +316,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     _isRefreshing
                         ? Center(child: CircularProgressIndicator())
                         : FutureBuilder<void>(
-                          future: viewModel.fetchUserList(),
+                          future: _initialFetchFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -309,10 +340,11 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                               return RefreshIndicator(
                                 onRefresh: _refreshData,
                                 child: ListView.builder(
-                                  itemCount: viewModel.filteredUserList.length,
+                                  itemCount:
+                                      viewModel.filteredProductList.length,
                                   itemBuilder: (context, index) {
-                                    return buildEmployeeCard(
-                                      viewModel.filteredUserList[index],
+                                    return buildStockCard(
+                                      viewModel.filteredProductList[index],
                                     );
                                   },
                                 ),
@@ -330,7 +362,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     onPressed: () async {
                       final result = await showDialog<bool>(
                         context: context,
-                        builder: (context) => const EmployeeCreatePopup(),
+                        builder: (context) => const StockCreatePopup(),
                       );
 
                       if (result == true) {
@@ -347,7 +379,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleSmall?.copyWith(
-                        color: theme.currentTheme.Primary,
+                        color: theme.currentTheme.SecondaryBackground,
                         fontFamily: GoogleFonts.interTight().fontFamily,
                       ),
                     ),
@@ -356,7 +388,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: theme.currentTheme.PrimaryBackground,
+                        color: theme.currentTheme.SecondaryBackground,
                       ),
                     ),
                   ),

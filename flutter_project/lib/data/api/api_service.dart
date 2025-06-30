@@ -80,14 +80,8 @@ class ApiService {
       request.headers['Authorization'] = 'Bearer $jwt';
     }
 
-    print('Uploading file to $uri with headers: ${request.headers}');
-
     final streamed = await request.send();
     final response = await http.Response.fromStream(streamed);
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
     return response;
   }
 }

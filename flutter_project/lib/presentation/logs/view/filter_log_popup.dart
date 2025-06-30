@@ -659,7 +659,8 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: locale.filter_log_popup_first_name,
+                                      hintText:
+                                          locale.filter_log_popup_first_name,
                                       hintStyle: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium?.copyWith(
@@ -752,7 +753,8 @@ class _LogFilterWidgetState extends State<LogFilterWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: locale.filter_log_popup_last_name,
+                                      hintText:
+                                          locale.filter_log_popup_last_name,
                                       hintStyle: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium?.copyWith(

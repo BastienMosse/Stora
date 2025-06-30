@@ -32,6 +32,7 @@ class User {
       birth: json.containsKey('birth') ? (json['birth'] ?? '') : '',
       tel: json.containsKey('tel') ? (json['tel'] ?? '') : '',
       email: json.containsKey('email') ? (json['email'] ?? '') : '',
+      photo: json.containsKey('photo') ? (json['photo'] ?? '') : '',
       pay: json.containsKey('pay') ? (json['pay'] ?? 0) : 0,
       note: json.containsKey('note') ? (json['note'] ?? '') : '',
     );

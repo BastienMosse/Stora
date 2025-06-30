@@ -44,15 +44,20 @@
 
 	"selectThemeColor" :"Couleur de l'interface: ",
 
-
-
-	"employee_display_page_Born": "née(e) le :",
-	"employee_display_page_phone": "n° de téléphone :",
-	"employee_display_page_pay": "salaire :",
+	"employee_display_page_Born": "Née(e) le :",
+	"employee_display_page_phone": "Téléphone :",
+	"employee_display_page_pay": "Salaire :",
 	"employee_display_page_modify": "Modifier",
 	"employee_display_page_supr_log": "Utilisateur supprimé avec succès",
 	"employee_display_page_supr": "Supprimer",
 	
+
+	"employee_display_update_update_create": "Modifier un employé",
+	"employee_display_update_update_login": "Login",
+	"employee_display_update_update_button": "Mettre a jour",
+	"employee_display_update_popup_success": "Mise à jour réussie",
+	"employee_display_update_popup_error": "Erreur lors de la mise à jour",
+	"employee_display_update_popup_note": "Note",
 
 	"employee_display_update_popup_create": "Créer un nouvel employé",
 	"employee_display_update_popup_gallerie": "Galerie",
@@ -95,13 +100,14 @@
 	"stock_cerate_row":"Ran",
 	"stock_cerate_height":"Haut",
 	
-	"stock_filter_key_word":"Mots clée : ",
-	"stock_filter_key_word_hint":"Mots clée",
-	"stock_filter_key_cat":"Categories : ",
-	"stock_filter_key_cat_hint":"categories",
-	"stock_filter_qb":"Quantité / Achat :",
-	"stock_filter_lt":"Moins que :",
-	"stock_filter_mt":"Plus que :",
+	"stock_filter_popup_title": "Filtres",
+	"stock_filter_popup_keyword":"Mots clés",
+	"stock_filter_popup_categories":"Catégories",
+	"stock_filter_popup_quantity":"Quantités:",
+	"stock_filter_popup_moreThan":"Plus que :",
+	"stock_filter_popup_lessThan":"Moins que :",
+	"stock_filter_popup_reset":"Réinitialiser",
+	"stock_filter_popup_apply": "Appliquer",
 
 	"stock_display_ship":"à expedier ",
 	"stock_display_quantity":"quantitée",

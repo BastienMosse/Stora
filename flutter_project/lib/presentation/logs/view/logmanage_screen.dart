@@ -15,38 +15,36 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
   late FocusNode focusenode;
   late TextEditingController controller;
   late FormFieldValidator validator;
-  
-  late ThemeController theme;
+
   late AppLocalizations locale;
+  late ThemeController theme;
+
   @override
   void initState() {
     super.initState();
-     if (ApiService.jwt == null) {
+
+    if (ApiService.jwt == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         context.go(Routes.login);
       });
     }
     focusenode = FocusNode();
     controller = TextEditingController();
-    validator = (value) {
-      // Example: return null if valid, or an error string if invalid
-      if (value == null || value.isEmpty) {
-        return locale.filter_log_popup_please_enter_value;
-
-      }
-      return null;
-    };
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    if (!context.watch<AppState>().isAdmin) {
-      context.go(Routes.home);
-    }
-
     locale = AppLocalizations.of(context)!;
+    theme = context.read<ThemeController>();
+
+    validator = (value) {
+      // Example: return null if valid, or an error string if invalid
+      if (value == null || value.isEmpty) {
+        return locale.filter_log_popup_please_enter_value;
+      }
+      return null;
+    };
   }
 
   @override
@@ -167,8 +165,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                                     fontStyle: FontStyle.normal,
                                   ),
                                   hintText:
-                                      locale!
-                                          .stock_manage_page_bar_de_recherche,
+                                      locale.stock_manage_page_bar_de_recherche,
                                   hintStyle: GoogleFonts.inter(
                                     fontWeight: FontWeight.w400,
                                     fontStyle: FontStyle.normal,
