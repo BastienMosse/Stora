@@ -79,9 +79,33 @@
 	"employee_screen_retry":"Retry",
 
 	"stock_cerate_please":"Please enter a value",
+	"stock_cerate_create":"Create New Product",
+	"stock_cerate_name": "Name",
+	"stock_cerate_enterID":"Enter ID",
+	"stock_cerate_quantity": "Stock quantity :", 
+	"stock_cerate_quantity_dell":"Delivery in progress :",
+	"stock_cerate_row":"Row",
+	"stock_cerate_height":"Heigh",
+ 
+	"stock_filter_key_word":"Key word : ",
+	"stock_filter_key_word_hint":"key",
+	"stock_filter_key_cat":"Category : ",
+	"stock_filter_key_cat_hint":"category",
+	"stock_filter_qb":"Quantity / Buy :",
+	"stock_filter_lt":"Less than :",
+	"stock_filter_mt":"More than :",
 	
+	"stock_display_ship":"To ship : ",
+	"stock_display_quantity":"quantity",
+	"stock_display_temps":"time",
+	"stock_dispay_button_press": "Button pressed ...",
+	"stock_dispay_week":"Week",
+	"stock_dispay_month":"Month",
+	"stock_dispay_year":"Year",
+	"stock_dispay_del":"Delete Product",
+	"stock_dispay_edit":"Edit",
 
-	
+
 	"displaylog_screen_icon_pressed" : "IconButton pressed ...",
 	"displaylog_screen_change_date_birth": "Change date of birth for",
 	"displaylog_screen_detail" : "Detail : ",
@@ -107,7 +131,48 @@
 	"filter_log_popup_last_name" :  "Last Name",
 	"filter_log_popup_cancel" :  "Cancel",
 	"filter_log_popup_reset" : "Reset",
-	"filter_log_popup_apply_filter" : "Apply Filters"
+	"filter_log_popup_apply_filter" : "Apply Filters",
+
+	"sort_log_popup_sort_logs" : "Sort Logs",
+	"sort_log_popup_sort_by" : "Sort by",
+	"sort_log_popup_employee_name" : "Employee Name",
+	"sort_log_popup_priotity_order" : "Priority Order",
+	"sort_log_popup_apply" : "Apply",
+
+	"login_screen_vm_err_login_password_empty" : "Login and password cannot be empty.",
+	"login_screen_vm_err_login_failed" : "Login failed. Please check your credentials.",
+
+	"login_screen_entrer_votre" : "Please enter your",
+	"login_screen_login" : "Login",
+	"login_screen_forget_password" : "Forgot password functionality is not implemented yet.",
+
+	"sort_popup_sort_items" : "Sort Items",
+	"sort_popup_name" : "Name",
+	"sort_popup_quantity" : "Quantity",
+	
+	"product_update_popup_update_product" : "Update Product",
+	"product_update_popup_on_delivery" : "On delivery : ",
+	"product_update_popup_stock_quantity" : "Stock quantity : ",
+	"product_update_popup_to_ship" : "To ship : ",
+	"product_update_popup_actual" : "Atual : ",
+	"product_update_popup_enter_note" : "Enter your note here : ",
+	"product_update_popup_update" : "Update"
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

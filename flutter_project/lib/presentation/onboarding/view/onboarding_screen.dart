@@ -13,6 +13,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   late final OnboardingScreenViewModel viewModel;
   bool _isViewModelInitialized = false;
 
+  late final ThemeController theme;
+
   @override
   void initState() {
     super.initState();
@@ -22,6 +24,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isViewModelInitialized) {
+      theme = context.watch<ThemeController>();
       viewModel = OnboardingScreenViewModel();
       viewModel.init(context);
       _isViewModelInitialized = true;
@@ -52,17 +55,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             page['title']!,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: theme.currentTheme.PrimaryText,
             ),
           ),
           const SizedBox(height: 16),
           Text(
             page['subtitle']!,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.grey.shade400),
+            style: TextStyle(
+              fontSize: 16,
+              color: theme.currentTheme.SecondaryText
+            ),
           ),
         ],
       ),
@@ -83,8 +89,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           decoration: BoxDecoration(
             color:
                 viewModel.currentPageIndex == index
-                    ? const Color(0xFF2563EB)
-                    : const Color(0xFF555555),
+                    ? theme.currentTheme.Primary
+                    : theme.currentTheme.SecondaryText,
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -111,8 +117,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     viewModel.nextPage();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2563EB),
-                    foregroundColor: Colors.white,
+                    backgroundColor: theme.currentTheme.Primary,
+                    foregroundColor: theme.currentTheme.PrimaryBackground,
                     minimumSize: const Size(0, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -136,8 +142,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: OutlinedButton(
                     onPressed: viewModel.skipOnboarding,
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1E2533),
-                      foregroundColor: const Color(0xFF3C75EF),
+                      backgroundColor: theme.currentTheme.PrimaryText,
+                      foregroundColor: theme.currentTheme.PrimaryText,
                       side: BorderSide.none,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -146,8 +152,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     child: Text(
                       loc.onBoarding_skip,
-                      style: const TextStyle(
-                        color: Color(0xFF3C75EF),
+                      style: TextStyle(
+                        color: theme.currentTheme.PrimaryBackground,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

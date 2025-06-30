@@ -33,7 +33,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
     deliv = deliv_init;
     quantity = quantity_init;
     soll = soll_init;
-    controller = TextEditingController(text: 'Lorem ipsum dolor sit amet');
+    controller = TextEditingController(text: 'Lorem ipsum dolor sit amet');//Fixme
   }
 
   @override
@@ -68,7 +68,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Update Product',
+                  locale.product_update_popup_update_product,
                   style: GoogleFonts.interTight(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -138,7 +138,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Jojo',
+                                'Jojo', // FIXME
                                 style: GoogleFonts.inter(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w600,
@@ -153,7 +153,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                                   0,
                                 ),
                                 child: Text(
-                                  'id : 908765742',
+                                  'id : 908765742', // FIXME
                                   style: GoogleFonts.inter(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
@@ -203,7 +203,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                                     10,
                                   ),
                                   child: Text(
-                                    'On delivery : ',
+                                    locale.product_update_popup_on_delivery,
                                     style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 0.0,
@@ -221,7 +221,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                                     10,
                                   ),
                                   child: Text(
-                                    'Stock quantity : ',
+                                    locale.product_update_popup_stock_quantity,
                                     style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 0.0,
@@ -239,7 +239,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                                     0,
                                   ),
                                   child: Text(
-                                    'To ship : ',
+                                    locale.product_update_popup_to_ship,
                                     style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 0.0,
@@ -256,7 +256,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Actual',
+                                  locale.product_update_popup_actual,
                                   style: GoogleFonts.inter(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -353,7 +353,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'New',
+                                  locale.displaylog_screen_new,
                                   style: GoogleFonts.inter(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -665,7 +665,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade100,
-                                hintText: 'Enter your note here',
+                                hintText: locale.product_update_popup_enter_note,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none,
@@ -706,7 +706,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                         ),
                       ),
                       child: Text(
-                        'Annuler', // "Cancel" en français si tu veux
+                        locale.filter_log_popup_cancel, // "Cancel" en français si tu veux
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -734,7 +734,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
                         ),
                       ),
                       child: Text(
-                        'Update',
+                        locale.product_update_popup_update,
                         style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 14,

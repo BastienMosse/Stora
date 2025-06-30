@@ -61,6 +61,8 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Container(
       decoration: BoxDecoration(color: Colors.transparent),
       child: Padding(
@@ -85,7 +87,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Sort Items',
+                  locale.sort_popup_sort_items,
                   style: TextStyle(
                     fontFamily: 'InterTight',
                     fontSize:
@@ -109,7 +111,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Sort by',
+                      locale.sort_log_popup_sort_by,
                       style: GoogleFonts.interTight(
                         fontWeight:
                             Theme.of(
@@ -132,7 +134,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Name',
+                              locale.sort_popup_name,
                               style: GoogleFonts.inter(
                                 fontWeight:
                                     Theme.of(
@@ -164,13 +166,13 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                                   if (isActiveName) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add("Name");
+                                      order.add(locale.sort_popup_name);
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove("Name");
+                                      order.remove(locale.sort_popup_name);
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -236,7 +238,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Quantity',
+                              locale.sort_popup_quantity,
                               style: GoogleFonts.inter(
                                 fontWeight:
                                     Theme.of(
@@ -272,13 +274,13 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                                   if (isActiveQuantity) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add("Quantity");
+                                      order.add(locale.sort_popup_quantity);
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove("Quantity");
+                                      order.remove(locale.sort_popup_quantity);
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -303,7 +305,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Priority Order',
+                      locale.sort_log_popup_priotity_order,
                       style: GoogleFonts.interTight(
                         textStyle: Theme.of(
                           context,
@@ -454,7 +456,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                           // Usually secondaryBackground maps to colorScheme.secondary or surface
                         ),
                         child: Text(
-                          'Cancel',
+                          locale.filter_log_popup_cancel,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
@@ -484,7 +486,7 @@ class _ProductSortWidgetState extends State<ProductSortWidget> {
                           elevation: 0,
                         ),
                         child: Text(
-                          'Apply',
+                          locale.sort_log_popup_apply,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,

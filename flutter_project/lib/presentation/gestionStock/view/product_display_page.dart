@@ -28,6 +28,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     final Random random = Random();
     final int pointCount = 5;
     final spots = List.generate(
@@ -142,7 +143,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Jojo',
+                                        'Jojo',//Fixme
                                         style: GoogleFonts.inter(
                                           fontSize: 25,
                                           fontWeight: FontWeight.w600,
@@ -158,7 +159,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        'id : 908765742',
+                                        'id : 908765742',//Fixme
                                         style: GoogleFonts.inter(
                                           fontSize: 15,
                                           fontWeight:
@@ -206,7 +207,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'To ship : ',
+                                    locale.stock_display_ship,
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -224,7 +225,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '5',
+                                    '5', //Fixme
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -253,7 +254,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Stock quantity : ',
+                                    locale.stock_cerate_quantity,
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -271,7 +272,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '58',
+                                    '58',//FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -300,7 +301,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'On delivery : ',
+                                    locale.stock_cerate_quantity_dell,
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -318,7 +319,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '2',
+                                    '2',//FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -365,7 +366,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Bat. A Ran. B Col. 4 H. 7',
+                                    'Bat. '+'A'+locale.stock_cerate_row+ 'B' +' Col. '+'4'+ locale.stock_cerate_height +'7', //FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -429,7 +430,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                   0,
                                 ),
                                 child: Text(
-                                  'low quality product -> reduce quantity',
+                                  'low quality product -> reduce quantity',//FIXME
                                   style: GoogleFonts.inter(
                                     fontWeight:
                                         FontWeight
@@ -471,8 +472,8 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           showTitles: true,
                                           reservedSize: 40,
                                         ),
-                                        axisNameWidget: const Text(
-                                          'quantity',
+                                        axisNameWidget:  Text(
+                                          locale.stock_display_quantity,
                                           style: TextStyle(fontSize: 14),
                                         ),
                                         axisNameSize: 20,
@@ -482,8 +483,8 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           showTitles: true,
                                           reservedSize: 32,
                                         ),
-                                        axisNameWidget: const Text(
-                                          'time',
+                                        axisNameWidget:  Text(
+                                          locale.stock_display_temps,
                                           style: TextStyle(fontSize: 14),
                                         ),
                                         axisNameSize: 20,
@@ -511,7 +512,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -534,7 +535,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   child: Text(
-                                    'Week',
+                                    locale.stock_dispay_week,
                                     style: GoogleFonts.interTight(
                                       fontSize:
                                           14, // ajuste la taille selon besoin
@@ -549,7 +550,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -572,7 +573,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   child: Text(
-                                    'Month',
+                                    locale.stock_dispay_month,
                                     style: GoogleFonts.interTight(
                                       fontSize: 14, // ajuste selon besoin
                                       fontWeight:
@@ -585,7 +586,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -608,7 +609,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   child: Text(
-                                    'Year',
+                                    locale.stock_dispay_year,
                                     style: GoogleFonts.interTight(
                                       fontSize: 14, // adapte selon besoin
                                       fontWeight:
@@ -634,7 +635,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 height: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -653,7 +654,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   child: Text(
-                                    'Delete Product',
+                                    locale.stock_dispay_del,
                                     style: GoogleFonts.interTight(
                                       fontSize: 14, // adapte selon besoin
                                       fontWeight: FontWeight.w600,
@@ -720,7 +721,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                           ),
                                         ),
                                         child: Text(
-                                          'Edit',
+                                          locale.stock_dispay_edit,
                                           style: GoogleFonts.interTight(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,

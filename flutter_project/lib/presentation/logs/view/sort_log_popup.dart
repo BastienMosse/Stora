@@ -61,6 +61,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(color: Colors.transparent),
       child: Padding(
@@ -85,7 +86,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Sort Logs',
+                  locale.sort_log_popup_sort_logs,
                   style: TextStyle(
                     fontFamily: 'InterTight',
                     fontSize:
@@ -109,7 +110,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Sort by',
+                      locale.sort_log_popup_sort_by,
                       style: GoogleFonts.interTight(
                         fontWeight:
                             Theme.of(
@@ -184,7 +185,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Product ID',
+                              locale.filter_log_popup_product_id,
                               style: GoogleFonts.inter(
                                 fontWeight:
                                     Theme.of(
@@ -216,13 +217,13 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                                   if (isActiveID) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add("Product ID");
+                                      order.add(locale.filter_log_popup_product_id);
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove("Product ID");
+                                      order.remove(locale.filter_log_popup_product_id);
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -236,7 +237,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Employee ID',
+                              locale.filter_log_popup_employee_id,
                               style: GoogleFonts.inter(
                                 fontWeight:
                                     Theme.of(
@@ -272,13 +273,13 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                                   if (isActiveQuantity) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add("Employee ID");
+                                      order.add(locale.filter_log_popup_employee_id);
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove("Employee ID");
+                                      order.remove(locale.filter_log_popup_employee_id);
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -292,7 +293,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Employee Name',
+                              locale.sort_log_popup_employee_name,
                               style: GoogleFonts.inter(
                                 fontWeight:
                                     Theme.of(
@@ -328,13 +329,13 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                                   if (isActiveQuantity) {
                                     // 🔵 Action A : bouton activé
                                     setState(() {
-                                      order.add("Employee Name");
+                                      order.add(locale.sort_log_popup_employee_name);
                                     });
                                     // Par exemple : trier ta liste en ascendant
                                   } else {
                                     // ⚪ Action B : bouton désactivé
                                     setState(() {
-                                      order.remove("Employee Name");
+                                      order.remove(locale.sort_log_popup_employee_name);
                                     });
                                     // Par exemple : trier ta liste en descendant
                                   }
@@ -359,7 +360,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Priority Order',
+                      locale.sort_log_popup_priotity_order,
                       style: GoogleFonts.interTight(
                         textStyle: Theme.of(
                           context,
@@ -510,7 +511,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                           // Usually secondaryBackground maps to colorScheme.secondary or surface
                         ),
                         child: Text(
-                          'Cancel',
+                          locale.filter_log_popup_cancel,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
@@ -540,7 +541,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
                           elevation: 0,
                         ),
                         child: Text(
-                          'Apply',
+                          locale.sort_log_popup_apply,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,

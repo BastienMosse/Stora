@@ -36,6 +36,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
 
     appState = context.read<AppState>();
     theme = context.read<ThemeController>();
+    locale = AppLocalizations.of(context)!;
 
     viewModel.init(context);
     routeObserver.subscribe(this, ModalRoute.of(context)!);
@@ -68,7 +69,6 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   }
 
   Widget buildEmployeeCard(User user) {
-    final locale = AppLocalizations.of(context)!;
     return InkWell(
       onTap: () {
         context.push(Routes.employeesDisplay, extra: user.id);
@@ -102,7 +102,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     child:
                         user.photo.isNotEmpty
                             ? Image.network(
-                              user.photo.replaceFirst('localhost', '10.0.2.2'),
+                              user.photo,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Icon(

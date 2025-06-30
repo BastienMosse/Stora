@@ -62,7 +62,7 @@
 	"employee_display_update_popup_phone_ex": "12 34 56 78 90",
 	"employee_display_update_popup_pay": "Salaire",
 
-	"employee_display_create_popup_firstname":"Nom de famille",
+	"employee_display_create_popup_lastname":"Nom de famille",
 	"employee_display_create_popup_err_create": "Erreur lors de la creation de l'employer",
 	"employee_display_create_popup_err_upload": "Erreurr upload employer",
 	"employee_display_create_popup_succ_create": "l'employer a été créé evec succes!",
@@ -78,7 +78,33 @@
 	"employee_screen_hint":"Rechercher...",
 	"employee_screen_err":"Erreur",
 	"employee_screen_retry":"réessayer",
+
+	"stock_cerate_please":"Merci d'entrer une valeur",
+	"stock_cerate_create":"Créer un nouveau produit",
+	"stock_cerate_name": "Nom",
+	"stock_cerate_enterID":"Entrer ID",
+	"stock_cerate_quantity": "quantitée stockée :", 
+	"stock_cerate_quantity_dell":"livraison en cours :",
+	"stock_cerate_row":"Ran",
+	"stock_cerate_height":"Haut",
 	
+	"stock_filter_key_word":"Mots clée : ",
+	"stock_filter_key_word_hint":"Mots clée",
+	"stock_filter_key_cat":"Categories : ",
+	"stock_filter_key_cat_hint":"categories",
+	"stock_filter_qb":"Quantité / Achat :",
+	"stock_filter_lt":"Moins que :",
+	"stock_filter_mt":"Plus que :",
+
+	"stock_display_ship":"à expedier ",
+	"stock_display_quantity":"quantitée",
+	"stock_display_temps":"temps",
+	"stock_dispay_button_press": "Button pressé ...",
+	"stock_dispay_week":"semaine",
+	"stock_dispay_month":"mois",
+	"stock_dispay_year":"année",
+	"stock_dispay_del":"Produit suprimé",
+	"stock_dispay_edit":"Editer",
 
 	"displaylog_screen_icon_pressed" : "IconButton appuyé ...",
 	"displaylog_screen_change_date_birth": "Changer la date de naissance de",
@@ -105,7 +131,44 @@
 	"filter_log_popup_last_name" : "Nom",
 	"filter_log_popup_cancel" : "Annuler",
 	"filter_log_popup_reset" : "Réinitialiser",
-	"filter_log_popup_apply_filter" : "Appliquer le filtre"
+	"filter_log_popup_apply_filter" : "Appliquer le filtre",
+
+	"sort_log_popup_sort_logs" : "Trier les logs",
+	"sort_log_popup_sort_by" : "Trier par",
+	"sort_log_popup_employee_name" : "Nom de l'employé",
+	"sort_log_popup_priotity_order" : "Ordre de priorité",
+	"sort_log_popup_apply" : "Appliquer",
+
+	"login_screen_vm_err_login_password_empty" : "Le login et le mot de passe ne peuvent pas être vides.",
+	"login_screen_vm_err_login_failed" : "La connexion a échoué. Veuillez vérifier vos informations d'identification.",
+
+	"login_screen_entrer_votre" : "Merci d'entrer votre",
+	"login_screen_login" : "Connexion",
+	"login_screen_forget_password" : "La fonctionnalité de mot de passe oublié n'est pas encore implémentée.",
+
+	"sort_popup_sort_items" : "Trier les items",
+	"sort_popup_name" : "Nom",
+	"sort_popup_quantity" : "Quantité",
+
+	"product_update_popup_update_product" : "Mettre à jour le produit",
+	"product_update_popup_on_delivery" : "En livraison : ",
+	"product_update_popup_stock_quantity" : "Quantité en stock : ",
+	"product_update_popup_to_ship" : "À expédier : ",
+	"product_update_popup_actual" : "Réel : ",
+	"product_update_popup_enter_note" : "Entrer votre note ici : ",
+	"product_update_popup_update" : "Mettre à jour"
+
+
+
+	
+
+
+
+
+
+
+
+
 
 
 

@@ -336,14 +336,11 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             final request = UserRegisterRequest(
-                              login:
-                                  '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
-                              username:
-                                  '${_firstNameController.text} ${_lastNameController.text}',
+                              login: '${_firstNameController.text.toLowerCase()}.${_lastNameController.text.toLowerCase()}',
+                              username: '${_firstNameController.text} ${_lastNameController.text}',
                               email: _emailController.text,
                               password: _passwdController.text,
-                              birth:
-                                  _dobController.text.isNotEmpty
+                              birth: _dobController.text.isNotEmpty
                                       ? DateTime.tryParse(_dobController.text)
                                       : null,
                               tel: _phoneController.text,

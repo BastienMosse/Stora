@@ -62,6 +62,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
 
   @override
   void initState() {
+    final locale = AppLocalizations.of(context)!;
     super.initState();
     count = 0;
     count2 = 0;
@@ -71,7 +72,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
     validator1 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -81,7 +82,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
     validator2 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -94,6 +95,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(color: Colors.transparent),
       child: Padding(
@@ -119,7 +121,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Filter Options',
+                  locale.employee_filter_popup_option,
                   textAlign: TextAlign.start,
                   style: GoogleFonts.interTight(
                     fontWeight: FontWeight.bold, // ou la graisse que tu veux
@@ -148,7 +150,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Key word : ',
+                                  locale.stock_filter_key_word,
                                   style: GoogleFonts.inter(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -162,7 +164,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                                     textInputAction:
                                         TextInputAction.done, // Ajouté !
                                     decoration: InputDecoration(
-                                      hintText: 'key',
+                                      hintText: locale.stock_filter_key_word_hint,
                                       filled: true,
                                       fillColor: Colors.grey.shade100,
                                       border: OutlineInputBorder(
@@ -400,7 +402,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Category : ',
+                                  locale.stock_filter_key_cat,
                                   style: GoogleFonts.inter(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -414,7 +416,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                                     textInputAction:
                                         TextInputAction.done, // Ajouté !
                                     decoration: InputDecoration(
-                                      hintText: 'category',
+                                      hintText: locale.stock_filter_key_cat_hint,
                                       filled: true,
                                       fillColor: Colors.grey.shade100,
                                       border: OutlineInputBorder(
@@ -505,7 +507,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: Text(
-                            'Quantity / Buy :',
+                            locale.stock_filter_qb,
                             style: GoogleFonts.inter(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -524,7 +526,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              'Less than :',
+                              locale.stock_filter_lt,
                               style: GoogleFonts.inter(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -586,7 +588,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              'More than : ',
+                              locale.stock_filter_mt,
                               style: GoogleFonts.inter(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -684,7 +686,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                         elevation: 0,
                       ),
                       child: Text(
-                        'Cancel',
+                        locale.employee_display_update_popup_annuler,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontFamily: 'InterTight',
                           fontWeight:
@@ -734,7 +736,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                         elevation: 0,
                       ),
                       child: Text(
-                        'Reset',
+                        locale.employee_filter_popup_reset,
                         style: GoogleFonts.interTight(
                           fontWeight: FontWeight.w600, // adapte à ton thème
                           fontSize: 16,
@@ -760,7 +762,7 @@ class _ProductFilterWidgetState extends State<ProductFilterWidget> {
                         elevation: 0,
                       ),
                       child: Text(
-                        'Apply',
+                        locale.employee_filter_popup_apply,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontFamily: 'InterTight',
                           fontWeight:

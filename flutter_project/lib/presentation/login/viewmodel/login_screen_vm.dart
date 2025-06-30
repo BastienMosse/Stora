@@ -1,11 +1,14 @@
 import '/index.dart';
 
+late AppLocalizations locale;
+
 class LoginScreenViewModel {
   late final BuildContext context;
 
   late final UserPrefs userPrefs;
 
   void init(BuildContext context) {
+    locale = AppLocalizations.of(context)!;
     this.context = context;
   }
 
@@ -20,24 +23,22 @@ class LoginScreenViewModel {
   }
 
   Future<void> login(
+    
     String login,
     String password, {
     required Function(String) onError,
   }) async {
     try {
       if (login.isEmpty || password.isEmpty) {
-        onError('Login and password cannot be empty');
+        onError(locale.login_screen_vm_err_login_password_empty);
         return;
       }
 
-      AuthLoginRequest request = AuthLoginRequest(
-        login: login,
-        password: password,
-      );
+      AuthLoginRequest request = AuthLoginRequest(login: login,password: password);
       AuthLoginResponse? response = await Endpoints.login(request);
 
       if (response == null) {
-        onError('Login failed. Please check your credentials.');
+        onError(locale.login_screen_vm_err_login_failed);
         return;
       }
 

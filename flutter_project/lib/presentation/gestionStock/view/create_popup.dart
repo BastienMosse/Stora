@@ -47,6 +47,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
 
   @override
   void initState() {
+    final locale = AppLocalizations.of(context)!;
     count = 0;
     count2 = 0;
     super.initState();
@@ -55,7 +56,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator1 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -65,7 +66,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator2 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -75,7 +76,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator3 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -84,7 +85,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator4 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -93,7 +94,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator5 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -102,7 +103,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator6 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -111,7 +112,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
     validator7 = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.stock_cerate_please;
       }
       return null;
     };
@@ -124,6 +125,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(color: Colors.transparent),
       child: Padding(
@@ -149,7 +151,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Create New Product',
+                  locale.stock_cerate_create,
                   style: GoogleFonts.interTight(
                     fontSize: 24, // adapte la taille selon ton besoin
                     fontWeight:
@@ -218,7 +220,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Name : ',
+                                    locale.stock_cerate_name+' : ',//Name
                                     style: GoogleFonts.inter(
                                       fontWeight:
                                           FontWeight
@@ -252,7 +254,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                               letterSpacing: 0.0,
                                               color: Colors.grey[700],
                                             ),
-                                            hintText: 'Name',
+                                            hintText: locale.stock_cerate_name,
                                             hintStyle: GoogleFonts.inter(
                                               fontWeight: FontWeight.w500,
                                               fontStyle: FontStyle.normal,
@@ -354,7 +356,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                               letterSpacing: 0.0,
                                               color: Colors.grey[700],
                                             ),
-                                            hintText: 'Enter ID',
+                                            hintText: locale.stock_cerate_enterID,
                                             hintStyle: GoogleFonts.inter(
                                               fontWeight: FontWeight.w400,
                                               fontStyle: FontStyle.normal,
@@ -425,7 +427,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Stock quantity :',
+                                    locale.stock_cerate_quantity,
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           14.0, // Tu peux ajuster selon ton design
@@ -507,7 +509,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    'Delivery in progress :',
+                                    locale.stock_cerate_quantity_dell,
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           14, // ou adapte selon ton besoin
@@ -864,7 +866,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                                   FontStyle.normal,
                                               letterSpacing: 0.0,
                                             ),
-                                            hintText: 'Row',
+                                            hintText: locale.stock_cerate_row,
                                             hintStyle: GoogleFonts.inter(
                                               fontWeight:
                                                   Theme.of(context)
@@ -1086,7 +1088,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                                                   FontStyle.normal,
                                               letterSpacing: 0.0,
                                             ),
-                                            hintText: 'Heigh',
+                                            hintText: locale.stock_cerate_height,
                                             hintStyle: GoogleFonts.inter(
                                               fontWeight:
                                                   Theme.of(context)
@@ -1199,7 +1201,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                         ),
                       ),
                       child: Text(
-                        'Cancel',
+                        locale.employee_display_update_popup_annuler,
                         style: GoogleFonts.inter(
                           textStyle: Theme.of(
                             context,
@@ -1237,7 +1239,7 @@ class _ProductCreateWidgetState extends State<ProductCreateWidget> {
                         ),
                       ),
                       child: Text(
-                        'Create',
+                        locale.employee_display_create_popup_create,
                         style: GoogleFonts.inter(
                           color:
                               Colors

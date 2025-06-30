@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget inputField({
+
     required String label,
     required TextEditingController controller,
     required FocusNode focusNode,
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
         obscureText: isPassword ? obscurePassword : false,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter your ${label.toLowerCase()}';
+            return '${locale.login_screen_entrer_votre} ${label.toLowerCase()}';
           }
           return null;
         },
@@ -177,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
             fontStyle: Theme.of(context).textTheme.titleSmall?.fontStyle,
           ),
         ),
-        child: Text('Login', style: TextStyle(color: Color(0xFFFFFFFF))),
+        child: Text(locale.login_screen_login, style: TextStyle(color: Color(0xFFFFFFFF))),
       ),
     );
   }
@@ -219,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         // TODO: Add forgot password logic
                         throw UnimplementedError(
-                          'Forgot password functionality is not implemented yet.',
+                          locale.login_screen_forget_password,
                         );
                       },
                       child: Text(locale.login_forgotPasswd),

@@ -5,12 +5,9 @@ class UserListResponse {
 
   UserListResponse({required this.users});
 
-  factory UserListResponse.fromJson(Map<String, dynamic> json) {
+  factory UserListResponse.fromJson(List json) {
     return UserListResponse(
-      users:
-          (json['user'] as List)
-              .map((item) => User.fromJson(item as Map<String, dynamic>))
-              .toList(),
+      users: json.map((user) => User.fromJson(user)).toList(),
     );
   }
 }

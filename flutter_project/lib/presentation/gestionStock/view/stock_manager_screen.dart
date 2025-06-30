@@ -18,13 +18,14 @@ class _GestionStockWidgetState extends State<GestionStockWidget> {
 
   @override
   void initState() {
+    final locale = AppLocalizations.of(context)!;
     super.initState();
     focusenode = FocusNode();
     controller = TextEditingController();
     validator = (value) {
       // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
-        return 'Please enter a value';
+        return locale.filter_log_popup_please_enter_value;
       }
       return null;
     };

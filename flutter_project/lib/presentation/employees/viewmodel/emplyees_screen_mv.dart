@@ -59,7 +59,6 @@ class EmplyeesScreenViewModel {
   void applyFilters() {
     filteredUserList =
         userList.where((user) {
-          // Search filter
           final searchQuery = searchController.text.toLowerCase();
           final matchesSearch =
               searchQuery.isEmpty ||
@@ -69,7 +68,6 @@ class EmplyeesScreenViewModel {
 
           if (!matchesSearch) return false;
 
-          // Advanced filters
           if (currentFilters != null) {
             if (currentFilters!.login.isNotEmpty &&
                 !user.login.toLowerCase().contains(
@@ -104,7 +102,7 @@ class EmplyeesScreenViewModel {
   }
 
   Future<void> refreshUserList() async {
-    _isLoading = false; // Reset loading state to allow refresh
+    _isLoading = false;
     await fetchUserList();
   }
 
