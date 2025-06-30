@@ -18,6 +18,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   final _payController = TextEditingController();
   Role? _selectedRole;
   bool _obscurePassword = true;
+  late ThemeController theme;
 
   File? _profileImage;
 
@@ -115,9 +116,16 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    theme = context.read<ThemeController>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -129,7 +137,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
               children: [
                 Text(
                   locale.employee_display_update_popup_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryBackground),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -147,14 +155,14 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: theme.currentTheme.Primary,
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.camera_alt,
                           size: 16,
-                          color: Colors.white,
+                          color: theme.currentTheme.PrimaryBackground,
                         ),
                       ),
                     ),
@@ -323,16 +331,26 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 Row(
                   children: [
                     Expanded(
-                      child: OutlinedButton(
+                      
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () => Navigator.pop(context, false),
                         child: Text(
                           locale.employee_display_update_popup_annuler,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             final request = UserRegisterRequest(
@@ -406,6 +424,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                         },
                         child: Text(
                           locale.employee_display_update_popup_create,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),

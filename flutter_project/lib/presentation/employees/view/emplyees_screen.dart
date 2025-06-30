@@ -76,7 +76,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueAccent, width: 2),
+          border: Border.all(color: theme.currentTheme.Primary, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Card(
@@ -95,7 +95,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                   height: 56,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.blueAccent, width: 2),
+                    border: Border.all(color: theme.currentTheme.Primary, width: 2),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -149,7 +149,9 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       appBar: AppBar(
+        backgroundColor: theme.currentTheme.Primary,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.grey, size: 24),
@@ -162,7 +164,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 30,
-            color: Colors.black,
+            color: theme.currentTheme.PrimaryBackground,
           ),
         ),
         centerTitle: true,
@@ -174,6 +176,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              SizedBox(height: 16),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,14 +198,14 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     },
                     icon: Container(
                       decoration: BoxDecoration(
-                        color: Colors.purple,
+                        color: theme.currentTheme.Primary,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       width: 40,
                       height: 40,
-                      child: const Icon(
+                      child: Icon(
                         Icons.filter_alt,
-                        color: Colors.blueAccent,
+                        color: theme.currentTheme.PrimaryBackground,
                         size: 24,
                       ),
                     ),
@@ -230,10 +233,10 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: Colors.black,
+                            fillColor: Colors.white,
                             prefixIcon: Icon(
                               FontAwesomeIcons.search,
-                              color: Colors.blue,
+                              color: theme.currentTheme.Primary,
                               size: 18,
                             ),
                           ),
@@ -300,7 +303,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: theme.currentTheme.Primary,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -309,16 +312,16 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
+                        color: theme.currentTheme.Primary,
                         fontFamily: GoogleFonts.interTight().fontFamily,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       '+',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: theme.currentTheme.PrimaryBackground,
                       ),
                     ),
                   ),

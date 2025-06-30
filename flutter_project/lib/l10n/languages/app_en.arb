@@ -31,12 +31,15 @@
 	"stock_manage_page_title": "Stocks Managerment",
 	"stock_manage_page_bar_de_recherche": "search the product by his name",
 
-	"settings_title": "title",
+	"settings_title": "Settings",
 	"settings_topic": "Topic : ",
 	"settings_language": "Language : ",
 	"settings_logs_duration" : "Logs duration : ",
 	"settings_contact" : "Contact Us",
 	"settings_days" : "days",
+	"settings_close" : "Close",
+	
+
 	"selectThemeColor" :"Color of interface : ",
 
 	"employee_display_page_Born": "Born :",
@@ -73,7 +76,7 @@
 	"employee_filter_popup_apply":"Apply",
 
 	"employee_screen_username":"username :",
-	"employee_screen_Employer":"Employee",
+	"employee_screen_Employer":"Employee Management",
 	"employee_screen_hint":"Search ...",
 	"employee_screen_err":"Error",
 	"employee_screen_retry":"Retry",

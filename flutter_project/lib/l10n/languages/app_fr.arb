@@ -31,13 +31,17 @@
 	"stock_manage_page_title": "Gestion des stocks",
 	"stock_manage_page_bar_de_recherche": "chercher un produit par son nom",
 
-	"settings_title": "titre",
+	"settings_title": "Paramètres",
 	"settings_topic": "Topic :",
 	"settings_language": "Langue : ",
 	"settings_logs_duration" : "Durée des logs : ",
 	"settings_contact" : "Contactez-nous",
 	"settings_days" : "jours",
+	"settings_close" : "Fermer",
+
 	"selectThemeColor" :"Couleur de l'interface: ",
+
+
 
 	"employee_display_page_Born": "née(e) le :",
 	"employee_display_page_phone": "n° de téléphone :",
@@ -74,7 +78,7 @@
 	"employee_filter_popup_apply":"Appliquer",
 
 	"employee_screen_username":"username :",
-	"employee_screen_Employer":"Employer",
+	"employee_screen_Employer":"Gestion des Employer",
 	"employee_screen_hint":"Rechercher...",
 	"employee_screen_err":"Erreur",
 	"employee_screen_retry":"réessayer",

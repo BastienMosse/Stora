@@ -105,7 +105,7 @@ class CustomTheme extends AppThemeBase {
   CustomTheme._internal();
 
   // Brand Colors
-  Color? _primary;
+  Color? _primary = custom_color;
   Color? _secondary;
   Color? _tertiary;
   Color? _alternate;
@@ -149,6 +149,7 @@ class CustomTheme extends AppThemeBase {
   Color get Accent4 => _accent4 ?? DarkTheme.instance.Accent4;
 
   void load(String jsonString) {
+    print('jsonString : ${jsonString}');
     final Map<String, dynamic> json = jsonDecode(jsonString);
 
     Color? parseColor(String key) =>
