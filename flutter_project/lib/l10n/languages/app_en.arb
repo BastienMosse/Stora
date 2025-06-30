@@ -46,7 +46,7 @@
 	"employee_display_page_supr_log": "User successfully deleted",
 	"employee_display_page_supr": "Delete",
 
-	"employee_display_update_popup_create": "Create New Employee",
+	"employee_display_update_popup_create": "Update Employee",
 	"employee_display_update_popup_gallerie": "Galery",
 	"employee_display_update_popup_camera": "Camera",
 	"employee_display_update_popup_annuler": "Cancel",
@@ -54,7 +54,6 @@
 	"employee_display_update_popup_err_img_disp": "Error: Image picker not available on this emulator. Test on a physical device.",
 	"employee_display_update_popup_firstname":"First Name",
 	"employee_display_update_popup_required":"Required",
-	"employee_display_update_popup_password":"Password",
 	"employee_display_update_popup_date": "Date of Birth",
 	"employee_display_update_popup_date_ex": "YYYY/MM/DD",
 	"employee_display_update_popup_phone": "Phone Number",

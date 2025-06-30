@@ -5,7 +5,10 @@ GoRouter route = GoRouter(
   initialLocation: Routes.initial,
   debugLogDiagnostics: true,
   routes: [
-    GoRoute(path: Routes.initial, redirect: (context, state) => Routes.splash),
+    GoRoute(
+      path: Routes.initial,
+      redirect: (context, state) => Routes.splash
+    ),
     GoRoute(
       path: Routes.splash,
       builder: (context, state) => const SplashScreen(),
@@ -18,7 +21,10 @@ GoRouter route = GoRouter(
       path: Routes.login,
       builder: (context, state) => const LoginScreen(),
     ),
-    GoRoute(path: Routes.home, builder: (context, state) => const HomeScreen()),
+    GoRoute(
+      path: Routes.home,
+      builder: (context, state) => const HomeScreen()
+    ),
     GoRoute(
       path: Routes.settings,
       builder: (context, state) => const SettingsScreen(),

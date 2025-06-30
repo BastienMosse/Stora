@@ -1,6 +1,7 @@
 import '/index.dart';
 
 import 'popup/employee_disply_update_popup.dart';
+import '../viewmodel/employee_display_screen_vm.dart';
 
 class EmployeeDisplay extends StatefulWidget {
   final String userId;
@@ -19,6 +20,13 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
   @override
   void initState() {
     super.initState();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
+
     viewModel = EmplyeeDisplayScreenViewModel();
   }
 
@@ -132,20 +140,17 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                               Text('role : ${viewModel.user?.role ?? ''}'),
                               const SizedBox(height: 8),
                               Text(
-                                locale.employee_display_page_Born +
-                                    ' ${viewModel.user?.birth ?? ''}',
+                                '${locale.employee_display_page_Born} ${viewModel.user?.birth ?? ''}',
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                locale.employee_display_page_phone +
-                                    ' ${viewModel.user?.tel ?? ''}',
+                                '${locale.employee_display_page_phone} ${viewModel.user?.tel ?? ''}',
                               ),
                               const SizedBox(height: 8),
                               Text('email : ${viewModel.user?.email ?? ''}'),
                               const SizedBox(height: 8),
                               Text(
-                                locale.employee_display_page_pay +
-                                    ' ${viewModel.user?.pay ?? ''} \$',
+                                '${locale.employee_display_page_pay} ${viewModel.user?.pay ?? ''} \$',
                               ),
                             ],
                           ),

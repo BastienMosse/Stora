@@ -17,6 +17,7 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
   late int quantity;
   late int soll;
 
+  late AppLocalizations locale;
   late TextEditingController controller;
 
   @override
@@ -34,6 +35,12 @@ class _ProductUpdateWidgetState extends State<ProductUpdateWidget> {
     quantity = quantity_init;
     soll = soll_init;
     controller = TextEditingController(text: 'Lorem ipsum dolor sit amet');//Fixme
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    locale = AppLocalizations.of(context)!;
   }
 
   @override

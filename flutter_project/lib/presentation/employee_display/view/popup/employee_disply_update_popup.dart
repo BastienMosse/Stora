@@ -192,30 +192,32 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    DropdownButtonFormField<Role>(
-                      decoration: const InputDecoration(
-                        labelText: 'Role',
-                        border: OutlineInputBorder(),
+                    Expanded(
+                      child: DropdownButtonFormField<Role>(
+                        decoration: const InputDecoration(
+                          labelText: 'Role',
+                          border: OutlineInputBorder(),
+                        ),
+                        value: _selectedRole,
+                        items:
+                            Role.values.map((role) {
+                              return DropdownMenuItem(
+                                value: role,
+                                child: Text(role.value),
+                              );
+                            }).toList(),
+                        onChanged: (val) {
+                          setState(() {
+                            _selectedRole = val;
+                          });
+                        },
+                        validator:
+                            (v) =>
+                                v == null
+                                    ? locale
+                                        .employee_display_update_popup_required
+                                    : null,
                       ),
-                      value: _selectedRole,
-                      items:
-                          Role.values.map((role) {
-                            return DropdownMenuItem(
-                              value: role,
-                              child: Text(role.value),
-                            );
-                          }).toList(),
-                      onChanged: (val) {
-                        setState(() {
-                          _selectedRole = val;
-                        });
-                      },
-                      validator:
-                          (v) =>
-                              v == null
-                                  ? locale
-                                      .employee_display_update_popup_required
-                                  : null,
                     ),
                   ],
                 ),
@@ -234,38 +236,6 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                           v == null || v.isEmpty
                               ? locale.employee_display_update_popup_required
                               : null,
-                ),
-                const SizedBox(height: 12),
-                StatefulBuilder(
-                  builder: (context, setState) {
-                    return TextFormField(
-                      controller: _passwdController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText:
-                            locale.employee_display_update_popup_password,
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-                      validator:
-                          (v) =>
-                              v == null || v.isEmpty
-                                  ? locale
-                                      .employee_display_update_popup_required
-                                  : null,
-                    );
-                  },
                 ),
                 const SizedBox(height: 12),
                 TextFormField(

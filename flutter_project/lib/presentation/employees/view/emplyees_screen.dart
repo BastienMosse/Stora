@@ -2,6 +2,7 @@ import '/index.dart';
 
 import 'popups/employees_filter_popup.dart';
 import 'popups/employees_create_popup.dart';
+import '../viewmodel/emplyees_screen_mv.dart';
 
 class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
@@ -23,6 +24,13 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   @override
   void initState() {
     super.initState();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
+
     viewModel = EmplyeesScreenViewModel();
   }
 

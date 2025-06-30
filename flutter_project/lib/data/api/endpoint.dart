@@ -30,7 +30,6 @@ class Endpoints {
     UserRegisterRequest request,
   ) async {
     final response = await ApiService.post('api/register', request.toJson());
-    print('Register response: ${response.statusCode} - ${response.body}');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return UserRegisterResponse.fromJson(json);

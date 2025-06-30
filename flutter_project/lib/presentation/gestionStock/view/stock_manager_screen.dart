@@ -16,14 +16,29 @@ class _GestionStockWidgetState extends State<GestionStockWidget> {
   late FormFieldValidator validator;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late AppLocalizations locale;
+
   @override
   void initState() {
-    final locale = AppLocalizations.of(context)!;
     super.initState();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
+
     focusenode = FocusNode();
     controller = TextEditingController();
+    
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    locale = AppLocalizations.of(context)!;
+
     validator = (value) {
-      // Example: return null if valid, or an error string if invalid
       if (value == null || value.isEmpty) {
         return locale.filter_log_popup_please_enter_value;
       }

@@ -1,6 +1,8 @@
 import '/index.dart';
-import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, TargetPlatform;
+
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+import '../viewmodel/onboarding_screen_vm.dart';
+
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

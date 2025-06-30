@@ -1,5 +1,7 @@
 import '/index.dart';
 
+import '../viewmodel/login_screen_vm.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -23,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool obscurePassword = true;
   bool _hasError = false;
+  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -51,6 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
+    if (_isInitialized) return; // Prevent multiple initialization
+
     appState = context.read<AppState>();
     userPrefs = context.read<UserPrefs>();
     theme = context.read<ThemeController>();
@@ -62,6 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
       _loginController.text = appState.Login;
       _passwordController.text = appState.Password;
     }
+
+    _isInitialized = true;
   }
 
   Widget inputField({

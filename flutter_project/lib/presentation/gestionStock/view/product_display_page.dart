@@ -19,6 +19,12 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
   @override
   void initState() {
     super.initState();
+
+    if (ApiService.jwt == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(Routes.login);
+      });
+    }
   }
 
   @override
