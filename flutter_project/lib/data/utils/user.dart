@@ -7,7 +7,7 @@ class User {
   final String tel;
   final String email;
   final String photo;
-  final double pay;
+  final int pay;
   final String note;
 
   User({
@@ -19,7 +19,7 @@ class User {
     this.tel = '',
     this.email = '',
     this.photo = '',
-    this.pay = 0.0,
+    this.pay = 0,
     this.note = '',
   });
 
@@ -29,12 +29,11 @@ class User {
       login: json['login'],
       username: json['username'],
       role: json['role'],
-      birth: json['birth'] ?? '',
-      tel: json['tel'] ?? '',
-      email: json['email'] ?? '',
-      photo: json['photo'] ?? '',
-      pay: json['pay'] ?? '',
-      note: json['note'] ?? '',
+      birth: json.containsKey('birth') ? (json['birth'] ?? '') : '',
+      tel: json.containsKey('tel') ? (json['tel'] ?? '') : '',
+      email: json.containsKey('email') ? (json['email'] ?? '') : '',
+      pay: json.containsKey('pay') ? (json['pay'] ?? 0) : 0,
+      note: json.containsKey('note') ? (json['note'] ?? '') : '',
     );
   }
 }

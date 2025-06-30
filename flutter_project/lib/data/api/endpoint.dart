@@ -30,7 +30,8 @@ class Endpoints {
     UserRegisterRequest request,
   ) async {
     final response = await ApiService.post('api/register', request.toJson());
-    if (response.statusCode == 201) {
+    print('Register response: ${response.statusCode} - ${response.body}');
+    if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return UserRegisterResponse.fromJson(json);
     }
@@ -50,7 +51,6 @@ class Endpoints {
   // GET /api/users
   static Future<UserListResponse?> getUserList() async {
     final response = await ApiService.get('api/users/');
-    print('Response status: ${response.statusCode}');
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       return UserListResponse.fromJson(json);

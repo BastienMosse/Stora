@@ -6,7 +6,7 @@ class UserRegisterResponse {
   final String birth;
   final String tel;
   final String email;
-  final String pay;
+  final double pay;
   final String note;
 
   UserRegisterResponse({
@@ -27,11 +27,11 @@ class UserRegisterResponse {
       username: json['username'],
       role: json['role'],
       password: json['password'],
-      birth: json['birth'],
-      tel: json['tel'],
-      email: json['email'],
-      pay: json['pay'],
-      note: json['note'],
+      birth: json.containsKey('birth') ? (json['birth'] ?? '') : '',
+      tel: json.containsKey('tel') ? (json['tel'] ?? '') : '',
+      email: json.containsKey('email') ? (json['email'] ?? '') : '',
+      pay: json.containsKey('pay') ? (json['pay'] ?? 0) : 0,
+      note: json.containsKey('note') ? (json['note'] ?? '') : '',
     );
   }
 }
