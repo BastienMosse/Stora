@@ -15,6 +15,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
   late EmplyeeDisplayScreenViewModel viewModel;
 
   bool _isRefreshing = false;
+  late ThemeController theme;
 
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
     if (!context.watch<AppState>().isAdmin) {
       context.go(Routes.home);
     }
-
+    theme = context.read<ThemeController>();
     viewModel.init(context);
     _fetchAndRefresh();
   }
@@ -61,9 +62,9 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: theme.currentTheme.PrimaryBackground,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: theme.currentTheme.PrimaryBackground),
           onPressed: () => Navigator.of(context).pop(),
         ),
         elevation: 2,
@@ -102,7 +103,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                                 color: Colors.grey[200],
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                  color: Colors.blueAccent,
+                                  color: theme.currentTheme.Primary,
                                   width: 2,
                                 ),
                               ),
@@ -119,33 +120,59 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                             children: [
                               Text(
                                 '${viewModel.user?.username ?? ''}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
+                                  color: theme.currentTheme.PrimaryText,
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text('id : ${viewModel.user?.id ?? ''}'),
+                              Text('id : ${viewModel.user?.id ?? ''}',
+                                style: TextStyle(
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                              ),
                               const SizedBox(height: 8),
-                              Text('login : ${viewModel.user?.login ?? ''}'),
+                              Text('login : ${viewModel.user?.login ?? ''}',
+                               style: TextStyle(
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                              ),
                               const SizedBox(height: 8),
-                              Text('role : ${viewModel.user?.role ?? ''}'),
+                              Text('role : ${viewModel.user?.role ?? ''}',
+                               style: TextStyle(
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                              ),
                               const SizedBox(height: 8),
                               Text(
                                 locale.employee_display_page_Born +
                                     ' ${viewModel.user?.birth ?? ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Text(
                                 locale.employee_display_page_phone +
                                     ' ${viewModel.user?.tel ?? ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
-                              Text('email : ${viewModel.user?.email ?? ''}'),
+                              Text('email : ${viewModel.user?.email ?? ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
+                              ),
                               const SizedBox(height: 8),
                               Text(
                                 locale.employee_display_page_pay +
                                     ' ${viewModel.user?.pay ?? ''} \$',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                             ],
                           ),
@@ -153,11 +180,12 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Note',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        color: theme.currentTheme.PrimaryText,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -166,11 +194,11 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       height: 80,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5F5),
+                        color: theme.currentTheme.Primary,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(12),
                         ),
-                        border: Border.all(color: Colors.blue, width: 1),
+                        border: Border.all(color: theme.currentTheme.Primary, width: 1),
                       ),
                       child: Align(
                         alignment: Alignment.topLeft,
@@ -196,7 +224,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: theme.currentTheme.Primary,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
@@ -204,7 +232,8 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                     ),
                     child: Text(
                       locale.employee_display_page_modify,
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, color: theme.currentTheme.PrimaryBackground,
+                      ),
                     ),
                   ),
                   ElevatedButton(
@@ -223,15 +252,15 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
+                      backgroundColor: theme.currentTheme.Primary,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Supprimer',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16,color: theme.currentTheme.PrimaryBackground),
                     ),
                   ),
                 ],
