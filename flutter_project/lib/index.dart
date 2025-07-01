@@ -16,6 +16,8 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:image_picker/image_picker.dart';
+export 'package:fl_chart/fl_chart.dart';
+export 'package:flutter_svg/flutter_svg.dart';
 
 // GoRouter
 export 'routing/router.dart';
@@ -27,16 +29,17 @@ export 'presentation/splash/splash.dart';
 export 'presentation/onboarding/onboarding.dart';
 export 'presentation/login/login.dart';
 export 'presentation/home/home.dart';
+
 export 'presentation/stock/stock.dart';
 export 'presentation/stock_display/stock_display.dart';
+
 export 'presentation/employees/employees.dart';
 export 'presentation/employee_display/employee_display.dart';
 
-export 'presentation/settings/settings.dart'; // TODO
-export 'presentation/logs/log.dart';
+export 'presentation/log/log.dart';
+export 'presentation/log_display/log_display.dart';
 
-export 'package:fl_chart/fl_chart.dart';
-export 'package:flutter_svg/flutter_svg.dart';
+export 'presentation/settings/settings.dart'; // TODO
 
 // Themes
 export 'core/theme/theme.dart';

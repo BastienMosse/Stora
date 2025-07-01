@@ -93,7 +93,7 @@ class Endpoints {
     return null;
   }
 
-  // PUT /api/users/upload/{id}
+  // POST /api/users/upload/{id}
   static Future<Map<String, dynamic>?> uploadUserPhoto(
     String userId,
     File file,

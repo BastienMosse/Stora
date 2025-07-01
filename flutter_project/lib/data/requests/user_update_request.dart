@@ -4,7 +4,7 @@ class UserUpdateRequest {
   final String login;
   final String username;
   final Role role;
-  final DateTime? birth;
+  final String? birth;
   final String? tel;
   final String? email;
   final double? pay;
@@ -26,8 +26,7 @@ class UserUpdateRequest {
       'login': login,
       'username': username,
       'role': role.value,
-      if (birth != null)
-        'birth': '${birth!.year}-${birth!.month}-${birth!.day}',
+      if (birth != null) 'birth': birth,
       if (tel != null) 'tel': tel,
       if (email != null) 'email': email,
       if (pay != null) 'pay': pay,

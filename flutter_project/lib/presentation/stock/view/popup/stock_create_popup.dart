@@ -15,7 +15,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   final _positionController = TextEditingController();
   final _noteController = TextEditingController();
   Category? _selectedCategory;
-  
+
   int _stock = 0;
   int _sell = 0;
   int _delivery = 0;
@@ -139,19 +139,21 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
               text,
               style: GoogleFonts.interTight(
                 fontWeight: FontWeight.w500,
-                color: theme.currentTheme.PrimaryText),
+                color: theme.currentTheme.PrimaryText,
+              ),
             ),
           ),
           const SizedBox(width: 8),
-          IconButton(icon:Icon(Icons.remove), onPressed: onDecrement),
+          IconButton(icon: Icon(Icons.remove), onPressed: onDecrement),
           SizedBox(
             width: 40,
             child: Center(
               child: Text(
                 counter.toString(),
                 style: GoogleFonts.interTight(
-                fontSize: 16,
-                color: theme.currentTheme.PrimaryText),
+                  fontSize: 16,
+                  color: theme.currentTheme.PrimaryText,
+                ),
               ),
             ),
           ),
@@ -176,7 +178,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  locale.employee_display_update_popup_create,
+                  locale.stock_create_create,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -201,7 +203,10 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           shape: BoxShape.circle,
-                          border: Border.all(color: theme.currentTheme.PrimaryBackground, width: 2),
+                          border: Border.all(
+                            color: theme.currentTheme.PrimaryBackground,
+                            width: 2,
+                          ),
                         ),
                         child: Icon(
                           Icons.camera_alt,
@@ -293,11 +298,10 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 6),
                 Theme(
-                  data:Theme.of(context).copyWith(
-                    canvasColor: theme.currentTheme.PrimaryBackground,
-                  ), 
-                  child: 
-                  DropdownButtonFormField<Category>(
+                  data: Theme.of(
+                    context,
+                  ).copyWith(canvasColor: theme.currentTheme.PrimaryBackground),
+                  child: DropdownButtonFormField<Category>(
                     decoration: InputDecoration(
                       labelText: locale.stock_create_category,
                       border: OutlineInputBorder(),
@@ -307,9 +311,12 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                         Category.values.map((role) {
                           return DropdownMenuItem(
                             value: role,
-                            child: Text(role.value,style: TextStyle(
-                            color: theme.currentTheme.PrimaryText,
-                          ),),
+                            child: Text(
+                              role.value,
+                              style: TextStyle(
+                                color: theme.currentTheme.PrimaryText,
+                              ),
+                            ),
                           );
                         }).toList(),
                     onChanged: (val) {
@@ -328,9 +335,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 TextFormField(
                   controller: _positionController,
                   decoration: InputDecoration(
-                    labelText: locale.stock_create_category,
+                    labelText: locale.stock_create_position,
                     border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.note),
                   ),
                   keyboardType: TextInputType.text,
                   maxLines: 1,
@@ -341,7 +347,6 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                   decoration: InputDecoration(
                     labelText: locale.stock_create_notes,
                     border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.note),
                   ),
                   keyboardType: TextInputType.text,
                   maxLines: 3,
@@ -397,7 +402,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                       color: theme.currentTheme.PrimaryText,
                                     ),
                                   ),
-                                  backgroundColor: theme.currentTheme.PrimaryBackground,
+                                  backgroundColor:
+                                      theme.currentTheme.PrimaryBackground,
                                 ),
                               );
                             } else {
@@ -417,7 +423,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                           color: theme.currentTheme.PrimaryText,
                                         ),
                                       ),
-                                      backgroundColor: theme.currentTheme.PrimaryBackground,
+                                      backgroundColor:
+                                          theme.currentTheme.PrimaryBackground,
                                     ),
                                   );
                                 } else {
@@ -430,7 +437,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                           color: theme.currentTheme.PrimaryText,
                                         ),
                                       ),
-                                      backgroundColor: theme.currentTheme.PrimaryBackground,
+                                      backgroundColor:
+                                          theme.currentTheme.PrimaryBackground,
                                     ),
                                   );
                                   Navigator.pop(context, true);
@@ -445,7 +453,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                         color: theme.currentTheme.PrimaryText,
                                       ),
                                     ),
-                                    backgroundColor: theme.currentTheme.PrimaryBackground,
+                                    backgroundColor:
+                                        theme.currentTheme.PrimaryBackground,
                                   ),
                                 );
                                 Navigator.pop(context, true);

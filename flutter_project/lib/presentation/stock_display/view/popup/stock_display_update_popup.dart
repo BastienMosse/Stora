@@ -34,9 +34,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-            
             child: Wrap(
-              
               children: [
                 ListTile(
                   leading: const Icon(Icons.photo_library),
@@ -129,12 +127,10 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
 
   @override
   void didChangeDependencies() {
-
     super.didChangeDependencies();
     locale = AppLocalizations.of(context)!;
 
     theme = context.watch<ThemeController>();
-
   }
 
   @override
@@ -203,7 +199,11 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                 children: [
                   Text(
                     locale.product_update_popup_update_product,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: theme.currentTheme.PrimaryText),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: theme.currentTheme.PrimaryText,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Stack(
@@ -223,7 +223,10 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                           decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 2),//rien
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            ), //rien
                           ),
                           child: const Icon(
                             Icons.camera_alt,
@@ -287,7 +290,6 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                   ),
                   const SizedBox(height: 6),
                   buildMenuButton(
-                    
                     text: locale.product_update_popup_stock_quantity,
                     counter: _stock,
                     onIncrement: () => setState(() => _stock++),
@@ -295,7 +297,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                         () => setState(() {
                           if (_stock > 0) _stock--;
                         }),
-                    textColor : theme.currentTheme.PrimaryText
+                    textColor: theme.currentTheme.PrimaryText,
                   ),
                   buildMenuButton(
                     text: locale.stock_create_quantity_sel,
@@ -305,7 +307,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                         () => setState(() {
                           if (_sell > 0) _sell--;
                         }),
-                    textColor : theme.currentTheme.PrimaryText
+                    textColor: theme.currentTheme.PrimaryText,
                   ),
                   buildMenuButton(
                     text: locale.stock_create_quantity_del,
@@ -315,29 +317,30 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                         () => setState(() {
                           if (_delivery > 0) _delivery--;
                         }),
-                    textColor : theme.currentTheme.PrimaryText
+                    textColor: theme.currentTheme.PrimaryText,
                   ),
                   const SizedBox(height: 6),
                   Theme(
-                  data:Theme.of(context).copyWith(
-                    canvasColor: theme.currentTheme.PrimaryBackground,
-                  ), 
-                  child: 
-                    DropdownButtonFormField<Category>(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: theme.currentTheme.PrimaryBackground,
+                    ),
+                    child: DropdownButtonFormField<Category>(
                       decoration: InputDecoration(
                         labelText: locale.stock_create_category,
                         border: OutlineInputBorder(),
-                        
                       ),
                       value: _selectedCategory,
                       items:
                           Category.values.map((role) {
                             return DropdownMenuItem(
                               value: role,
-                              child: Text(role.value,style: TextStyle(
-                              color: theme.currentTheme.PrimaryText,
-                              ),),
-                              );
+                              child: Text(
+                                role.value,
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
+                              ),
+                            );
                           }).toList(),
                       onChanged: (val) {
                         setState(() {
@@ -347,7 +350,8 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                       validator:
                           (v) =>
                               v == null
-                                  ? locale.employee_display_update_popup_required
+                                  ? locale
+                                      .employee_display_update_popup_required
                                   : null,
                     ),
                   ),
@@ -383,18 +387,17 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                   Row(
                     children: [
                       Expanded(
-                        
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.currentTheme.Primary,
-                        ),
+                            backgroundColor: theme.currentTheme.Primary,
+                          ),
                           onPressed: () => Navigator.pop(context, false),
                           child: Text(
-                            locale.employee_display_update_popup_annuler, 
-                              style: GoogleFonts.interTight(
+                            locale.employee_display_update_popup_annuler,
+                            style: GoogleFonts.interTight(
                               fontWeight: FontWeight.w600,
                               fontStyle: FontStyle.normal,
-                              color:  theme.currentTheme.PrimaryBackground,
+                              color: theme.currentTheme.PrimaryBackground,
                               fontSize: 22,
                               letterSpacing: 0.0,
                             ),
@@ -405,8 +408,8 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.currentTheme.Primary,
-                        ),
+                            backgroundColor: theme.currentTheme.Primary,
+                          ),
                           onPressed: () async {
                             if (_formKey.currentState?.validate() ?? false) {
                               final request = ProductUpdateRequest(
@@ -475,7 +478,12 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                                         locale
                                             .employee_display_create_popup_succ_create,
                                       ),
-                                      backgroundColor: Color.fromARGB(255, 208, 0, 255),
+                                      backgroundColor: Color.fromARGB(
+                                        255,
+                                        208,
+                                        0,
+                                        255,
+                                      ),
                                     ),
                                   );
                                   Navigator.pop(context, true);
@@ -483,14 +491,16 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                               }
                             }
                           },
-                          child: Text(locale.product_update_popup_update, 
-                          style: GoogleFonts.interTight(
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            color:  theme.currentTheme.PrimaryBackground,
-                            fontSize: 22,
-                            letterSpacing: 0.0,
-                          ),),
+                          child: Text(
+                            locale.product_update_popup_update,
+                            style: GoogleFonts.interTight(
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                              color: theme.currentTheme.PrimaryBackground,
+                              fontSize: 22,
+                              letterSpacing: 0.0,
+                            ),
+                          ),
                         ),
                       ),
                     ],

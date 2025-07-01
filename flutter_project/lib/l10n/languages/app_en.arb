@@ -139,12 +139,12 @@
 	"filter_log_popup_customer" :  "Customer",
 	"filter_log_popup_option_filter" :  "Filter Options",
 	"filter_log_popup_type_filter" :  "Filter by Type",
-	"filter_log_popup_date_range" :  "Date Range",
-	"filter_log_popup_start_date" :  "Start Date",
-	"filter_log_popup_end_date" :  "End Date",
-	"filter_log_popup_product_detail" :  "Product Details",
+	"filter_log_popup_date_pick" :  "Pick a date",
+	"filter_log_popup_start_date" :  "Start",
+	"filter_log_popup_end_date" :  "End",
+	"filter_log_popup_product_name" :  "Product name",
 	"filter_log_popup_product_id" :  "Product ID",
-	"filter_log_popup_employee_detail" :  "Employee Details",
+	"filter_log_popup_employee_name" :  "Employee name",
 	"filter_log_popup_employee_id" :  "Employee ID",
 	"filter_log_popup_first_name" :  "First Name",
 	"filter_log_popup_last_name" :  "Last Name",
@@ -175,5 +175,33 @@
 	"product_update_popup_to_ship" : "To ship : ",
 	"product_update_popup_actual" : "Atual : ",
 	"product_update_popup_enter_note" : "Enter your note here : ",
-	"product_update_popup_update" : "Update"
+	"product_update_popup_update" : "Update",
+
+
+	"log_screen_title": "Logs Management",
+
+
+	"log_sort_popup_date": "Date",
+	"log_sort_popup_product_id": "Product ID",
+	"log_sort_popup_product_name": "Product Name",
+	"log_sort_popup_employee_id": "Employee ID",
+	"log_sort_popup_employee_name": "Employee Name",
+	"log_sort_popup_sort_items": "Sort Items",
+	"log_sort_log_popup_sort_by": "Sort by",
+	"log_sort_log_popup_priority_order": "Priority Order",
+	"log_sort_log_popup_apply": "Apply",
+	"log_filter_log_popup_cancel": "Cancel",
+
+	"log_display_logs": "Activity Log",
+	"log_display_logId": "Log ID",
+	"log_display_actionType": "Action Type",
+	"log_display_username": "Username",
+	"log_display_userId": "User ID",
+	"log_display_date": "Date",
+	"log_display_targetTable": "Target Table",
+	"log_display_targetId": "Target ID",
+	"log_display_state": "State",
+	"log_display_details": "Details",
+	"log_display_originalData": "Original Data",
+	"log_display_error": "Error loading log"
 }

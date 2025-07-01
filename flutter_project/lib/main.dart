@@ -16,8 +16,6 @@ void main() async {
   ThemeController themeController = ThemeController();
   themeController.init(userPrefs);
 
-  themeController.switchTheme(ThemeType.light);
-
   runApp(
     MultiProvider(
       providers: [

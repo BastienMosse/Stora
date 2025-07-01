@@ -1,5 +1,7 @@
 import '/index.dart';
 
+import 'package:intl/intl.dart';
+
 class EmployeeCreatePopup extends StatefulWidget {
   const EmployeeCreatePopup({super.key});
 
@@ -13,14 +15,13 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwdController = TextEditingController();
-  final _dobController = TextEditingController();
   final _phoneController = TextEditingController();
   final _payController = TextEditingController();
   final _noteController = TextEditingController();
+  DateTime? birthDate;
 
   Role? _selectedRole;
   bool _obscurePassword = true;
-  late ThemeController theme;
 
   File? _profileImage;
 
@@ -105,13 +106,55 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
     }
   }
 
+  Widget buildDatePickerField({
+    required BuildContext context,
+    required String label,
+    required DateTime? selectedDate,
+    required void Function(DateTime date) onDateSelected,
+  }) {
+    final locale = AppLocalizations.of(context)!;
+    final theme = context.read<ThemeController>();
+
+    return TextFormField(
+      readOnly: true,
+      onTap: () async {
+        final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: selectedDate ?? DateTime.now(),
+          firstDate: DateTime(2000),
+          lastDate: DateTime.now(),
+        );
+        if (picked != null) {
+          onDateSelected(picked);
+        }
+      },
+      decoration: InputDecoration(
+        labelText: locale.filter_log_popup_date_pick,
+        border: const OutlineInputBorder(),
+        suffixIcon: const Icon(Icons.calendar_today),
+        hintText: locale.filter_log_popup_date_pick,
+      ),
+      controller: TextEditingController(
+        text:
+            selectedDate != null
+                ? DateFormat('yyyy-MM-dd').format(selectedDate)
+                : '',
+      ),
+      style: TextStyle(
+        color:
+            selectedDate != null
+                ? theme.currentTheme.PrimaryText
+                : Colors.grey.shade600,
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailController.dispose();
     _passwdController.dispose();
-    _dobController.dispose();
     _phoneController.dispose();
     _payController.dispose();
     _noteController.dispose();
@@ -119,14 +162,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    theme = context.read<ThemeController>();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
+    final theme = context.read<ThemeController>();
     return Dialog(
       backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -274,23 +312,11 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                   },
                 ),
                 const SizedBox(height: 12),
-                TextFormField(
-                  style: GoogleFonts.interTight(
-                    color: theme.currentTheme.PrimaryText,
-                  ),
-                  controller: _dobController,
-                  decoration: InputDecoration(
-                    labelText: locale.employee_display_update_popup_date,
-                    hintText: locale.employee_display_update_popup_date_ex,
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.calendar_today),
-                  ),
-                  keyboardType: TextInputType.datetime,
-                  validator:
-                      (v) =>
-                          v == null || v.isEmpty
-                              ? locale.employee_display_update_popup_required
-                              : null,
+                buildDatePickerField(
+                  context: context,
+                  label: locale.filter_log_popup_start_date,
+                  selectedDate: birthDate,
+                  onDateSelected: (date) => setState(() => birthDate = date),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -332,38 +358,38 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 Theme(
-                  data:Theme.of(context).copyWith(
-                    canvasColor: theme.currentTheme.PrimaryBackground,
-                  ), 
-                  child: 
-                    DropdownButtonFormField<Role>(
-                      decoration: const InputDecoration(
-                        labelText: 'Role',
-                        border: OutlineInputBorder(),
-                      ),
-                      value: _selectedRole,
-                      items:
-                          Role.values.map((role) {
-                            return DropdownMenuItem(
-                              value: role,
-                              child: Text(
-                                role.value,style: TextStyle(
-                                  color: theme.currentTheme.PrimaryText,
-                                )
-                              ),
-                            );
-                          }).toList(),
-                      onChanged: (val) {
-                        setState(() {
-                          _selectedRole = val;
-                        });
-                      },
-                      validator:
-                          (v) =>
-                              v == null
-                                  ? locale.employee_display_update_popup_required
-                                  : null,
+                  data: Theme.of(
+                    context,
+                  ).copyWith(canvasColor: theme.currentTheme.PrimaryBackground),
+                  child: DropdownButtonFormField<Role>(
+                    decoration: const InputDecoration(
+                      labelText: 'Role',
+                      border: OutlineInputBorder(),
                     ),
+                    value: _selectedRole,
+                    items:
+                        Role.values.map((role) {
+                          return DropdownMenuItem(
+                            value: role,
+                            child: Text(
+                              role.value,
+                              style: TextStyle(
+                                color: theme.currentTheme.PrimaryText,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedRole = val;
+                      });
+                    },
+                    validator:
+                        (v) =>
+                            v == null
+                                ? locale.employee_display_update_popup_required
+                                : null,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -413,8 +439,10 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               email: _emailController.text,
                               password: _passwdController.text,
                               birth:
-                                  _dobController.text.isNotEmpty
-                                      ? DateTime.tryParse(_dobController.text)
+                                  birthDate != null
+                                      ? DateFormat(
+                                        'yyyy-MM-dd',
+                                      ).format(birthDate!)
                                       : null,
                               tel: _phoneController.text,
                               pay: double.tryParse(_payController.text) ?? 0.0,

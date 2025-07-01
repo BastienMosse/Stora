@@ -1,13 +1,11 @@
 import '/index.dart';
 
 class LogsGetResponse {
-  final Log logs;
+  final Log log;
 
-  LogsGetResponse({required this.logs});
+  LogsGetResponse({required this.log});
 
   factory LogsGetResponse.fromJson(Map<String, dynamic> json) {
-    return LogsGetResponse(
-      logs: Log.fromJson(json['logs'] as Map<String, dynamic>),
-    );
+    return LogsGetResponse(log: Log.fromJson(json));
   }
 }

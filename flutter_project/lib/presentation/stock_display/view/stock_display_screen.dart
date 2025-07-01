@@ -24,7 +24,6 @@ class _StockDisplayScreenState extends State<StockDisplayScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel = StockDisplayScreenViewModel();
 
     if (ApiService.jwt == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -96,655 +95,679 @@ class _StockDisplayScreenState extends State<StockDisplayScreen> {
         ),
         elevation: 2,
       ),
-      body: SafeArea( 
-        child: SingleChildScrollView(
-          child:
-            Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
                         children: [
-                          Container(
-                            width: imageWidth,
-                            height: imageHeight,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: theme.currentTheme.Primary,
-                                width: 2,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child:
-                                  (viewModel.product?.photo != null &&
-                                          viewModel.product!.photo.isNotEmpty)
-                                      ? Image.network(
-                                        viewModel.product!.photo,
-                                        width: imageWidth,
-                                        height: imageHeight,
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (
-                                          context,
-                                          child,
-                                          loadingProgress,
-                                        ) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              value:
-                                                  loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          (loadingProgress
-                                                                  .expectedTotalBytes ??
-                                                              1)
-                                                      : null,
-                                            ),
-                                          );
-                                        },
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                Center(
-                                                  child: Icon(
-                                                    Icons.person,
-                                                    size: 64,
-                                                    color:
-                                                        theme
-                                                            .currentTheme
-                                                            .SecondaryText,
-                                                  ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: imageWidth,
+                                height: imageHeight,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: theme.currentTheme.Primary,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child:
+                                      (viewModel.product?.photo != null &&
+                                              viewModel
+                                                  .product!
+                                                  .photo
+                                                  .isNotEmpty)
+                                          ? Image.network(
+                                            viewModel.product!.photo,
+                                            width: imageWidth,
+                                            height: imageHeight,
+                                            fit: BoxFit.cover,
+                                            loadingBuilder: (
+                                              context,
+                                              child,
+                                              loadingProgress,
+                                            ) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  value:
+                                                      loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              (loadingProgress
+                                                                      .expectedTotalBytes ??
+                                                                  1)
+                                                          : null,
                                                 ),
-                                      )
-                                      : Center(
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 64,
-                                          color: theme.currentTheme.SecondaryText,
+                                              );
+                                            },
+                                            errorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    Center(
+                                                      child: Icon(
+                                                        Icons.person,
+                                                        size: 64,
+                                                        color:
+                                                            theme
+                                                                .currentTheme
+                                                                .SecondaryText,
+                                                      ),
+                                                    ),
+                                          )
+                                          : Center(
+                                            child: Icon(
+                                              Icons.person,
+                                              size: 64,
+                                              color:
+                                                  theme
+                                                      .currentTheme
+                                                      .SecondaryText,
+                                            ),
+                                          ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (viewModel.product != null) ...[
+                                      Text(
+                                        viewModel.product!.name,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              Theme.of(
+                                                context,
+                                              ).textTheme.bodyMedium?.fontStyle,
+                                          color: theme.currentTheme.PrimaryText,
                                         ),
                                       ),
-                            ),
+                                      const SizedBox(height: 5),
+
+                                      ///!\\
+                                      Text(
+                                        'id : ${viewModel.product!.id}',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 15,
+                                          fontWeight:
+                                              Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontWeight,
+                                          fontStyle:
+                                              Theme.of(
+                                                context,
+                                              ).textTheme.bodyMedium?.fontStyle,
+                                          color: theme.currentTheme.PrimaryText,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        '${locale.stock_create_category}: ${viewModel.product!.category}',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 15,
+                                          fontWeight:
+                                              Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontWeight,
+                                          fontStyle:
+                                              Theme.of(
+                                                context,
+                                              ).textTheme.bodyMedium?.fontStyle,
+                                          color: theme.currentTheme.PrimaryText,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        '${locale.stock_create_price} : ${viewModel.product!.price}',
+                                        style: GoogleFonts.inter(
+                                          fontWeight:
+                                              Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontWeight,
+                                          fontStyle:
+                                              Theme.of(
+                                                context,
+                                              ).textTheme.bodyMedium?.fontStyle,
+                                          color: theme.currentTheme.PrimaryText,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 16),
-                          Column(
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (viewModel.product != null) ...[
-                                  Text(
-                                    viewModel.product!.name,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontStyle,
-                                      color: theme.currentTheme.PrimaryText
-                                    ),
+                                Text(
+                                  locale.stock_create_quantity_sel,
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
                                   ),
-                                  const SizedBox(height: 5),
-                                  ///!\\
-                                  Text(
-                                    'id : ${viewModel.product!.id}',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 15,
-                                      fontWeight:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontWeight,
-                                      fontStyle:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontStyle,
-                                      color: theme.currentTheme.PrimaryText
-                                    ),
+                                ),
+                                Text(
+                                  viewModel.product?.sellQuantity.toString() ??
+                                      '0',
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontWeight,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
                                   ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    '${locale.stock_create_category}: ${viewModel.product!.category}',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 15,
-                                      fontWeight:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontWeight,
-                                      fontStyle:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontStyle,
-                                      color:
-                                          theme.currentTheme.PrimaryText
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    '${locale.stock_create_price} : ${viewModel.product!.price}',
-                                    style: GoogleFonts.inter(
-                                      fontWeight:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontWeight,
-                                      fontStyle:
-                                          Theme.of(
-                                            context,
-                                          ).textTheme.bodyMedium?.fontStyle,
-                                      color: theme.currentTheme.PrimaryText
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ],
                             ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  locale.stock_create_quantity_sto,
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
+                                Text(
+                                  viewModel.product?.stockQuantity.toString() ??
+                                      '0',
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontWeight,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  locale.stock_create_quantity_del,
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
+                                Text(
+                                  viewModel.product?.deliveryQuantity
+                                          .toString() ??
+                                      '0',
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontWeight,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  '${locale.stock_create_position}: ',
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
+                                Text(
+                                  viewModel.product?.position ?? '',
+                                  style: GoogleFonts.inter(
+                                    fontSize:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontSize,
+                                    fontWeight:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontWeight,
+                                    fontStyle:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.fontStyle,
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Note',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: theme.currentTheme.PrimaryText,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: theme.currentTheme.SecondaryBackground,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                              border: Border.all(
+                                color: theme.currentTheme.Primary,
+                                width: 1,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                viewModel.product?.note ?? '',
+                                style: GoogleFonts.interTight(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              'Descrption',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: theme.currentTheme.PrimaryText,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: theme.currentTheme.SecondaryBackground,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                              border: Border.all(
+                                color: theme.currentTheme.Primary,
+                                width: 1,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                viewModel.product?.description ?? '',
+                                style: GoogleFonts.interTight(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              locale.stock_create_quantity_sel,
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight: FontWeight.w600,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                              0,
+                              5,
+                              0,
+                              0,
                             ),
-                            Text(
-                              viewModel.product?.sellQuantity.toString() ?? '0',
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontWeight,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              locale.stock_create_quantity_sto,
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight: FontWeight.w600,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                            Text(
-                              viewModel.product?.stockQuantity.toString() ?? '0',
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontWeight,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              locale.stock_create_quantity_del,
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight: FontWeight.w600,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                            Text(
-                              viewModel.product?.deliveryQuantity.toString() ??
-                                  '0',
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontWeight,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              '${locale.stock_create_position}: ',
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight: FontWeight.w600,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                            Text(
-                              viewModel.product?.position ?? '',
-                              style: GoogleFonts.inter(
-                                fontSize:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontSize,
-                                fontWeight:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontWeight,
-                                fontStyle:
-                                    Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.fontStyle,
-                                color: theme.currentTheme.PrimaryText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Note',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: theme.currentTheme.PrimaryText,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: theme.currentTheme.SecondaryBackground,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(12),
-                          ),
-                          border: Border.all(
-                            color: theme.currentTheme.Primary,
-                            width: 1,
-                          ),
-                        ),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            viewModel.product?.note ?? '',
-                            style: GoogleFonts.interTight(
-                              color: theme.currentTheme.PrimaryText,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          'Descrption',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: theme.currentTheme.PrimaryText,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: theme.currentTheme.SecondaryBackground,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(12),
-                          ),
-                          border: Border.all(
-                            color: theme.currentTheme.Primary,
-                            width: 1,
-                          ),
-                        ),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            viewModel.product?.description ?? '',
-                            style: GoogleFonts.interTight(
-                              color: theme.currentTheme.PrimaryText,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                      child: Container(
-                        width: 370,
-                        height: 196.31,
-                        child: LineChart(
-                          LineChartData(
-                            backgroundColor:
-                                theme.currentTheme.SecondaryBackground,
-                            borderData: FlBorderData(show: false),
-                            minX: 0,
-                            maxX: (pointCount - 1).toDouble(),
-                            minY: 0,
-                            maxY: 10,
-                            titlesData: FlTitlesData(
-                              leftTitles: AxisTitles(
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  reservedSize: 40,
+                            child: Container(
+                              width: 370,
+                              height: 196.31,
+                              child: LineChart(
+                                LineChartData(
+                                  backgroundColor:
+                                      theme.currentTheme.SecondaryBackground,
+                                  borderData: FlBorderData(show: false),
+                                  minX: 0,
+                                  maxX: (pointCount - 1).toDouble(),
+                                  minY: 0,
+                                  maxY: 10,
+                                  titlesData: FlTitlesData(
+                                    leftTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                        showTitles: true,
+                                        reservedSize: 40,
+                                      ),
+                                      axisNameWidget: Text(
+                                        locale.stock_display_quantity,
+                                        style: GoogleFonts.interTight(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.normal,
+                                          color: theme.currentTheme.PrimaryText,
+                                          fontSize: 15,
+                                          letterSpacing: 0.0,
+                                        ),
+                                      ),
+                                      axisNameSize: 20,
+                                    ),
+                                    bottomTitles: AxisTitles(
+                                      sideTitles: SideTitles(
+                                        showTitles: true,
+                                        reservedSize: 32,
+                                      ),
+                                      axisNameWidget: Text(
+                                        locale.stock_display_temps,
+                                        style: GoogleFonts.interTight(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.normal,
+                                          color: theme.currentTheme.PrimaryText,
+                                          fontSize: 15,
+                                          letterSpacing: 0.0,
+                                        ),
+                                      ),
+                                      axisNameSize: 20,
+                                    ),
+                                  ),
+                                  lineBarsData: [
+                                    LineChartBarData(
+                                      spots: spots,
+                                      isCurved: true,
+                                      color: theme.currentTheme.Primary,
+                                      barWidth: 2,
+                                      belowBarData: BarAreaData(
+                                        show: true,
+                                        color: theme.currentTheme.Primary
+                                            .withOpacity(0.3),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                axisNameWidget: Text(
-                                  locale.stock_display_quantity,
-                                    style: GoogleFonts.interTight(
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  print(locale.stock_dispay_button_press);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: theme.currentTheme.Primary,
+                                  elevation: 0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16,
+                                    0,
+                                    16,
+                                    0,
+                                  ),
+                                  minimumSize: const Size(0, 30),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: Text(
+                                  locale.stock_dispay_week,
+                                  style: GoogleFonts.interTight(
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
-                                    color:  theme.currentTheme.PrimaryText,
-                                    fontSize: 15,
+                                    color: theme.currentTheme.PrimaryBackground,
                                     letterSpacing: 0.0,
                                   ),
                                 ),
-                                axisNameSize: 20,
                               ),
-                              bottomTitles: AxisTitles(
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  reservedSize: 32,
-                                ),
-                                axisNameWidget: Text(
-                                  locale.stock_display_temps,
-                                    style: GoogleFonts.interTight(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FontStyle.normal,
-                                      color:  theme.currentTheme.PrimaryText,
-                                      fontSize: 15,
-                                      letterSpacing: 0.0,
+                              ElevatedButton(
+                                onPressed: () {
+                                  //EDIT month endpoint
+                                  print(locale.stock_dispay_button_press);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: theme.currentTheme.Primary,
+                                  elevation: 0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16,
+                                    0,
+                                    16,
+                                    0,
+                                  ),
+                                  minimumSize: const Size(0, 30),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                axisNameSize: 20,
+                                child: Text(
+                                  locale.stock_dispay_month,
+                                  style: GoogleFonts.interTight(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                    color: theme.currentTheme.PrimaryBackground,
+                                    letterSpacing: 0.0,
+                                  ),
+                                ),
                               ),
-                            ),
-                            lineBarsData: [
-                              LineChartBarData(
-                                spots: spots,
-                                isCurved: true,
-                                color: theme.currentTheme.Primary,
-                                barWidth: 2,
-                                belowBarData: BarAreaData(
-                                  show: true,
-                                  color: theme.currentTheme.Primary.withOpacity(
-                                    0.3,
+                              ElevatedButton(
+                                onPressed: () {
+                                  print(locale.stock_dispay_button_press);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: theme.currentTheme.Primary,
+                                  elevation: 0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16,
+                                    0,
+                                    16,
+                                    0,
+                                  ),
+                                  minimumSize: const Size(
+                                    0,
+                                    30,
+                                  ), // hauteur fixe, largeur flexible
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: Text(
+                                  locale.stock_dispay_year,
+                                  style: GoogleFonts.interTight(
+                                    fontSize: 14, // adapte selon besoin
+                                    fontWeight:
+                                        FontWeight.w600, // exemple semi-bold
+                                    fontStyle: FontStyle.normal,
+                                    color: theme.currentTheme.PrimaryBackground,
+                                    letterSpacing: 0.0,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            print(locale.stock_dispay_button_press);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.currentTheme.Primary,
-                            elevation: 0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              16,
-                              0,
-                              16,
-                              0,
-                            ),
-                            minimumSize: const Size(0, 30),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            locale.stock_dispay_week,
-                            style: GoogleFonts.interTight(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.normal,
-                              color: theme.currentTheme.PrimaryBackground,
-                              letterSpacing: 0.0,
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            //EDIT month endpoint
-                            print(locale.stock_dispay_button_press);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.currentTheme.Primary,
-                            elevation: 0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              16,
-                              0,
-                              16,
-                              0,
-                            ),
-                            minimumSize: const Size(
-                              0,
-                              30,
-                            ), // hauteur fixe, largeur flexible
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            locale.stock_dispay_month,
-                            style: GoogleFonts.interTight(
-                              fontSize: 14, // ajuste selon besoin
-                              fontWeight: FontWeight.w600, // exemple semi-bold
-                              fontStyle: FontStyle.normal,
-                              color: theme.currentTheme.PrimaryBackground,
-                              letterSpacing: 0.0,
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            print(locale.stock_dispay_button_press);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.currentTheme.Primary,
-                            elevation: 0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              16,
-                              0,
-                              16,
-                              0,
-                            ),
-                            minimumSize: const Size(
-                              0,
-                              30,
-                            ), // hauteur fixe, largeur flexible
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            locale.stock_dispay_year,
-                            style: GoogleFonts.interTight(
-                              fontSize: 14, // adapte selon besoin
-                              fontWeight: FontWeight.w600, // exemple semi-bold
-                              fontStyle: FontStyle.normal,
-                              color: theme.currentTheme.PrimaryBackground,
-                              letterSpacing: 0.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(height: 15),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          await showDialog<bool>(
-                            context: context,
-                            builder:
-                                (context) => ProductUpdatePopup(
-                                  product: viewModel.product!,
-                                ),
-                          );
-                          await _refreshData();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.currentTheme.Primary,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          textStyle: GoogleFonts.interTight(
-                            color: theme.currentTheme.PrimaryText,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        child: Text(
-                          locale.employee_display_page_modify,
-                          style: GoogleFonts.interTight(
-                            color: theme.currentTheme.PrimaryBackground,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    SizedBox(
-                      width: 150,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            viewModel.deleteProduct(widget.productId);
-                            context.go(Routes.stock);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  locale.employee_display_page_supr_log,
-                                ),
-                                duration: const Duration(seconds: 2),
-                              ),
-                            );
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.currentTheme.Primary,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          textStyle: GoogleFonts.interTight(
-                            color: theme.currentTheme.PrimaryText,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        child: Text(
-                          locale.employee_display_page_supr,
-                          style: GoogleFonts.interTight(
-                            color: theme.currentTheme.PrimaryBackground,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await showDialog<bool>(
+                          context: context,
+                          builder:
+                              (context) => ProductUpdatePopup(
+                                product: viewModel.product!,
+                              ),
+                        );
+                        await _refreshData();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.currentTheme.Primary,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        textStyle: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      child: Text(
+                        locale.employee_display_page_modify,
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryBackground,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          viewModel.deleteProduct(widget.productId);
+                          context.go(Routes.stock);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                locale.employee_display_page_supr_log,
+                              ),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.currentTheme.Primary,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        textStyle: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      child: Text(
+                        locale.employee_display_page_supr,
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryBackground,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

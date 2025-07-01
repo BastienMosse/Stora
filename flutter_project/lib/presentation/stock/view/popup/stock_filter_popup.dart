@@ -132,8 +132,9 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                   children:
                       keywords.map((word) {
                         return Chip(
-                          label: Text(word,
-                          style: GoogleFonts.interTight(
+                          label: Text(
+                            word,
+                            style: GoogleFonts.interTight(
                               color: theme.currentTheme.PrimaryText,
                             ),
                           ),
@@ -147,8 +148,9 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                 // Category selection
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(locale.stock_filter_popup_categories,
-                  style: GoogleFonts.interTight(
+                  child: Text(
+                    locale.stock_filter_popup_categories,
+                    style: GoogleFonts.interTight(
                       color: theme.currentTheme.PrimaryText,
                     ),
                   ),
@@ -171,7 +173,8 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                 // Quantity fields
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(locale.stock_filter_popup_quantity,
+                  child: Text(
+                    locale.stock_filter_popup_quantity,
                     style: GoogleFonts.interTight(
                       color: theme.currentTheme.PrimaryText,
                     ),
@@ -183,7 +186,8 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                     Expanded(
                       child: Column(
                         children: [
-                          Text(locale.stock_filter_popup_moreThan,
+                          Text(
+                            locale.stock_filter_popup_moreThan,
                             style: GoogleFonts.interTight(
                               color: theme.currentTheme.PrimaryText,
                             ),
@@ -193,7 +197,7 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                             value: minQuantity,
                             onAdd: incrementMin,
                             onRemove: decrementMin,
-                            color:theme.currentTheme.PrimaryText
+                            color: theme.currentTheme.PrimaryText,
                           ),
                         ],
                       ),
@@ -213,7 +217,7 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                             value: maxQuantity,
                             onAdd: incrementMax,
                             onRemove: decrementMax,
-                            color:theme.currentTheme.PrimaryText
+                            color: theme.currentTheme.PrimaryText,
                           ),
                         ],
                       ),
@@ -226,7 +230,7 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                 Row(
                   children: [
                     Expanded(
-                      child:ElevatedButton(
+                      child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.currentTheme.Primary,
                         ),
@@ -239,7 +243,8 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                             maxQuantity = 0;
                           });
                         },
-                        child: Text(locale.stock_filter_popup_reset,
+                        child: Text(
+                          locale.stock_filter_popup_reset,
                           style: GoogleFonts.interTight(
                             color: theme.currentTheme.PrimaryText,
                           ),
@@ -262,7 +267,8 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                           widget.onFiltersApplied?.call(filterData);
                           Navigator.of(context).pop();
                         },
-                        child: Text(locale.stock_filter_popup_apply,
+                        child: Text(
+                          locale.stock_filter_popup_apply,
                           style: GoogleFonts.interTight(
                             color: theme.currentTheme.PrimaryText,
                           ),

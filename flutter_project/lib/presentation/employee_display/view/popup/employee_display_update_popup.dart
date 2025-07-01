@@ -1,5 +1,7 @@
 import '/index.dart';
 
+import 'package:intl/intl.dart';
+
 class EmployeeUpdatePopup extends StatefulWidget {
   final User user;
 
@@ -13,35 +15,13 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
   final _formKey = GlobalKey<FormState>();
   final _loginController = TextEditingController();
   final _emailController = TextEditingController();
-  final _dobController = TextEditingController();
   final _phoneController = TextEditingController();
   final _payController = TextEditingController();
   final _noteController = TextEditingController();
+  DateTime? _selectedDate;
   Role? _selectedRole;
 
   File? _profileImage;
-
-  late AppLocalizations locale;
-  late ThemeController theme;
-
-  @override
-  void initState() {
-    super.initState();
-    _loginController.text = widget.user.login;
-    _selectedRole = Role.values.firstWhere((r) => r.value == widget.user.role);
-    _emailController.text = widget.user.email;
-    _dobController.text = widget.user.birth.split('T').first;
-    _phoneController.text = widget.user.tel;
-    _payController.text = widget.user.pay.toString();
-    _noteController.text = widget.user.note;
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    locale = AppLocalizations.of(context)!;
-  }
 
   Future<void> _showImageOptions() async {
     final locale = AppLocalizations.of(context)!;
@@ -127,11 +107,68 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
     }
   }
 
+  Widget buildDatePickerField({
+    required BuildContext context,
+    required String label,
+    required DateTime? selectedDate,
+    required void Function(DateTime date) onDateSelected,
+  }) {
+    final locale = AppLocalizations.of(context)!;
+    final theme = context.read<ThemeController>();
+
+    return TextFormField(
+      readOnly: true,
+      onTap: () async {
+        final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: selectedDate ?? DateTime.now(),
+          firstDate: DateTime(2000),
+          lastDate: DateTime.now(),
+        );
+        if (picked != null) {
+          onDateSelected(picked);
+        }
+      },
+      decoration: InputDecoration(
+        labelText: locale.filter_log_popup_date_pick,
+        border: const OutlineInputBorder(),
+        suffixIcon: const Icon(Icons.calendar_today),
+        hintText: locale.filter_log_popup_date_pick,
+      ),
+      controller: TextEditingController(
+        text:
+            selectedDate != null
+                ? DateFormat('yyyy-MM-dd').format(selectedDate)
+                : '',
+      ),
+      style: TextStyle(
+        color:
+            selectedDate != null
+                ? theme.currentTheme.PrimaryText
+                : Colors.grey.shade600,
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loginController.text = widget.user.login;
+    _selectedRole = Role.values.firstWhere((r) => r.value == widget.user.role);
+    _emailController.text = widget.user.email;
+    _selectedDate =
+        widget.user.birth.isNotEmpty
+            ? DateTime.tryParse(widget.user.birth)
+            : null;
+    _phoneController.text = widget.user.tel;
+    _payController.text = widget.user.pay.toString();
+    _noteController.text = widget.user.note;
+  }
+
   @override
   void dispose() {
     _loginController.dispose();
     _emailController.dispose();
-    _dobController.dispose();
     _phoneController.dispose();
     _payController.dispose();
     super.dispose();
@@ -139,7 +176,8 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
 
   @override
   Widget build(BuildContext context) {
-    theme = context.watch<ThemeController>();
+    final locale = AppLocalizations.of(context)!;
+    final theme = context.watch<ThemeController>();
 
     return Dialog(
       backgroundColor: theme.currentTheme.PrimaryBackground,
@@ -211,31 +249,33 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Theme(
-                        data:Theme.of(context).copyWith(
+                        data: Theme.of(context).copyWith(
                           canvasColor: theme.currentTheme.PrimaryBackground,
-                        ), 
-                        child: 
-                          DropdownButtonFormField<Role>(
-                            decoration: const InputDecoration(
-                              labelText: 'Role',
-                              border: OutlineInputBorder(),
-                            ),
-                            value: _selectedRole,
-                            items:
-                                Role.values.map((role) {
-                                  return DropdownMenuItem(
-                                    value: role,
-                                    child: Text(role.value,style: TextStyle(
-                                color: theme.currentTheme.PrimaryText,
-                              ),),
-                                  );
-                                }).toList(),
-                            onChanged: (val) {
-                              setState(() {
-                                _selectedRole = val;
-                              });
-                            },
+                        ),
+                        child: DropdownButtonFormField<Role>(
+                          decoration: const InputDecoration(
+                            labelText: 'Role',
+                            border: OutlineInputBorder(),
                           ),
+                          value: _selectedRole,
+                          items:
+                              Role.values.map((role) {
+                                return DropdownMenuItem(
+                                  value: role,
+                                  child: Text(
+                                    role.value,
+                                    style: TextStyle(
+                                      color: theme.currentTheme.PrimaryText,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                          onChanged: (val) {
+                            setState(() {
+                              _selectedRole = val;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -256,18 +296,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 12),
-                TextFormField(
-                  style: GoogleFonts.interTight(
-                    color: theme.currentTheme.PrimaryText,
-                  ),
-                  controller: _dobController,
-                  decoration: InputDecoration(
-                    labelText: locale.employee_display_update_popup_date,
-                    hintText: locale.employee_display_update_popup_date_ex,
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.calendar_today),
-                  ),
-                  keyboardType: TextInputType.datetime,
+                buildDatePickerField(
+                  context: context,
+                  label: locale.filter_log_popup_start_date,
+                  selectedDate: _selectedDate,
+                  onDateSelected:
+                      (date) => setState(() => _selectedDate = date),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -351,13 +385,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                                 .join(' '),
                             role: _selectedRole ?? Role.USER,
                             email: _emailController.text,
-                            birth: DateTime.tryParse(
-                              RegExp(
-                                    r'^\d{4}-\d{2}-\d{2}$',
-                                  ).hasMatch(_dobController.text)
-                                  ? _dobController.text
-                                  : '',
-                            ),
+                            birth:
+                                _selectedDate != null
+                                    ? DateFormat(
+                                      'yyyy-MM-dd',
+                                    ).format(_selectedDate!)
+                                    : '',
                             tel: _phoneController.text,
                             pay: double.tryParse(_payController.text) ?? 0.0,
                             note: _noteController.text,
