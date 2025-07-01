@@ -98,14 +98,14 @@ class _LoginScreenState extends State<LoginScreen> {
             letterSpacing: 0.0,
             fontWeight: FontWeight.w500,
             fontStyle: FontStyle.normal,
-            color: theme.currentTheme.SecondaryText,
+            color: theme.currentTheme.PrimaryText,
           ),
           hintText: label,
           hintStyle: TextStyle(
             fontSize: 14,
             letterSpacing: 0.0,
             fontWeight: FontWeight.w400,
-            color: theme.currentTheme.SecondaryText,
+            color: theme.currentTheme.PrimaryText,
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(8),
           ),
           filled: true,
-          fillColor: theme.currentTheme.SecondaryBackground,
+          fillColor: theme.currentTheme.PrimaryBackground,
           suffixIcon:
               isPassword
                   ? IconButton(

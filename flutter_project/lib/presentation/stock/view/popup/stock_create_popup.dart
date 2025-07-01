@@ -14,6 +14,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   final _priceController = TextEditingController();
   final _noteController = TextEditingController();
   Category? _selectedCategory;
+  
+  late ThemeController theme;
 
   int _stock = 0;
   int _sell = 0;
@@ -106,6 +108,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final locale = AppLocalizations.of(context)!;
+    theme = context.watch<ThemeController>();
   }
 
   @override
@@ -123,6 +126,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
     required VoidCallback onIncrement,
     required VoidCallback onDecrement,
   }) {
+    final locale = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -131,21 +135,25 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
             width: 80,
             child: Text(
               text,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: GoogleFonts.interTight(
+                fontWeight: FontWeight.w500,
+                color: theme.currentTheme.PrimaryText),
             ),
           ),
           const SizedBox(width: 8),
-          IconButton(icon: const Icon(Icons.remove), onPressed: onDecrement),
+          IconButton(icon:Icon(Icons.remove), onPressed: onDecrement),
           SizedBox(
             width: 40,
             child: Center(
               child: Text(
                 counter.toString(),
-                style: const TextStyle(fontSize: 16),
+                style: GoogleFonts.interTight(
+                fontSize: 16,
+                color: theme.currentTheme.PrimaryText),
               ),
             ),
           ),
-          IconButton(icon: const Icon(Icons.add), onPressed: onIncrement),
+          IconButton(icon: Icon(Icons.add), onPressed: onIncrement),
         ],
       ),
     );
@@ -155,6 +163,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -166,7 +175,11 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
               children: [
                 Text(
                   locale.employee_display_update_popup_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -186,12 +199,12 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
+                          border: Border.all(color: theme.currentTheme.PrimaryBackground, width: 2),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.camera_alt,
                           size: 16,
-                          color: Colors.white,
+                          color: theme.currentTheme.PrimaryBackground,
                         ),
                       ),
                     ),
@@ -199,6 +212,9 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _nameController,
                   decoration: const InputDecoration(
                     labelText: 'Name',
@@ -213,6 +229,9 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _descriptionController,
                   decoration: const InputDecoration(
                     labelText: 'Description',
@@ -227,6 +246,9 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _priceController,
                   decoration: const InputDecoration(
                     labelText: 'Price',
@@ -268,32 +290,43 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                       }),
                 ),
                 const SizedBox(height: 6),
-                DropdownButtonFormField<Category>(
-                  decoration: const InputDecoration(
-                    labelText: 'Category',
-                    border: OutlineInputBorder(),
+                Theme(
+                  data:Theme.of(context).copyWith(
+                    canvasColor: theme.currentTheme.PrimaryBackground,
+                  ), 
+                  child: 
+                  DropdownButtonFormField<Category>(
+                    decoration: const InputDecoration(
+                      labelText: 'Category',
+                      border: OutlineInputBorder(),
+                    ),
+                    value: _selectedCategory,
+                    items:
+                        Category.values.map((role) {
+                          return DropdownMenuItem(
+                            value: role,
+                            child: Text(role.value,style: TextStyle(
+                            color: theme.currentTheme.PrimaryText,
+                          ),),
+                          );
+                        }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedCategory = val;
+                      });
+                    },
+                    validator:
+                        (v) =>
+                            v == null
+                                ? locale.employee_display_update_popup_required
+                                : null,
                   ),
-                  value: _selectedCategory,
-                  items:
-                      Category.values.map((role) {
-                        return DropdownMenuItem(
-                          value: role,
-                          child: Text(role.value),
-                        );
-                      }).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      _selectedCategory = val;
-                    });
-                  },
-                  validator:
-                      (v) =>
-                          v == null
-                              ? locale.employee_display_update_popup_required
-                              : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _noteController,
                   decoration: InputDecoration(
                     labelText: 'Notes',
@@ -307,16 +340,25 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 Row(
                   children: [
                     Expanded(
-                      child: OutlinedButton(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () => Navigator.pop(context, false),
                         child: Text(
                           locale.employee_display_update_popup_annuler,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             final request = ProductCreateRequest(
@@ -341,8 +383,11 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                   content: Text(
                                     locale
                                         .employee_display_create_popup_err_create,
+                                    style: TextStyle(
+                                      color: theme.currentTheme.PrimaryText,
+                                    ),
                                   ),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: theme.currentTheme.PrimaryBackground,
                                 ),
                               );
                             } else {
@@ -358,8 +403,11 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                       content: Text(
                                         locale
                                             .employee_display_create_popup_err_upload,
+                                        style: TextStyle(
+                                          color: theme.currentTheme.PrimaryText,
+                                        ),
                                       ),
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: theme.currentTheme.PrimaryBackground,
                                     ),
                                   );
                                 } else {
@@ -368,8 +416,11 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                       content: Text(
                                         locale
                                             .employee_display_create_popup_succ_create,
+                                        style: TextStyle(
+                                          color: theme.currentTheme.PrimaryText,
+                                        ),
                                       ),
-                                      backgroundColor: Colors.green,
+                                      backgroundColor: theme.currentTheme.PrimaryBackground,
                                     ),
                                   );
                                   Navigator.pop(context, true);
@@ -380,8 +431,11 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                     content: Text(
                                       locale
                                           .employee_display_create_popup_succ_create,
+                                      style: TextStyle(
+                                        color: theme.currentTheme.PrimaryText,
+                                      ),
                                     ),
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: theme.currentTheme.PrimaryBackground,
                                   ),
                                 );
                                 Navigator.pop(context, true);
@@ -389,7 +443,12 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                             }
                           }
                         },
-                        child: Text('Create new product'),
+                        child: Text(
+                          locale.stock_cerate_tu_me_casse_les_couille,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
+                        ),
                       ),
                     ),
                   ],

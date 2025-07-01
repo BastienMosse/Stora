@@ -116,14 +116,14 @@ class _StockSortPopupState extends State<StockSortPopup> {
             letterSpacing: 0.0,
             color:
                 isActive
-                    ? Theme.of(context).textTheme.bodyMedium?.color
-                    : Colors.grey,
+                    ? theme.currentTheme.PrimaryText//Theme.of(context).textTheme.bodyMedium?.color
+                    : theme.currentTheme.PrimaryText,
           ),
         ),
         Switch(
           value: isActive,
           onChanged: (_) => _toggleSortItem(label, isActive, onToggle),
-          activeColor: Theme.of(context).colorScheme.primary,
+          activeColor: theme.currentTheme.Primary,//Theme.of(context).colorScheme.primary,
         ),
       ],
     );
@@ -132,6 +132,7 @@ class _StockSortPopupState extends State<StockSortPopup> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: ConstrainedBox(
@@ -156,6 +157,7 @@ class _StockSortPopupState extends State<StockSortPopup> {
                     fontStyle:
                         Theme.of(context).textTheme.headlineMedium?.fontStyle,
                     letterSpacing: 0.0,
+                    color : theme.currentTheme.PrimaryText,
                   ),
                 ),
                 Container(
@@ -174,6 +176,7 @@ class _StockSortPopupState extends State<StockSortPopup> {
                         Theme.of(context).textTheme.titleMedium?.fontStyle ??
                         FontStyle.normal,
                     letterSpacing: 0.0,
+                    color: theme.currentTheme.PrimaryText,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -201,16 +204,17 @@ class _StockSortPopupState extends State<StockSortPopup> {
                 Text(
                   locale.sort_log_popup_priotity_order,
                   style: GoogleFonts.interTight(
-                    textStyle: Theme.of(
+                    /*textStyle: Theme.of(
                       context,
-                    ).textTheme.titleMedium?.copyWith(letterSpacing: 0.0),
+                    ).textTheme.titleMedium?.copyWith(letterSpacing: 0.0),*/
+                    color : theme.currentTheme.PrimaryText,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
+                    color: theme.currentTheme.PrimaryBackground,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color: Theme.of(
@@ -220,19 +224,23 @@ class _StockSortPopupState extends State<StockSortPopup> {
                     ),
                   ),
                   padding: const EdgeInsets.all(12),
+                  
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: List.generate(order.length, (index) {
+                      
                       return Row(
+                        
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          
                           Text(
                             '${index + 1}. ${order[index]}',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               fontStyle: FontStyle.normal,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: theme.currentTheme.PrimaryText,//Theme.of(context).colorScheme.primary,
                             ),
                           ),
                           Row(
@@ -242,7 +250,7 @@ class _StockSortPopupState extends State<StockSortPopup> {
                                   Icons.arrow_upward,
                                   color:
                                       index == 0
-                                          ? Colors.grey
+                                          ? theme.currentTheme.PrimaryText//Colors.grey
                                           : Theme.of(
                                             context,
                                           ).colorScheme.primary,
@@ -256,7 +264,8 @@ class _StockSortPopupState extends State<StockSortPopup> {
                                   Icons.arrow_downward,
                                   color:
                                       index == order.length - 1
-                                          ? Colors.grey
+                                          ? theme.currentTheme.PrimaryText//Colors.grey
+                                        
                                           : Theme.of(
                                             context,
                                           ).colorScheme.primary,
@@ -304,16 +313,16 @@ class _StockSortPopupState extends State<StockSortPopup> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
+                              theme.currentTheme.Primary,//Theme.of(context).colorScheme.secondary,
                         ),
                         child: Text(
                           locale.filter_log_popup_cancel,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
-                            color: Theme.of(
+                            color: theme.currentTheme.PrimaryBackground,/* Theme.of(
                               context,
-                            ).textTheme.bodyMedium?.color?.withOpacity(0.7),
+                            ).textTheme.bodyMedium?.color?.withOpacity(0.7),*/
                             letterSpacing: 0.0,
                           ),
                         ),
@@ -337,7 +346,7 @@ class _StockSortPopupState extends State<StockSortPopup> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(8),
                           backgroundColor:
-                              Theme.of(context).colorScheme.primary,
+                              theme.currentTheme.Primary,//Theme.of(context).colorScheme.primary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -348,7 +357,7 @@ class _StockSortPopupState extends State<StockSortPopup> {
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
-                            color: Theme.of(context).colorScheme.onPrimary,
+                            color: theme.currentTheme.PrimaryBackground,//Theme.of(context).colorScheme.onPrimary,
                             letterSpacing: 0.0,
                           ),
                         ),

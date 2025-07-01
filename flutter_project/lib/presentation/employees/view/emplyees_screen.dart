@@ -124,14 +124,14 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                                 return Icon(
                                   Icons.person,
                                   size: 32,
-                                  color: theme.currentTheme.SecondaryBackground,
+                                  color: theme.currentTheme.PrimaryBackground,
                                 );
                               },
                             )
                             : Icon(
                               Icons.person,
                               size: 32,
-                              color: theme.currentTheme.SecondaryText,
+                              color: theme.currentTheme.PrimaryText,
                             ),
                   ),
                 ),
@@ -143,7 +143,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       Text(
                         user.login,
                         style: TextStyle(
-                          color : theme.currentTheme.SecondaryText,
+                          color : theme.currentTheme.PrimaryText,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -151,14 +151,14 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       Text(
                         '${locale.employee_screen_username} ${user.username.isEmpty ? '-' : user.username}',
                         style: TextStyle(
-                          color: theme.currentTheme.SecondaryText,
+                          color: theme.currentTheme.PrimaryText,
                           fontSize: 15,
                         ),
                       ),
                       Text(
                         'email: ${user.email.isEmpty ? '-' : user.email}',
                         style: TextStyle(
-                          color: theme.currentTheme.SecondaryText,
+                          color: theme.currentTheme.PrimaryText,
                           fontSize: 15,
                         ),
                       ),
@@ -274,7 +274,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: theme.currentTheme.SecondaryBackground,
+                            fillColor: theme.currentTheme.PrimaryBackground,
                             prefixIcon: Icon(
                               FontAwesomeIcons.magnifyingGlass,
                               color: theme.currentTheme.Primary,

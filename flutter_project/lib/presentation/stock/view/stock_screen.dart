@@ -125,14 +125,14 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                                 return Icon(
                                   Icons.person,
                                   size: 32,
-                                  color: theme.currentTheme.SecondaryBackground,
+                                  color: theme.currentTheme.PrimaryBackground,
                                 );
                               },
                             )
                             : Icon(
                               Icons.person,
                               size: 32,
-                              color: theme.currentTheme.SecondaryText,
+                              color: theme.currentTheme.PrimaryText,
                             ),
                   ),
                 ),
@@ -151,14 +151,14 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                       Text(
                         'id: ${product.id}',
                         style: TextStyle(
-                          color: theme.currentTheme.SecondaryText,
+                          color: theme.currentTheme.PrimaryText,
                           fontSize: 15,
                         ),
                       ),
                       Text(
                         '${product.price} \$',
                         style: TextStyle(
-                          color: theme.currentTheme.SecondaryText,
+                          color: theme.currentTheme.PrimaryText,
                           fontSize: 15,
                         ),
                       ),
@@ -183,19 +183,24 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: theme.currentTheme.PrimaryText,
+            color: theme.currentTheme.PrimaryBackground,
             size: 24,
           ),
           onPressed: () {
             context.pop();
           },
         ),
-        title: Text(
-          locale.stock_manage_page_title,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 30,
-            color: theme.currentTheme.PrimaryText,
+        title: Align(
+          alignment: AlignmentDirectional(0, 0),
+          child: Text(
+            locale.stock_manage_page_title,
+            style: GoogleFonts.interTight(
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color:  theme.currentTheme.PrimaryBackground,
+              fontSize: 22,
+              letterSpacing: 0.0,
+            ),
           ),
         ),
         centerTitle: false,
@@ -207,6 +212,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              SizedBox(height: 16),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -236,7 +242,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                       height: 40,
                       child: Icon(
                         Icons.filter_alt,
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         size: 24,
                       ),
                     ),
@@ -271,7 +277,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: theme.currentTheme.SecondaryBackground,
+                            fillColor: theme.currentTheme.PrimaryBackground,
                             prefixIcon: Icon(
                               FontAwesomeIcons.magnifyingGlass,
                               color: theme.currentTheme.Primary,
@@ -307,7 +313,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                       height: 40,
                       child: Icon(
                         Icons.sort,
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         size: 24,
                       ),
                     ),
@@ -383,7 +389,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleSmall?.copyWith(
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         fontFamily: GoogleFonts.interTight().fontFamily,
                       ),
                     ),
@@ -392,7 +398,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                       ),
                     ),
                   ),

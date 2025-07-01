@@ -205,26 +205,32 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: DropdownButtonFormField<Role>(
-                        decoration: const InputDecoration(
-                          labelText: 'Role',
-                          border: OutlineInputBorder(),
-                        ),
-                        value: _selectedRole,
-                        items:
-                            Role.values.map((role) {
-                              return DropdownMenuItem(
-                                value: role,
-                                child: Text(role.value,style: TextStyle(
-                            color: theme.currentTheme.PrimaryText,
-                          ),),
-                              );
-                            }).toList(),
-                        onChanged: (val) {
-                          setState(() {
-                            _selectedRole = val;
-                          });
-                        },
+                      child: Theme(
+                        data:Theme.of(context).copyWith(
+                          canvasColor: theme.currentTheme.PrimaryBackground,
+                        ), 
+                        child: 
+                          DropdownButtonFormField<Role>(
+                            decoration: const InputDecoration(
+                              labelText: 'Role',
+                              border: OutlineInputBorder(),
+                            ),
+                            value: _selectedRole,
+                            items:
+                                Role.values.map((role) {
+                                  return DropdownMenuItem(
+                                    value: role,
+                                    child: Text(role.value,style: TextStyle(
+                                color: theme.currentTheme.PrimaryText,
+                              ),),
+                                  );
+                                }).toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedRole = val;
+                              });
+                            },
+                          ),
                       ),
                     ),
                   ],

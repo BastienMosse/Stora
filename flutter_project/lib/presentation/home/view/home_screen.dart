@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: Icon(
               Icons.settings_outlined,
-              color: theme.currentTheme.SecondaryBackground,
+              color: theme.currentTheme.PrimaryBackground,
               size: 24,
             ),
             onPressed: () {
