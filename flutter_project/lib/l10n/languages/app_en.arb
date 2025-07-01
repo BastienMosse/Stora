@@ -203,5 +203,11 @@
 	"log_display_state": "State",
 	"log_display_details": "Details",
 	"log_display_originalData": "Original Data",
-	"log_display_error": "Error loading log"
+	"log_display_error": "Error loading log",
+
+	"log_screen_update": "UPDATE",
+	"log_screen_delete": "DELATE",
+	"log_screen_create": "CREATE",
+	"log_screen_none": "None"
+
 }

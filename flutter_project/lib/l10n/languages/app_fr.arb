@@ -204,5 +204,11 @@
 	"log_display_state": "État",
 	"log_display_details": "Détails",
 	"log_display_originalData": "Données originales",
-	"log_display_error": "Erreur lors du chargement du log"
+	"log_display_error": "Erreur lors du chargement du log",
+
+	"log_screen_update": "MIS A JOUR",
+	"log_screen_delete": "SUPRESSION",
+	"log_screen_create": "CREATION",
+	"log_screen_none": "Aucun"
+
 }

@@ -73,6 +73,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
     final formatter = DateFormat('dd/MM/yyyy HH:mm');
     return formatter.format(date);
   }
+  
 
   IconData _getActionIcon(String action) {
     switch (action.toUpperCase()) {
