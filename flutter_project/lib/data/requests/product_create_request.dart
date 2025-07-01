@@ -1,25 +1,39 @@
+import '/index.dart';
+
 class ProductCreateRequest {
   final String name;
-  final String category;
+  final Category category;
   final String description;
   final double price;
-  final int quantity;
+  final int stockQuantity;
+  final int sellQuantity;
+  final int deliveryQuantity;
+  final String position;
+  final String note;
 
   ProductCreateRequest({
     required this.name,
     required this.category,
-    required this.description,
-    required this.price,
-    required this.quantity,
+    this.description = '',
+    this.price = 0.0,
+    this.stockQuantity = 0,
+    this.sellQuantity = 0,
+    this.deliveryQuantity = 0,
+    this.position = '',
+    this.note = '',
   });
 
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'category': category,
+      'category': category.value,
       'description': description,
       'price': price,
-      'stock_quantity': quantity,
+      'stockQuantity': stockQuantity,
+      'sellQuantity': sellQuantity,
+      'deliveryQuantity': deliveryQuantity,
+      'position': position,
+      'note': note,
     };
   }
 }

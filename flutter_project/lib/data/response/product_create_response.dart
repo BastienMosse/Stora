@@ -6,6 +6,6 @@ class ProductCreateResponse {
   ProductCreateResponse({required this.product});
 
   factory ProductCreateResponse.fromJson(Map<String, dynamic> json) {
-    return ProductCreateResponse(product: Product.fromJson(json['product']));
+    return ProductCreateResponse(product: Product.fromJson(json));
   }
 }
