@@ -140,7 +140,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
               children: [
                 Text(
                   locale.employee_display_update_popup_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryBackground),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryText),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -176,6 +176,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                        ),
                         controller: _firstNameController,
                         decoration: InputDecoration(
                           labelText:
@@ -193,6 +196,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextFormField(
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                        ),
                         controller: _lastNameController,
                         decoration: InputDecoration(
                           labelText:
@@ -211,6 +217,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
@@ -229,6 +238,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 StatefulBuilder(
                   builder: (context, setState) {
                     return TextFormField(
+                      style: GoogleFonts.interTight(
+                        color: theme.currentTheme.PrimaryText,
+                      ),
                       controller: _passwdController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
@@ -259,6 +271,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _dobController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_date,
@@ -275,6 +290,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _phoneController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_phone,
@@ -291,6 +309,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _payController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_pay,
@@ -316,7 +337,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       Role.values.map((role) {
                         return DropdownMenuItem(
                           value: role,
-                          child: Text(role.value),
+                          child: Text(role.value,style: TextStyle(
+                            color: theme.currentTheme.PrimaryText,
+                          )),
                         );
                       }).toList(),
                   onChanged: (val) {
@@ -332,6 +355,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _noteController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_note,

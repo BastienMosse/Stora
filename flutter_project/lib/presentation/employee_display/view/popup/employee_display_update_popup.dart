@@ -41,7 +41,6 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
     super.didChangeDependencies();
     
     locale = AppLocalizations.of(context)!;
-    theme = context.watch<ThemeController>();
   }
 
   Future<void> _showImageOptions() async {
@@ -71,7 +70,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.cancel),
-                  title: Text(locale.employee_display_update_popup_annuler),
+                  title: Text(locale.employee_display_update_popup_annuler,
+                    style: GoogleFonts.interTight(
+                          color: Colors.green
+          
+                        ),
+                    ),
                   onTap: () => Navigator.pop(context),
                 ),
               ],
@@ -137,6 +141,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
 
   @override
   Widget build(BuildContext context) {
+    theme = context.watch<ThemeController>();
 
     return Dialog(
       backgroundColor: theme.currentTheme.PrimaryBackground,
@@ -150,7 +155,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  locale.employee_display_update_popup_create,
+                  locale.employee_display_update_update_create,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryText),
                 ),
                 const SizedBox(height: 16),
@@ -187,6 +192,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                        ),
                         controller: _loginController,
                         decoration: InputDecoration(
                           labelText:
@@ -207,7 +215,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                             Role.values.map((role) {
                               return DropdownMenuItem(
                                 value: role,
-                                child: Text(role.value),
+                                child: Text(role.value,style: TextStyle(
+                            color: theme.currentTheme.PrimaryText,
+                          ),),
                               );
                             }).toList(),
                         onChanged: (val) {
@@ -221,9 +231,13 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
+
                     hintText: 'xavier.login@stora.com',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.mail_outline),
@@ -232,6 +246,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _dobController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_date,
@@ -243,6 +260,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _phoneController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_phone,
@@ -254,6 +274,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _payController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_pay,
@@ -265,6 +288,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _noteController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_note,
@@ -280,6 +306,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   children: [
                     Expanded(
                       child: OutlinedButton(
+                        style:OutlinedButton.styleFrom(backgroundColor: theme.currentTheme.Primary) ,
                         onPressed: () => context.pop(),
                         child: Text(
                           locale.employee_display_update_popup_annuler,
@@ -373,6 +400,10 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                         },
                         child: Text(
                           locale.employee_display_update_update_button,
+                          style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryBackground
+          
+                        ),
                         ),
                       ),
                     ),

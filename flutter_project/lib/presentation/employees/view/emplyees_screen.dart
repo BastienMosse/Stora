@@ -83,10 +83,12 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
         context.push(Routes.employeesDisplay, extra: user.id);
       },
       child: Container(
+        
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           border: Border.all(color: theme.currentTheme.Primary, width: 2),
           borderRadius: BorderRadius.circular(12),
+          color: theme.currentTheme.PrimaryBackground,
         ),
         child: Card(
           elevation: 0,
@@ -139,6 +141,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                       Text(
                         user.login,
                         style: TextStyle(
+                          color : theme.currentTheme.SecondaryText,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -178,7 +181,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: theme.currentTheme.PrimaryText,
+            color: theme.currentTheme.PrimaryBackground,
             size: 24,
           ),
           onPressed: () {
@@ -187,11 +190,13 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
         ),
         title: Text(
           locale.employee_screen_Employer,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 30,
-            color: theme.currentTheme.PrimaryBackground,
-          ),
+          style: GoogleFonts.interTight(
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color:  theme.currentTheme.PrimaryBackground,
+              fontSize: 22,
+              letterSpacing: 0.0,
+            ),
         ),
         centerTitle: true,
       ),

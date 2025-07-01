@@ -76,6 +76,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
     final imageHeight = MediaQuery.of(context).size.height * 0.2;
 
     return Scaffold(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       appBar: AppBar(
         backgroundColor: theme.currentTheme.Primary,
         leading: IconButton(
@@ -198,10 +199,16 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                               const SizedBox(height: 8),
                               Text(
                                 '${locale.employee_display_page_Born} ${viewModel.user?.birth != null ? viewModel.user!.birth.split('T').first : ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Text(
                                 '${locale.employee_display_page_phone} ${viewModel.user?.tel ?? ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Text('email : ${viewModel.user?.email ?? ''}',
@@ -212,6 +219,9 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                               const SizedBox(height: 8),
                               Text(
                                 '${locale.employee_display_page_pay} ${viewModel.user?.pay ?? ''} \$',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                             ],
                           ),
@@ -226,6 +236,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            color: theme.currentTheme.PrimaryText,
                           ),
                         ),
                       ],
@@ -247,7 +258,12 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       ),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text(viewModel.user?.note ?? ''),
+                        child: Text(
+                          viewModel.user?.note ?? '',
+                          style: GoogleFonts.interTight(
+                            color: theme.currentTheme.PrimaryText,
+                          ),
+                        ),
                       ),
                     ),
                   ],
