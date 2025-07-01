@@ -1,7 +1,7 @@
 import '/index.dart';
 
-import 'popups/employees_filter_popup.dart';
-import 'popups/employees_create_popup.dart';
+import 'popup/employees_filter_popup.dart';
+import 'popup/employees_create_popup.dart';
 
 import '../viewmodel/emplyees_screen_mv.dart';
 
@@ -19,6 +19,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   late AppLocalizations locale;
 
   late EmplyeesScreenViewModel viewModel;
+  late Future<void> _initialFetchFuture;
 
   bool _isRefreshing = false;
 
@@ -33,6 +34,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
     }
 
     viewModel = EmplyeesScreenViewModel();
+    _initialFetchFuture = viewModel.fetchUserList();
   }
 
   @override
@@ -212,6 +214,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                         context: context,
                         builder:
                             (context) => EmployeesFilterPopup(
+                              initialFilters: viewModel.currentFilters,
                               onFiltersApplied: (filterData) {
                                 viewModel.setFilters(filterData);
                                 setState(() {});
@@ -282,7 +285,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
                     _isRefreshing
                         ? Center(child: CircularProgressIndicator())
                         : FutureBuilder<void>(
-                          future: viewModel.fetchUserList(),
+                          future: _initialFetchFuture,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {

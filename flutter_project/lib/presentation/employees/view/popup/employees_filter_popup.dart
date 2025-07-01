@@ -2,25 +2,37 @@ import '/index.dart';
 
 class EmployeesFilterPopup extends StatefulWidget {
   final Function(EmployeesFilterData)? onFiltersApplied;
+  final EmployeesFilterData? initialFilters;
 
-  const EmployeesFilterPopup({Key? key, this.onFiltersApplied})
-    : super(key: key);
+  const EmployeesFilterPopup({
+    super.key,
+    this.onFiltersApplied,
+    this.initialFilters,
+  });
 
   @override
   State<EmployeesFilterPopup> createState() => _EmployeesFilterPopupState();
 }
 
 class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
-  final TextEditingController startDateController = TextEditingController();
-  final TextEditingController endDateController = TextEditingController();
   final TextEditingController loginController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.initialFilters != null) {
+      final filters = widget.initialFilters!;
+      loginController.text = filters.login;
+      firstNameController.text = filters.firstName;
+      lastNameController.text = filters.lastName;
+    }
+  }
+
+  @override
   void dispose() {
-    startDateController.dispose();
-    endDateController.dispose();
     loginController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
@@ -82,8 +94,6 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
         TextButton(
           onPressed: () {
             setState(() {
-              startDateController.clear();
-              endDateController.clear();
               loginController.clear();
               firstNameController.clear();
               lastNameController.clear();

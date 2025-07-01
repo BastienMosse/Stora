@@ -11,6 +11,7 @@ class EmplyeesScreenViewModel {
 
   late List<User> userList;
   late List<User> filteredUserList;
+
   EmployeesFilterData? currentFilters;
 
   bool _isLoading = false;
