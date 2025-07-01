@@ -5,12 +5,9 @@ class LogsListResponse {
 
   LogsListResponse({required this.logs});
 
-  factory LogsListResponse.fromJson(Map<String, dynamic> json) {
+  factory LogsListResponse.fromJson(List json) {
     return LogsListResponse(
-      logs:
-          (json['logs'] as List)
-              .map((log) => Log.fromJson(log as Map<String, dynamic>))
-              .toList(),
+      logs: json.map((log) => Log.fromJson(log)).toList(),
     );
   }
 }

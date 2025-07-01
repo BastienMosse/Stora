@@ -1,10 +1,13 @@
 import '/index.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+import 'popup/stock_display_update_popup.dart';
+import '../viewmodel/stock_display_screen_vm.dart';
 
 class ProductDisplayWidget extends StatefulWidget {
-  const ProductDisplayWidget({super.key});
+  final String productId;
+
+  const ProductDisplayWidget({super.key, required this.productId});
 
   static String routeName = 'ProductDisplay';
   static String routePath = '/productDisplay';
@@ -16,9 +19,14 @@ class ProductDisplayWidget extends StatefulWidget {
 class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late StockDisplayScreenViewModel viewModel;
+
+  bool _isRefreshing = false;
+
   @override
   void initState() {
     super.initState();
+    viewModel = StockDisplayScreenViewModel();
 
     if (ApiService.jwt == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -33,6 +41,39 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!context.watch<AppState>().isAdmin) {
+      context.go(Routes.home);
+    }
+
+    viewModel.init(context);
+    _fetchAndRefresh();
+  }
+
+  Future<void> _fetchAndRefresh() async {
+    await viewModel.fetchProductId(widget.productId);
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _refreshData() async {
+    if (_isRefreshing) return;
+
+    setState(() {
+      _isRefreshing = true;
+    });
+
+    await viewModel.fetchProductId(widget.productId);
+
+    if (mounted) {
+      setState(() {
+        _isRefreshing = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     final Random random = Random();
@@ -40,7 +81,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
     final spots = List.generate(
       5,
       (i) => FlSpot(i.toDouble(), random.nextDouble() * 10),
-    );
+    ); //FIXME
     //appelle api get id
     return GestureDetector(
       onTap: () {
@@ -126,15 +167,42 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://images.unsplash.com/photo-1610483178766-8092d96033f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMnx8bGVnb3xlbnwwfHx8fDE3NDc4MDgxMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080',
-                                    width: 150,
-                                    height: 150,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                viewModel.product?.photo != null &&
+                                        viewModel.product!.photo.isNotEmpty
+                                    ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        viewModel.product!.photo,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                            0.4,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                            0.2,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                    : Container(
+                                      width:
+                                          MediaQuery.of(context).size.width *
+                                          0.4,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                          0.2,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: Colors.blueAccent,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.person,
+                                        size: 64,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                     15,
@@ -147,62 +215,71 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Jojo', //Fixme
-                                        style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.fontStyle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.color,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        'id : 908765742', //Fixme
-                                        style: GoogleFonts.inter(
-                                          fontSize: 15,
-                                          fontWeight:
-                                              Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.fontWeight,
-                                          fontStyle:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.fontStyle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.color,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        'Description : ',
-                                        style: GoogleFonts.inter(
-                                          fontWeight:
-                                              Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.fontWeight,
-                                          fontStyle:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.fontStyle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).textTheme.bodyMedium?.color,
-                                        ),
-                                      ),
-                                    ],
+                                    children:
+                                        viewModel.product?.photo != null
+                                            ? [
+                                              Text(
+                                                viewModel.product!.name, //Fixme
+                                                style: GoogleFonts.inter(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontStyle,
+                                                  color:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.color,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                'id : ${viewModel.product!.id}', //Fixme
+                                                style: GoogleFonts.inter(
+                                                  fontSize: 15,
+                                                  fontWeight:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontWeight,
+                                                  fontStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontStyle,
+                                                  color:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.color,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                'Description : ${viewModel.product!.description}',
+                                                style: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontWeight,
+                                                  fontStyle:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.fontStyle,
+                                                  color:
+                                                      Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.color,
+                                                ),
+                                              ),
+                                            ]
+                                            : [],
                                   ),
                                 ),
                               ],
@@ -231,7 +308,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '5', //Fixme
+                                    viewModel.product?.stockQuantity != null
+                                        ? viewModel.product!.stockQuantity
+                                            .toString()
+                                        : "ERROR serveur", //EDIT
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -278,7 +358,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '58', //FIXME
+                                    viewModel.product?.stockQuantity != null
+                                        ? viewModel.product!.stockQuantity
+                                            .toString()
+                                        : "ERROR serveur", //FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -325,7 +408,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                     ),
                                   ),
                                   Text(
-                                    '2', //FIXME
+                                    viewModel.product?.stockQuantity != null
+                                        ? viewModel.product!.stockQuantity
+                                            .toString()
+                                        : "ERROR serveur", //EDIT,//FIXME
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -379,7 +465,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                         ' Col. ' +
                                         '4' +
                                         locale.stock_cerate_height +
-                                        '7', //FIXME
+                                        '7', //EDIT
                                     style: GoogleFonts.inter(
                                       fontSize:
                                           Theme.of(
@@ -443,7 +529,10 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                   0,
                                 ),
                                 child: Text(
-                                  'low quality product -> reduce quantity', //FIXME
+                                  viewModel.product?.stockQuantity != null
+                                      ? viewModel.product!.stockQuantity
+                                          .toString()
+                                      : "", //EDIT,//FIXME
                                   style: GoogleFonts.inter(
                                     fontWeight:
                                         FontWeight
@@ -459,6 +548,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                           ],
                         ),
                         Column(
+                          //EDIT Graphe
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
@@ -525,6 +615,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
+                                    //EDIT week endpoint
                                     print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -563,6 +654,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
+                                    //EDIT month endpoint
                                     print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -599,6 +691,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
+                                    //EDIT Year endpoint
                                     print(locale.stock_dispay_button_press);
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -648,7 +741,13 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
                                 height: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
+                                    if (viewModel.product?.id != null) {
+                                      Endpoints.deleteProductById(
+                                        viewModel.product!.id,
+                                      );
+                                    }
                                     print(locale.stock_dispay_button_press);
+                                    context.pop();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:

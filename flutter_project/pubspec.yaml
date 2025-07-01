@@ -58,6 +58,5 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - lib/assets/images/
     - lib/assets/icons/
     - lib/l10n/languages/

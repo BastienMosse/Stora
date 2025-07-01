@@ -1,6 +1,6 @@
 import '/index.dart';
 
-import 'popup/employee_disply_update_popup.dart';
+import 'popup/employee_display_update_popup.dart';
 import '../viewmodel/employee_display_screen_vm.dart';
 
 class EmployeeDisplay extends StatefulWidget {
