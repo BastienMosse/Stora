@@ -17,6 +17,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
   late FormFieldValidator validator;
 
   late AppLocalizations locale;
+  late ThemeController theme;
 
   @override
   void initState() {
@@ -27,7 +28,6 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
         context.go(Routes.login);
       });
     }
-
     focusenode = FocusNode();
     controller = TextEditingController();
   }
@@ -36,6 +36,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     locale = AppLocalizations.of(context)!;
+    theme = context.read<ThemeController>();
 
     validator = (value) {
       // Example: return null if valid, or an error string if invalid
@@ -53,13 +54,14 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    theme = context.read<ThemeController>();
     final locale = AppLocalizations.of(context);
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.grey,
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor: theme.currentTheme.Primary,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.grey, size: 24),
@@ -70,11 +72,11 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
         title: Align(
           alignment: AlignmentDirectional(0, 0),
           child: Text(
-            locale!.stock_manage_page_title,
+            locale!.log_manage_screen_page_title,
             style: GoogleFonts.interTight(
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.normal,
-              color: Colors.grey,
+              color:  theme.currentTheme.PrimaryBackground,
               fontSize: 22,
               letterSpacing: 0.0,
             ),
@@ -134,16 +136,14 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                           },
                           icon: Container(
                             decoration: BoxDecoration(
-                              color: Colors.purple,
+                              color: theme.currentTheme.Primary,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             width: 40,
                             height: 40,
-                            child: const Icon(
-                              Icons.filter_alt,
-                              color:
-                                  Colors
-                                      .blueAccent, // adapte selon FlutterFlowTheme.of(context).info
+                          child: Icon(
+                            Icons.filter_alt,
+                              color: theme.currentTheme.PrimaryBackground, // adapte selon FlutterFlowTheme.of(context).info
                               size: 24,
                             ),
                           ),
@@ -206,7 +206,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                                   letterSpacing: 0.0,
                                   color: Colors.red,
                                 ),
-                                cursorColor: Colors.green,
+                                cursorColor: theme.currentTheme.PrimaryBackground,
                                 validator: validator,
                               ),
                             ),
@@ -218,15 +218,14 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: Colors.deepPurple,
+                                  color: theme.currentTheme.Primary,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: IconButton(
                                   icon: Icon(
                                     Icons.sort,
                                     color:
-                                        Colors
-                                            .orange, // ou autre couleur équivalente à `.info`
+                                        theme.currentTheme.PrimaryBackground, // ou autre couleur équivalente à `.info`
                                     size: 24,
                                   ),
                                   onPressed: () async {

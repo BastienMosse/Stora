@@ -39,6 +39,7 @@ export 'package:flutter_svg/flutter_svg.dart';
 
 // Themes
 export 'core/theme/theme.dart';
+export 'core/theme/theme_controller.dart';
 
 // Localization
 export 'l10n/localization/app_localizations.dart';

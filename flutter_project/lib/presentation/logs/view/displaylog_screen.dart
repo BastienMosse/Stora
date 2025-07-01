@@ -33,12 +33,12 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white, // adapte selon ton thème
+        backgroundColor: custom_color._currentTheme.Primary, // adapte selon ton thème
         appBar: AppBar(
-          backgroundColor: Colors.blue, // adapte à ta couleur principale
+          backgroundColor: custom_color._currentTheme.PrimaryBackground, // adapte à ta couleur principale
           automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white, size: 24),
+            icon: Icon(Icons.arrow_back, color:custom_color._currentTheme.PrimaryBackground, size: 24),
             onPressed: () {
               print(locale.displaylog_screen_icon_pressed);
               Navigator.pop(context);
@@ -59,6 +59,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
+                      color:custom_color._currentTheme.PrimaryText
                     ),
                   ),
                 ),
@@ -69,6 +70,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.normal,
                       fontSize: 18,
+                      color:custom_color._currentTheme.PrimaryText
                     ),
                   ),
                 ),
@@ -79,6 +81,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
+                      color:custom_color._currentTheme.PrimaryText
                     ),
                   ),
                 ),
@@ -94,6 +97,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
+                    color:custom_color._currentTheme.PrimaryText
                   ),
                 ),
                 Padding(
@@ -111,12 +115,13 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
+                    color:custom_color._currentTheme.PrimaryText
                   ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
-                        Colors.blue, // couleur du bouton, adapte à ton thème
+                        custom_color._currentTheme.PrimaryBackground, // couleur du bouton, adapte à ton thème
                     elevation: 0,
                     minimumSize: Size(150, 48),
                     padding: EdgeInsets.all(8),
@@ -131,7 +136,7 @@ class _AfficheLogWidgetState extends State<AfficheLogWidget> {
                   child: Text(
                     locale.displaylog_screen_revert_log,
                     style: TextStyle(
-                      color: Colors.white, // couleur du texte, adapte si besoin
+                      color: custom_color._currentTheme.PrimaryBackground, // couleur du texte, adapte si besoin
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.normal,
                       letterSpacing: 0.0,

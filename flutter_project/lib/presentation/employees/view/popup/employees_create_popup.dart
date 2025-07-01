@@ -20,6 +20,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
 
   Role? _selectedRole;
   bool _obscurePassword = true;
+  late ThemeController theme;
 
   File? _profileImage;
 
@@ -118,9 +119,16 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    theme = context.read<ThemeController>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -132,7 +140,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
               children: [
                 Text(
                   locale.employee_display_update_popup_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryText),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -150,14 +158,14 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: theme.currentTheme.Primary,
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.camera_alt,
                           size: 16,
-                          color: Colors.white,
+                          color: theme.currentTheme.PrimaryBackground,
                         ),
                       ),
                     ),
@@ -168,6 +176,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                        ),
                         controller: _firstNameController,
                         decoration: InputDecoration(
                           labelText:
@@ -185,6 +196,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextFormField(
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                        ),
                         controller: _lastNameController,
                         decoration: InputDecoration(
                           labelText:
@@ -203,6 +217,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
@@ -221,6 +238,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 StatefulBuilder(
                   builder: (context, setState) {
                     return TextFormField(
+                      style: GoogleFonts.interTight(
+                        color: theme.currentTheme.PrimaryText,
+                      ),
                       controller: _passwdController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
@@ -251,6 +271,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _dobController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_date,
@@ -267,6 +290,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _phoneController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_phone,
@@ -283,6 +309,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _payController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_pay,
@@ -308,7 +337,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                       Role.values.map((role) {
                         return DropdownMenuItem(
                           value: role,
-                          child: Text(role.value),
+                          child: Text(role.value,style: TextStyle(
+                            color: theme.currentTheme.PrimaryText,
+                          )),
                         );
                       }).toList(),
                   onChanged: (val) {
@@ -324,6 +355,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _noteController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_note,
@@ -338,16 +372,26 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 Row(
                   children: [
                     Expanded(
-                      child: OutlinedButton(
+                      
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () => Navigator.pop(context, false),
                         child: Text(
                           locale.employee_display_update_popup_annuler,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
                             final request = UserRegisterRequest(
@@ -375,7 +419,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                     locale
                                         .employee_display_create_popup_err_create,
                                   ),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: theme.currentTheme.Error,
                                 ),
                               );
                             } else {
@@ -392,7 +436,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                         locale
                                             .employee_display_create_popup_err_upload,
                                       ),
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: theme.currentTheme.Error,
                                     ),
                                   );
                                 } else {
@@ -402,7 +446,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                         locale
                                             .employee_display_create_popup_succ_create,
                                       ),
-                                      backgroundColor: Colors.green,
+                                      backgroundColor: theme.currentTheme.Success,
                                     ),
                                   );
                                   Navigator.pop(context, true);
@@ -414,7 +458,7 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                       locale
                                           .employee_display_create_popup_succ_create,
                                     ),
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: theme.currentTheme.Success,
                                   ),
                                 );
                                 Navigator.pop(context, true);
@@ -424,6 +468,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                         },
                         child: Text(
                           locale.employee_display_update_popup_create,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),

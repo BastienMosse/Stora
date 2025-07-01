@@ -21,6 +21,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
 
   File? _profileImage;
 
+  late AppLocalizations locale;
+  late ThemeController theme;
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +34,13 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
     _phoneController.text = widget.user.tel;
     _payController.text = widget.user.pay.toString();
     _noteController.text = widget.user.note;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    
+    locale = AppLocalizations.of(context)!;
   }
 
   Future<void> _showImageOptions() async {
@@ -60,7 +70,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.cancel),
-                  title: Text(locale.employee_display_update_popup_annuler),
+                  title: Text(locale.employee_display_update_popup_annuler,
+                    style: GoogleFonts.interTight(
+                          color: Colors.green
+          
+                        ),
+                    ),
                   onTap: () => Navigator.pop(context),
                 ),
               ],
@@ -126,10 +141,10 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
-    final theme = context.watch<ThemeController>();
+    theme = context.watch<ThemeController>();
 
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -140,8 +155,8 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  locale.employee_display_update_popup_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  locale.employee_display_update_update_create,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryText),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -159,14 +174,14 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: theme.currentTheme.PrimaryBackground,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
+                          border: Border.all(color: theme.currentTheme.Primary, width: 2),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.camera_alt,
                           size: 16,
-                          color: Colors.white,
+                          color: theme.currentTheme.PrimaryBackground,
                         ),
                       ),
                     ),
@@ -177,6 +192,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText,
+                        ),
                         controller: _loginController,
                         decoration: InputDecoration(
                           labelText:
@@ -197,7 +215,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                             Role.values.map((role) {
                               return DropdownMenuItem(
                                 value: role,
-                                child: Text(role.value),
+                                child: Text(role.value,style: TextStyle(
+                            color: theme.currentTheme.PrimaryText,
+                          ),),
                               );
                             }).toList(),
                         onChanged: (val) {
@@ -211,9 +231,13 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
+
                     hintText: 'xavier.login@stora.com',
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.mail_outline),
@@ -222,6 +246,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _dobController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_date,
@@ -233,6 +260,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _phoneController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_phone,
@@ -244,6 +274,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _payController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_pay,
@@ -255,6 +288,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: _noteController,
                   decoration: InputDecoration(
                     labelText: locale.employee_display_update_popup_note,
@@ -270,15 +306,22 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   children: [
                     Expanded(
                       child: OutlinedButton(
+                        style:OutlinedButton.styleFrom(backgroundColor: theme.currentTheme.Primary) ,
                         onPressed: () => context.pop(),
                         child: Text(
                           locale.employee_display_update_popup_annuler,
+                          style: TextStyle(
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () async {
                           final userId = widget.user.id;
                           final request = UserUpdateRequest(
@@ -357,6 +400,10 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                         },
                         child: Text(
                           locale.employee_display_update_update_button,
+                          style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryBackground
+          
+                        ),
                         ),
                       ),
                     ),

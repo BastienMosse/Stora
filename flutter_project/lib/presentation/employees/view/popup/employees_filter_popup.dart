@@ -18,6 +18,7 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
   final TextEditingController loginController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+  late ThemeController theme;
 
   @override
   void initState() {
@@ -40,13 +41,22 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    theme = context.read<ThemeController>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return AlertDialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(locale.employee_filter_popup_option),
+          Text(locale.employee_filter_popup_option,
+            style: TextStyle(color: theme.currentTheme.PrimaryBackground,),
+          ),
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: () => Navigator.of(context).pop(),
@@ -91,7 +101,10 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
         ),
       ),
       actions: [
-        TextButton(
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: theme.currentTheme.Primary,
+          ),
           onPressed: () {
             setState(() {
               loginController.clear();
@@ -99,9 +112,15 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
               lastNameController.clear();
             });
           },
-          child: Text(locale.employee_filter_popup_reset),
+          child: Text(
+            locale.employee_filter_popup_reset,
+            style: TextStyle(color: theme.currentTheme.PrimaryBackground,),
+          )
         ),
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: theme.currentTheme.Primary,
+          ),
           onPressed: () {
             final filterData = EmployeesFilterData(
               login: loginController.text,
@@ -115,7 +134,12 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
 
             context.pop();
           },
-          child: Text(locale.employee_filter_popup_apply),
+          child: Text(
+            locale.employee_filter_popup_apply,
+            style: TextStyle(
+              color: theme.currentTheme.PrimaryBackground,
+            ),
+          ),
         ),
       ],
     );

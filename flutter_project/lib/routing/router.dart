@@ -43,5 +43,9 @@ GoRouter route = GoRouter(
         return EmployeeDisplay(userId: state.extra as String);
       },
     ),
+    GoRoute(
+      path: Routes.gestionLog,
+      builder: (context, state) => const GestionLogsWidget(),
+    ),
   ],
 );

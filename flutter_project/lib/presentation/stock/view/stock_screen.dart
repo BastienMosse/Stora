@@ -86,10 +86,12 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
         context.push(Routes.stockDisplay, extra: product.id);
       },
       child: Container(
+        
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           border: Border.all(color: theme.currentTheme.Primary, width: 2),
           borderRadius: BorderRadius.circular(12),
+          color: theme.currentTheme.PrimaryBackground,
         ),
         child: Card(
           elevation: 0,
@@ -174,7 +176,9 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       appBar: AppBar(
+        backgroundColor: theme.currentTheme.Primary,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(

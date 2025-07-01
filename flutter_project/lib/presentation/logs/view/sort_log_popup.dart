@@ -10,6 +10,7 @@ class LogSortWidget extends StatefulWidget {
 
 class _LogSortWidgetState extends State<LogSortWidget> {
   final List<String> order = [];
+  late ThemeController theme;
 
   late bool isActiveName;
   late bool isActiveID;
@@ -61,6 +62,8 @@ class _LogSortWidgetState extends State<LogSortWidget> {
 
   @override
   Widget build(BuildContext context) {
+    theme = context.read<ThemeController>();
+    
     final locale = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(color: Colors.transparent),
@@ -69,7 +72,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: theme.currentTheme.PrimaryBackground,
             boxShadow: [
               BoxShadow(
                 blurRadius: 4,

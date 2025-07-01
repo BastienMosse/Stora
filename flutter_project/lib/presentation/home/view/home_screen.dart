@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
               buildMenuButton(
                 text: locale.homePage_admin_log,
                 onPressed: () {
-                  context.push('/logs');
+                  context.push(Routes.gestionLog);
                 },
               ),
               const SizedBox(height: 16),
