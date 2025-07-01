@@ -10,6 +10,9 @@ class ProductUpdatePopup extends StatefulWidget {
 }
 
 class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
+  late ThemeController theme;
+  late AppLocalizations locale;
+
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -31,7 +34,9 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
+            
             child: Wrap(
+              
               children: [
                 ListTile(
                   leading: const Icon(Icons.photo_library),
@@ -98,7 +103,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(locale.employee_display_update_popup_err_img_disp),
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.red,
           duration: Duration(seconds: 3),
         ),
       );
@@ -124,7 +129,12 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
 
   @override
   void didChangeDependencies() {
+
     super.didChangeDependencies();
+    locale = AppLocalizations.of(context)!;
+
+    theme = context.watch<ThemeController>();
+
   }
 
   @override
@@ -142,6 +152,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
     required int counter,
     required VoidCallback onIncrement,
     required VoidCallback onDecrement,
+    Color? textColor,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -151,7 +162,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
             width: 80,
             child: Text(
               text,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
             ),
           ),
           const SizedBox(width: 8),
@@ -161,7 +172,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
             child: Center(
               child: Text(
                 counter.toString(),
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16, color: textColor),
               ),
             ),
           ),
@@ -175,6 +186,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -191,7 +203,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                 children: [
                   Text(
                     locale.product_update_popup_update_product,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: theme.currentTheme.PrimaryText),
                   ),
                   const SizedBox(height: 16),
                   Stack(
@@ -211,12 +223,12 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                           decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 2),
+                            border: Border.all(color: Colors.white, width: 2),//rien
                           ),
                           child: const Icon(
                             Icons.camera_alt,
                             size: 16,
-                            color: Colors.white,
+                            color: Colors.grey, // rien
                           ),
                         ),
                       ),
@@ -225,8 +237,8 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
+                    decoration: InputDecoration(
+                      labelText: locale.sort_popup_name,
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.text,
@@ -235,6 +247,9 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                             v == null || v.isEmpty
                                 ? locale.employee_display_update_popup_required
                                 : null,
+                    style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
@@ -249,12 +264,15 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                             v == null || v.isEmpty
                                 ? locale.employee_display_update_popup_required
                                 : null,
+                    style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: _priceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Price',
+                    decoration: InputDecoration(
+                      labelText: locale.stock_create_price,
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
@@ -263,59 +281,75 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                             v == null || v.isEmpty
                                 ? locale.employee_display_update_popup_required
                                 : null,
+                    style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   buildMenuButton(
-                    text: 'Stock',
+                    
+                    text: locale.product_update_popup_stock_quantity,
                     counter: _stock,
                     onIncrement: () => setState(() => _stock++),
                     onDecrement:
                         () => setState(() {
                           if (_stock > 0) _stock--;
                         }),
+                    textColor : theme.currentTheme.PrimaryText
                   ),
                   buildMenuButton(
-                    text: 'Sell',
+                    text: locale.stock_create_quantity_sel,
                     counter: _sell,
                     onIncrement: () => setState(() => _sell++),
                     onDecrement:
                         () => setState(() {
                           if (_sell > 0) _sell--;
                         }),
+                    textColor : theme.currentTheme.PrimaryText
                   ),
                   buildMenuButton(
-                    text: 'Delivery',
+                    text: locale.stock_create_quantity_del,
                     counter: _delivery,
                     onIncrement: () => setState(() => _delivery++),
                     onDecrement:
                         () => setState(() {
                           if (_delivery > 0) _delivery--;
                         }),
+                    textColor : theme.currentTheme.PrimaryText
                   ),
                   const SizedBox(height: 6),
-                  DropdownButtonFormField<Category>(
-                    decoration: const InputDecoration(
-                      labelText: 'Category',
-                      border: OutlineInputBorder(),
+                  Theme(
+                  data:Theme.of(context).copyWith(
+                    canvasColor: theme.currentTheme.PrimaryBackground,
+                  ), 
+                  child: 
+                    DropdownButtonFormField<Category>(
+                      decoration: InputDecoration(
+                        labelText: locale.stock_create_category,
+                        border: OutlineInputBorder(),
+                        
+                      ),
+                      value: _selectedCategory,
+                      items:
+                          Category.values.map((role) {
+                            return DropdownMenuItem(
+                              value: role,
+                              child: Text(role.value,style: TextStyle(
+                              color: theme.currentTheme.PrimaryText,
+                              ),),
+                              );
+                          }).toList(),
+                      onChanged: (val) {
+                        setState(() {
+                          _selectedCategory = val;
+                        });
+                      },
+                      validator:
+                          (v) =>
+                              v == null
+                                  ? locale.employee_display_update_popup_required
+                                  : null,
                     ),
-                    value: _selectedCategory,
-                    items:
-                        Category.values.map((role) {
-                          return DropdownMenuItem(
-                            value: role,
-                            child: Text(role.value),
-                          );
-                        }).toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        _selectedCategory = val;
-                      });
-                    },
-                    validator:
-                        (v) =>
-                            v == null
-                                ? locale.employee_display_update_popup_required
-                                : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
@@ -327,6 +361,9 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                     ),
                     keyboardType: TextInputType.text,
                     maxLines: 1,
+                    style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
@@ -338,21 +375,38 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                     ),
                     keyboardType: TextInputType.text,
                     maxLines: 3,
+                    style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
                       Expanded(
-                        child: OutlinedButton(
+                        
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                           onPressed: () => Navigator.pop(context, false),
                           child: Text(
-                            locale.employee_display_update_popup_annuler,
+                            locale.employee_display_update_popup_annuler, 
+                              style: GoogleFonts.interTight(
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                              color:  theme.currentTheme.PrimaryBackground,
+                              fontSize: 22,
+                              letterSpacing: 0.0,
+                            ),
                           ),
                         ),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                           onPressed: () async {
                             if (_formKey.currentState?.validate() ?? false) {
                               final request = ProductUpdateRequest(
@@ -382,7 +436,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                                       locale
                                           .employee_display_create_popup_err_create,
                                     ),
-                                    backgroundColor: Colors.red,
+                                    backgroundColor: Colors.white,
                                   ),
                                 );
                               } else {
@@ -399,7 +453,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                                           locale
                                               .employee_display_create_popup_err_upload,
                                         ),
-                                        backgroundColor: Colors.red,
+                                        backgroundColor: Colors.white, //rien
                                       ),
                                     );
                                   } else {
@@ -409,7 +463,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                                           locale
                                               .employee_display_create_popup_succ_create,
                                         ),
-                                        backgroundColor: Colors.green,
+                                        backgroundColor: Colors.white,
                                       ),
                                     );
                                     Navigator.pop(context, true);
@@ -421,7 +475,7 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                                         locale
                                             .employee_display_create_popup_succ_create,
                                       ),
-                                      backgroundColor: Colors.green,
+                                      backgroundColor: Color.fromARGB(255, 208, 0, 255),
                                     ),
                                   );
                                   Navigator.pop(context, true);
@@ -429,7 +483,14 @@ class _ProductUpdatePopupState extends State<ProductUpdatePopup> {
                               }
                             }
                           },
-                          child: Text('Update product'),
+                          child: Text(locale.product_update_popup_update, 
+                          style: GoogleFonts.interTight(
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.normal,
+                            color:  theme.currentTheme.PrimaryBackground,
+                            fontSize: 22,
+                            letterSpacing: 0.0,
+                          ),),
                         ),
                       ),
                     ],

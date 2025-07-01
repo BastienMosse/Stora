@@ -138,6 +138,7 @@ class _StockScreenState extends State<StockScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
+                          color: theme.currentTheme.PrimaryText,
                         ),
                       ),
                       Text(
@@ -252,6 +253,9 @@ class _StockScreenState extends State<StockScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          style: GoogleFonts.interTight(
+                            color: theme.currentTheme.PrimaryText,
+                          ),
                           controller: viewModel.searchController,
                           focusNode: viewModel.searchNode,
                           onChanged: (value) {
