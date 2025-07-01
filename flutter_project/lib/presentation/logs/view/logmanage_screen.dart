@@ -76,7 +76,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
             style: GoogleFonts.interTight(
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.normal,
-              color:  theme.currentTheme.PrimaryBackground,
+              color: theme.currentTheme.PrimaryBackground,
               fontSize: 22,
               letterSpacing: 0.0,
             ),
@@ -141,9 +141,12 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                             ),
                             width: 40,
                             height: 40,
-                          child: Icon(
-                            Icons.filter_alt,
-                              color: theme.currentTheme.PrimaryBackground, // adapte selon FlutterFlowTheme.of(context).info
+                            child: Icon(
+                              Icons.filter_alt,
+                              color:
+                                  theme
+                                      .currentTheme
+                                      .PrimaryBackground, // adapte selon FlutterFlowTheme.of(context).info
                               size: 24,
                             ),
                           ),
@@ -206,7 +209,8 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                                   letterSpacing: 0.0,
                                   color: Colors.red,
                                 ),
-                                cursorColor: theme.currentTheme.PrimaryBackground,
+                                cursorColor:
+                                    theme.currentTheme.PrimaryBackground,
                                 validator: validator,
                               ),
                             ),
@@ -225,7 +229,9 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
                                   icon: Icon(
                                     Icons.sort,
                                     color:
-                                        theme.currentTheme.PrimaryBackground, // ou autre couleur équivalente à `.info`
+                                        theme
+                                            .currentTheme
+                                            .PrimaryBackground, // ou autre couleur équivalente à `.info`
                                     size: 24,
                                   ),
                                   onPressed: () async {

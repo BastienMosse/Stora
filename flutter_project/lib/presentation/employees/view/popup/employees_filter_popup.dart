@@ -54,8 +54,9 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(locale.employee_filter_popup_option,
-            style: TextStyle(color: theme.currentTheme.PrimaryBackground,),
+          Text(
+            locale.employee_filter_popup_option,
+            style: TextStyle(color: theme.currentTheme.PrimaryBackground),
           ),
           IconButton(
             icon: const Icon(Icons.close),
@@ -114,8 +115,8 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
           },
           child: Text(
             locale.employee_filter_popup_reset,
-            style: TextStyle(color: theme.currentTheme.PrimaryBackground,),
-          )
+            style: TextStyle(color: theme.currentTheme.PrimaryBackground),
+          ),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -136,9 +137,7 @@ class _EmployeesFilterPopupState extends State<EmployeesFilterPopup> {
           },
           child: Text(
             locale.employee_filter_popup_apply,
-            style: TextStyle(
-              color: theme.currentTheme.PrimaryBackground,
-            ),
+            style: TextStyle(color: theme.currentTheme.PrimaryBackground),
           ),
         ),
       ],

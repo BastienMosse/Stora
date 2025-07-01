@@ -12,6 +12,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
+  final _positionController = TextEditingController();
   final _noteController = TextEditingController();
   Category? _selectedCategory;
 
@@ -20,6 +21,9 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   int _delivery = 0;
 
   File? _profileImage;
+
+  late AppLocalizations locale;
+  late ThemeController theme;
 
   Future<void> _showImageOptions() async {
     final locale = AppLocalizations.of(context)!;
@@ -105,7 +109,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final locale = AppLocalizations.of(context)!;
+    locale = AppLocalizations.of(context)!;
+    theme = context.watch<ThemeController>();
   }
 
   @override
@@ -114,6 +119,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
     _nameController.dispose();
     _descriptionController.dispose();
     _priceController.dispose();
+    _positionController.dispose();
     _noteController.dispose();
   }
 
@@ -165,7 +171,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  locale.employee_display_update_popup_create,
+                  locale.stock_create_create,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
@@ -200,8 +206,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _nameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_name,
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
@@ -214,8 +220,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_description,
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
@@ -228,8 +234,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _priceController,
-                  decoration: const InputDecoration(
-                    labelText: 'Price',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_price,
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.number,
@@ -241,7 +247,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 6),
                 buildMenuButton(
-                  text: 'Stock',
+                  text: locale.stock_create_quantity_sto,
                   counter: _stock,
                   onIncrement: () => setState(() => _stock++),
                   onDecrement:
@@ -250,7 +256,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                       }),
                 ),
                 buildMenuButton(
-                  text: 'Sell',
+                  text: locale.stock_create_quantity_sel,
                   counter: _sell,
                   onIncrement: () => setState(() => _sell++),
                   onDecrement:
@@ -259,7 +265,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                       }),
                 ),
                 buildMenuButton(
-                  text: 'Delivery',
+                  text: locale.stock_create_quantity_del,
                   counter: _delivery,
                   onIncrement: () => setState(() => _delivery++),
                   onDecrement:
@@ -269,8 +275,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<Category>(
-                  decoration: const InputDecoration(
-                    labelText: 'Category',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_category,
                     border: OutlineInputBorder(),
                   ),
                   value: _selectedCategory,
@@ -294,9 +300,20 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
+                  controller: _positionController,
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_category,
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.note),
+                  ),
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
                   controller: _noteController,
                   decoration: InputDecoration(
-                    labelText: 'Notes',
+                    labelText: locale.stock_create_notes,
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.note),
                   ),
@@ -328,7 +345,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                               stockQuantity: _stock,
                               sellQuantity: _sell,
                               deliveryQuantity: _delivery,
-                              position: '',
+                              position: _positionController.text,
                               note: _noteController.text,
                             );
                             final response = await Endpoints.postProducts(
@@ -342,7 +359,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                     locale
                                         .employee_display_create_popup_err_create,
                                   ),
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: theme.currentTheme.Error,
                                 ),
                               );
                             } else {
@@ -359,7 +376,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                         locale
                                             .employee_display_create_popup_err_upload,
                                       ),
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: theme.currentTheme.Error,
                                     ),
                                   );
                                 } else {
@@ -369,7 +386,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                         locale
                                             .employee_display_create_popup_succ_create,
                                       ),
-                                      backgroundColor: Colors.green,
+                                      backgroundColor:
+                                          theme.currentTheme.Success,
                                     ),
                                   );
                                   Navigator.pop(context, true);
@@ -381,7 +399,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                                       locale
                                           .employee_display_create_popup_succ_create,
                                     ),
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: theme.currentTheme.Success,
                                   ),
                                 );
                                 Navigator.pop(context, true);

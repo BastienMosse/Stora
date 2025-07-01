@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildColorPalette(context, themeController),
             ],
             const SizedBox(height: 20),
-            
+
             // Section Langue
             _buildSectionTitle(locale.settings_language),
             _buildLanguageDropdown(userPrefs, locale),
@@ -79,31 +79,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
           setState(() {
             _showColorPalette = newType == ThemeType.custom;
           });
-          if (newType != ThemeType.custom)
-          {
+          if (newType != ThemeType.custom) {
             themeController.switchTheme(newType);
           }
-          
         }
       },
-      items: ThemeType.values.map((type) {
-        return DropdownMenuItem<ThemeType>(
-          value: type,
-          child: Text(_getThemeName(type)),
-        );
-      }).toList(),
+      items:
+          ThemeType.values.map((type) {
+            return DropdownMenuItem<ThemeType>(
+              value: type,
+              child: Text(_getThemeName(type)),
+            );
+          }).toList(),
     );
   }
 
   String _getThemeName(ThemeType type) {
     switch (type) {
-      case ThemeType.light: return 'Light Theme';
-      case ThemeType.dark: return 'Dark Theme';
-      case ThemeType.custom: return 'Custom Theme';
+      case ThemeType.light:
+        return 'Light Theme';
+      case ThemeType.dark:
+        return 'Dark Theme';
+      case ThemeType.custom:
+        return 'Custom Theme';
     }
   }
 
-  Widget _buildColorPalette(BuildContext context, ThemeController themeController) {
+  Widget _buildColorPalette(
+    BuildContext context,
+    ThemeController themeController,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -118,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                    _updateCustomTheme(themeController, _colorPalette[index]);
+                  _updateCustomTheme(themeController, _colorPalette[index]);
                 },
                 child: Container(
                   width: 50,
@@ -141,12 +146,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       custom_color = newColor;
     });
-      
 
     themeController.switchTheme(ThemeType.custom);
   }
 
-  
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -166,20 +169,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           userPrefs.setLocale(newLocale);
         }
       },
-      items: AppLocalizations.supportedLocales.map((Locale locale) {
-        return DropdownMenuItem<Locale>(
-          value: locale,
-          child: Text(_getLanguageName(locale.languageCode)),
-        );
-      }).toList(),
+      items:
+          AppLocalizations.supportedLocales.map((Locale locale) {
+            return DropdownMenuItem<Locale>(
+              value: locale,
+              child: Text(_getLanguageName(locale.languageCode)),
+            );
+          }).toList(),
     );
   }
 
   String _getLanguageName(String code) {
     switch (code) {
-      case 'en': return 'English';
-      case 'fr': return 'Français';
-      default: return code.toUpperCase();
+      case 'en':
+        return 'English';
+      case 'fr':
+        return 'Français';
+      default:
+        return code.toUpperCase();
     }
   }
 
@@ -197,10 +204,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       items: [
         DropdownMenuItem(value: '7', child: Text('7 ${locale.settings_days}')),
-        DropdownMenuItem(value: '30', child: Text('30 ${locale.settings_days}')),
-        DropdownMenuItem(value: '60', child: Text('60 ${locale.settings_days}')),
-        DropdownMenuItem(value: '90', child: Text('90 ${locale.settings_days}')),
-        DropdownMenuItem(value: '365', child: Text('365 ${locale.settings_days}')),
+        DropdownMenuItem(
+          value: '30',
+          child: Text('30 ${locale.settings_days}'),
+        ),
+        DropdownMenuItem(
+          value: '60',
+          child: Text('60 ${locale.settings_days}'),
+        ),
+        DropdownMenuItem(
+          value: '90',
+          child: Text('90 ${locale.settings_days}'),
+        ),
+        DropdownMenuItem(
+          value: '365',
+          child: Text('365 ${locale.settings_days}'),
+        ),
       ],
     );
   }
@@ -216,16 +235,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showContactDialog(AppLocalizations locale) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(locale.settings_contact),
-        content: Text('Email: support@example.com\n${locale.employee_display_update_popup_phone}: +123456789'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(locale.settings_close),
+      builder:
+          (context) => AlertDialog(
+            title: Text(locale.settings_contact),
+            content: Text(
+              'Email: support@example.com\n${locale.employee_display_update_popup_phone}: +123456789',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(locale.settings_close),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 

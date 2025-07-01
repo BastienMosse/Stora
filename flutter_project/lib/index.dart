@@ -1,6 +1,7 @@
 export 'dart:io';
 export 'dart:async';
 export 'dart:convert';
+export 'dart:math';
 
 export 'package:flutter/gestures.dart';
 export 'package:flutter/material.dart';

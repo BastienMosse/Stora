@@ -90,14 +90,17 @@
 	"employee_screen_err":"Error",
 	"employee_screen_retry":"Retry",
 
-	"stock_cerate_please":"Please enter a value",
-	"stock_cerate_create":"Create New Product",
-	"stock_cerate_name": "Name",
-	"stock_cerate_enterID":"Enter ID",
-	"stock_cerate_quantity": "Stock quantity :", 
-	"stock_cerate_quantity_dell":"Delivery in progress :",
-	"stock_cerate_row":"Row",
-	"stock_cerate_height":"Heigh",
+	"stock_create_please":"Please enter a value",
+	"stock_create_create":"Create New Product",
+	"stock_create_name": "Name",
+	"stock_create_description": "Description",
+	"stock_create_price": "Price",
+	"stock_create_category": "Category",
+	"stock_create_position": "Position",
+	"stock_create_notes": "Notes",
+	"stock_create_quantity_sel": "Sell quantity: ",
+	"stock_create_quantity_sto": "Stock quantity: ", 
+	"stock_create_quantity_del": "Delivery quantity: ",
  
 	"stock_filter_popup_title": "Filters",
 	"stock_filter_popup_keyword": "Key words",
@@ -170,35 +173,4 @@
 	"product_update_popup_actual" : "Atual : ",
 	"product_update_popup_enter_note" : "Enter your note here : ",
 	"product_update_popup_update" : "Update"
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

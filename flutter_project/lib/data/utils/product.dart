@@ -39,12 +39,14 @@ class Product {
                   : (json['price'] ?? 0.0).toDouble())
               : 0.0,
       stockQuantity:
-          json.containsKey('stockQuantity') ? (json['stockQuantity'] ?? 0) : 0,
+          json.containsKey('stock_quantity')
+              ? (json['stock_quantity'] ?? 0)
+              : 0,
       sellQuantity:
-          json.containsKey('sellQuantity') ? (json['sellQuantity'] ?? 0) : 0,
+          json.containsKey('sell_quantity') ? (json['sell_quantity'] ?? 0) : 0,
       deliveryQuantity:
-          json.containsKey('deliveryQuantity')
-              ? (json['deliveryQuantity'] ?? 0)
+          json.containsKey('delivery_quantity')
+              ? (json['delivery_quantity'] ?? 0)
               : 0,
       photo: json.containsKey('photo') ? (json['photo'] ?? '') : '',
       position: json.containsKey('position') ? (json['position'] ?? '') : '',

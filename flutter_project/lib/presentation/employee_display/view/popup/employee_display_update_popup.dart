@@ -39,7 +39,7 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    
+
     locale = AppLocalizations.of(context)!;
   }
 
@@ -70,12 +70,10 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.cancel),
-                  title: Text(locale.employee_display_update_popup_annuler,
-                    style: GoogleFonts.interTight(
-                          color: Colors.green
-          
-                        ),
-                    ),
+                  title: Text(
+                    locale.employee_display_update_popup_annuler,
+                    style: GoogleFonts.interTight(color: Colors.green),
+                  ),
                   onTap: () => Navigator.pop(context),
                 ),
               ],
@@ -156,7 +154,11 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
               children: [
                 Text(
                   locale.employee_display_update_update_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryText),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -176,7 +178,10 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                         decoration: BoxDecoration(
                           color: theme.currentTheme.PrimaryBackground,
                           shape: BoxShape.circle,
-                          border: Border.all(color: theme.currentTheme.Primary, width: 2),
+                          border: Border.all(
+                            color: theme.currentTheme.Primary,
+                            width: 2,
+                          ),
                         ),
                         child: Icon(
                           Icons.camera_alt,
@@ -215,9 +220,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                             Role.values.map((role) {
                               return DropdownMenuItem(
                                 value: role,
-                                child: Text(role.value,style: TextStyle(
-                            color: theme.currentTheme.PrimaryText,
-                          ),),
+                                child: Text(
+                                  role.value,
+                                  style: TextStyle(
+                                    color: theme.currentTheme.PrimaryText,
+                                  ),
+                                ),
                               );
                             }).toList(),
                         onChanged: (val) {
@@ -306,7 +314,9 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   children: [
                     Expanded(
                       child: OutlinedButton(
-                        style:OutlinedButton.styleFrom(backgroundColor: theme.currentTheme.Primary) ,
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () => context.pop(),
                         child: Text(
                           locale.employee_display_update_popup_annuler,
@@ -401,9 +411,8 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                         child: Text(
                           locale.employee_display_update_update_button,
                           style: GoogleFonts.interTight(
-                          color: theme.currentTheme.PrimaryBackground
-          
-                        ),
+                            color: theme.currentTheme.PrimaryBackground,
+                          ),
                         ),
                       ),
                     ),

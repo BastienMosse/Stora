@@ -38,7 +38,6 @@ class EmplyeeDisplayScreenViewModel {
   }
 
   Future<void> deleteUser(String id) async {
-    print('Deleting user with ID: $id');
     if (_isLoading) return;
 
     _isLoading = true;
