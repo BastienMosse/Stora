@@ -133,7 +133,7 @@ class Endpoints {
       'api/products',
       productRequest.toJson(),
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final json = jsonDecode(response.body);
       return ProductCreateResponse.fromJson(json);
     }
