@@ -5,15 +5,14 @@ import 'popup/stock_create_popup.dart';
 import 'popup/stock_filter_popup.dart';
 import '../viewmodel/stock_screen_vm.dart';
 
-class GestionStockWidget extends StatefulWidget {
-  const GestionStockWidget({super.key});
+class StockScreen extends StatefulWidget {
+  const StockScreen({super.key});
 
   @override
-  State<GestionStockWidget> createState() => _GestionStockWidgetState();
+  State<StockScreen> createState() => _StockScreenState();
 }
 
-class _GestionStockWidgetState extends State<GestionStockWidget>
-    with RouteAware {
+class _StockScreenState extends State<StockScreen> {
   late AppState appState;
   late UserPrefs userPrefs;
   late ThemeController theme;
@@ -51,19 +50,13 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
     locale = AppLocalizations.of(context)!;
 
     viewModel.init(context);
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
-  }
-
-  @override
-  void didPopNext() {
     _refreshData();
   }
 
   @override
   void dispose() {
-    super.dispose();
     viewModel.dispose();
-    routeObserver.unsubscribe(this);
+    super.dispose();
   }
 
   Future<void> _refreshData() async {
@@ -83,10 +76,9 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
   Widget buildStockCard(Product product) {
     return InkWell(
       onTap: () {
-        context.push(Routes.stockDisplay, extra: product.id);
+        context.go(Routes.stockDisplay, extra: product.id);
       },
       child: Container(
-        
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           border: Border.all(color: theme.currentTheme.Primary, width: 2),
@@ -187,7 +179,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
             size: 24,
           ),
           onPressed: () {
-            context.pop();
+            context.go(Routes.home);
           },
         ),
         title: Align(
@@ -203,7 +195,7 @@ class _GestionStockWidgetState extends State<GestionStockWidget>
             ),
           ),
         ),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: SafeArea(
         top: true,

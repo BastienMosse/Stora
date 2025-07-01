@@ -1,13 +1,7 @@
-import '/index.dart';
-
 // Application-wide constant variables
 const String appName = 'Stora';
 const String apiBaseUrl = 'http://la-banquise.fr:5431/';
 const int defaultTimeout = 30;
-
-// For updates
-final RouteObserver<ModalRoute<void>> routeObserver =
-    RouteObserver<ModalRoute<void>>();
 
 // Font constants
 const String textFont = 'secondary family';

@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               size: 24,
             ),
             onPressed: () {
-              context.push('/settings');
+              context.go(Routes.settings);
             },
           ),
         ],
@@ -111,28 +111,28 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (appState.isAdmin) ...[
-              buildMenuButton(
-                text: locale.homePage_admin_log,
-                onPressed: () {
-                  context.push(Routes.gestionLog);
-                },
-              ),
-              const SizedBox(height: 16),
-              buildMenuButton(
-                text: locale.homePage_admin_employee,
-                onPressed: () {
-                  context.push('/employees');
-                },
-              ),
-              const SizedBox(height: 16),
-            ],
             buildMenuButton(
               text: locale.homePage_stock,
               onPressed: () {
-                context.push('/stock');
+                context.go(Routes.stock);
               },
             ),
+            const SizedBox(height: 16),
+            if (appState.isAdmin) ...[
+              buildMenuButton(
+                text: locale.homePage_admin_employee,
+                onPressed: () {
+                  context.go(Routes.employees);
+                },
+              ),
+              const SizedBox(height: 16),
+              buildMenuButton(
+                text: locale.homePage_admin_log,
+                onPressed: () {
+                  context.go(Routes.gestionLog);
+                },
+              ),
+            ],
           ],
         ),
       ),

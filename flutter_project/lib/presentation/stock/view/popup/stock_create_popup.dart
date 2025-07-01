@@ -12,16 +12,18 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
+  final _positionController = TextEditingController();
   final _noteController = TextEditingController();
   Category? _selectedCategory;
   
-  late ThemeController theme;
-
   int _stock = 0;
   int _sell = 0;
   int _delivery = 0;
 
   File? _profileImage;
+
+  late AppLocalizations locale;
+  late ThemeController theme;
 
   Future<void> _showImageOptions() async {
     final locale = AppLocalizations.of(context)!;
@@ -107,7 +109,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final locale = AppLocalizations.of(context)!;
+    locale = AppLocalizations.of(context)!;
     theme = context.watch<ThemeController>();
   }
 
@@ -117,6 +119,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
     _nameController.dispose();
     _descriptionController.dispose();
     _priceController.dispose();
+    _positionController.dispose();
     _noteController.dispose();
   }
 
@@ -126,7 +129,6 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
     required VoidCallback onIncrement,
     required VoidCallback onDecrement,
   }) {
-    final locale = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -216,8 +218,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                     color: theme.currentTheme.PrimaryText,
                   ),
                   controller: _nameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_name,
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
@@ -233,8 +235,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                     color: theme.currentTheme.PrimaryText,
                   ),
                   controller: _descriptionController,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_description,
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.text,
@@ -250,8 +252,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                     color: theme.currentTheme.PrimaryText,
                   ),
                   controller: _priceController,
-                  decoration: const InputDecoration(
-                    labelText: 'Price',
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_price,
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.number,
@@ -263,7 +265,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 6),
                 buildMenuButton(
-                  text: 'Stock',
+                  text: locale.stock_create_quantity_sto,
                   counter: _stock,
                   onIncrement: () => setState(() => _stock++),
                   onDecrement:
@@ -272,7 +274,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                       }),
                 ),
                 buildMenuButton(
-                  text: 'Sell',
+                  text: locale.stock_create_quantity_sel,
                   counter: _sell,
                   onIncrement: () => setState(() => _sell++),
                   onDecrement:
@@ -281,7 +283,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                       }),
                 ),
                 buildMenuButton(
-                  text: 'Delivery',
+                  text: locale.stock_create_quantity_del,
                   counter: _delivery,
                   onIncrement: () => setState(() => _delivery++),
                   onDecrement:
@@ -324,12 +326,20 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
-                  style: GoogleFonts.interTight(
-                    color: theme.currentTheme.PrimaryText,
+                  controller: _positionController,
+                  decoration: InputDecoration(
+                    labelText: locale.stock_create_category,
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.note),
                   ),
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
                   controller: _noteController,
                   decoration: InputDecoration(
-                    labelText: 'Notes',
+                    labelText: locale.stock_create_notes,
                     border: OutlineInputBorder(),
                     suffixIcon: Icon(Icons.note),
                   ),
@@ -370,7 +380,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                               stockQuantity: _stock,
                               sellQuantity: _sell,
                               deliveryQuantity: _delivery,
-                              position: '',
+                              position: _positionController.text,
                               note: _noteController.text,
                             );
                             final response = await Endpoints.postProducts(
@@ -444,7 +454,7 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                           }
                         },
                         child: Text(
-                          locale.stock_cerate_tu_me_casse_les_couille,
+                          locale.stock_create_create,
                           style: TextStyle(
                             color: theme.currentTheme.PrimaryBackground,
                           ),

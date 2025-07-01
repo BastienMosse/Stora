@@ -95,15 +95,17 @@
 	"employee_screen_err":"Erreur",
 	"employee_screen_retry":"réessayer",
 
-	"stock_cerate_please":"Merci d'entrer une valeur",
-	"stock_cerate_create":"Créer un nouveau produit",
-	"stock_cerate_name": "Nom",
-	"stock_cerate_enterID":"Entrer ID",
-	"stock_cerate_quantity": "quantitée stockée :", 
-	"stock_cerate_quantity_dell":"livraison en cours :",
-	"stock_cerate_row":"Ran",
-	"stock_cerate_height":"Haut",
-	"stock_cerate_tu_me_casse_les_couille":"Créer un nouveau produit",
+	"stock_create_please":"Merci d'entrer une valeur",
+	"stock_create_create":"Créer un nouveau produit",
+	"stock_create_name": "Nom",
+	"stock_create_description": "Description",
+	"stock_create_price": "Prix",
+	"stock_create_category": "Catégorie",
+	"stock_create_position": "Position",
+	"stock_create_notes": "Notes",
+	"stock_create_quantity_sto": "Quantité en stock: ",
+	"stock_create_quantity_del": "Quantité vendue: ",
+	"stock_create_quantity_sel": "Quantité en livraison: ",
 	
 	"stock_filter_popup_title": "Filtres",
 	"stock_filter_popup_keyword":"Mots clés",
@@ -175,29 +177,4 @@
 	"product_update_popup_actual" : "Réel : ",
 	"product_update_popup_enter_note" : "Entrer votre note ici : ",
 	"product_update_popup_update" : "Mettre à jour"
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

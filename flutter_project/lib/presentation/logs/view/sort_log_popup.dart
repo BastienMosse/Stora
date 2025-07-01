@@ -63,7 +63,7 @@ class _LogSortWidgetState extends State<LogSortWidget> {
   @override
   Widget build(BuildContext context) {
     theme = context.read<ThemeController>();
-    
+
     final locale = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(color: Colors.transparent),

@@ -44,6 +44,7 @@ dependencies:
 
   # Image handling
   image_picker: ^1.1.2
+  http_parser: ^4.1.2
 
 
 dev_dependencies:

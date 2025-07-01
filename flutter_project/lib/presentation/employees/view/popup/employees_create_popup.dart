@@ -140,7 +140,11 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
               children: [
                 Text(
                   locale.employee_display_update_popup_create,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color:theme.currentTheme.PrimaryText),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -380,7 +384,6 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                 Row(
                   children: [
                     Expanded(
-                      
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.currentTheme.Primary,
@@ -454,7 +457,8 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                                         locale
                                             .employee_display_create_popup_succ_create,
                                       ),
-                                      backgroundColor: theme.currentTheme.Success,
+                                      backgroundColor:
+                                          theme.currentTheme.Success,
                                     ),
                                   );
                                   Navigator.pop(context, true);

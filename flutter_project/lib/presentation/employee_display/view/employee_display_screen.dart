@@ -3,19 +3,21 @@ import '/index.dart';
 import 'popup/employee_display_update_popup.dart';
 import '../viewmodel/employee_display_screen_vm.dart';
 
-class EmployeeDisplay extends StatefulWidget {
+class EmployeeDisplayScreen extends StatefulWidget {
   final String userId;
 
-  const EmployeeDisplay({super.key, required this.userId});
+  const EmployeeDisplayScreen({super.key, required this.userId});
 
   @override
-  State<EmployeeDisplay> createState() => _EmployeeDisplayScreenState();
+  State<EmployeeDisplayScreen> createState() => _EmployeeDisplayScreenState();
 }
 
-class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
+class _EmployeeDisplayScreenState extends State<EmployeeDisplayScreen>
+    with RouteAware {
   late EmplyeeDisplayScreenViewModel viewModel;
 
   late ThemeController theme;
+  late AppLocalizations locale;
 
   bool _isRefreshing = false;
 
@@ -41,7 +43,8 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
     }
 
     theme = context.read<ThemeController>();
-    
+    locale = AppLocalizations.of(context)!;
+
     viewModel.init(context);
     _fetchAndRefresh();
   }
@@ -69,9 +72,6 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    theme = context.watch<ThemeController>();
-
-    final locale = AppLocalizations.of(context)!;
     final imageWidth = MediaQuery.of(context).size.width * 0.4;
     final imageHeight = MediaQuery.of(context).size.height * 0.2;
 
@@ -84,7 +84,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
             Icons.arrow_back,
             color: theme.currentTheme.PrimaryBackground,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.go(Routes.employees),
         ),
         elevation: 2,
       ),
@@ -179,22 +179,25 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text('id : ${viewModel.user?.id ?? ''}',
+                              Text(
+                                'id : ${viewModel.user?.id ?? ''}',
                                 style: TextStyle(
-                                    color: theme.currentTheme.PrimaryText,
-                                  ),
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
-                              Text('login : ${viewModel.user?.login ?? ''}',
-                               style: TextStyle(
-                                    color: theme.currentTheme.PrimaryText,
-                                  ),
+                              Text(
+                                'login : ${viewModel.user?.login ?? ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
-                              Text('role : ${viewModel.user?.role ?? ''}',
-                               style: TextStyle(
-                                    color: theme.currentTheme.PrimaryText,
-                                  ),
+                              Text(
+                                'role : ${viewModel.user?.role ?? ''}',
+                                style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -211,7 +214,8 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text('email : ${viewModel.user?.email ?? ''}',
+                              Text(
+                                'email : ${viewModel.user?.email ?? ''}',
                                 style: TextStyle(
                                   color: theme.currentTheme.PrimaryText,
                                 ),
@@ -316,7 +320,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplay> {
                       onPressed: () {
                         setState(() {
                           viewModel.deleteUser(widget.userId);
-                          context.pop();
+                          context.go(Routes.employees);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(

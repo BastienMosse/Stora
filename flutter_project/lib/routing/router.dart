@@ -1,5 +1,4 @@
 import '/index.dart';
-import 'routes.dart';
 
 GoRouter route = GoRouter(
   initialLocation: Routes.initial,
@@ -25,12 +24,12 @@ GoRouter route = GoRouter(
     ),
     GoRoute(
       path: Routes.stock,
-      builder: (context, state) => const GestionStockWidget(),
+      builder: (context, state) => const StockScreen(),
     ),
     GoRoute(
       path: Routes.stockDisplay,
       builder: (context, state) {
-        return ProductDisplayWidget(productId: state.extra as String);
+        return StockDisplayScreen(productId: state.extra as String);
       },
     ),
     GoRoute(
@@ -40,7 +39,7 @@ GoRouter route = GoRouter(
     GoRoute(
       path: Routes.employeesDisplay,
       builder: (context, state) {
-        return EmployeeDisplay(userId: state.extra as String);
+        return EmployeeDisplayScreen(userId: state.extra as String);
       },
     ),
     GoRoute(

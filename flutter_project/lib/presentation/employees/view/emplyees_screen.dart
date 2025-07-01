@@ -12,7 +12,7 @@ class EmployeesScreen extends StatefulWidget {
   State<EmployeesScreen> createState() => _EmployeesScreenState();
 }
 
-class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
+class _EmployeesScreenState extends State<EmployeesScreen> {
   late AppState appState;
   late UserPrefs userPrefs;
   late ThemeController theme;
@@ -50,19 +50,12 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
     locale = AppLocalizations.of(context)!;
 
     viewModel.init(context);
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
-  }
-
-  @override
-  void didPopNext() {
-    _refreshData();
   }
 
   @override
   void dispose() {
-    super.dispose();
     viewModel.dispose();
-    routeObserver.unsubscribe(this);
+    super.dispose();
   }
 
   Future<void> _refreshData() async {
@@ -82,10 +75,9 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
   Widget buildEmployeeCard(User user) {
     return InkWell(
       onTap: () {
-        context.push(Routes.employeesDisplay, extra: user.id);
+        context.go(Routes.employeesDisplay, extra: user.id);
       },
       child: Container(
-        
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           border: Border.all(color: theme.currentTheme.Primary, width: 2),
@@ -187,18 +179,18 @@ class _EmployeesScreenState extends State<EmployeesScreen> with RouteAware {
             size: 24,
           ),
           onPressed: () {
-            context.pop();
+            context.go(Routes.home);
           },
         ),
         title: Text(
           locale.employee_screen_Employer,
           style: GoogleFonts.interTight(
-              fontWeight: FontWeight.w600,
-              fontStyle: FontStyle.normal,
-              color:  theme.currentTheme.PrimaryBackground,
-              fontSize: 22,
-              letterSpacing: 0.0,
-            ),
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.normal,
+            color: theme.currentTheme.PrimaryBackground,
+            fontSize: 22,
+            letterSpacing: 0.0,
+          ),
         ),
         centerTitle: true,
       ),

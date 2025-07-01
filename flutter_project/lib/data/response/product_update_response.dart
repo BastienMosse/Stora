@@ -1,11 +1,11 @@
 import '/index.dart';
 
 class ProductUpdateResponse {
-  final Product products;
+  final Product product;
 
-  ProductUpdateResponse({required this.products});
+  ProductUpdateResponse({required this.product});
 
   factory ProductUpdateResponse.fromJson(Map<String, dynamic> json) {
-    return ProductUpdateResponse(products: Product.fromJson(json['product']));
+    return ProductUpdateResponse(product: Product.fromJson(json));
   }
 }
