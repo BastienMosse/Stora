@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
               buildMenuButton(
                 text: locale.homePage_admin_log,
                 onPressed: () {
-                  context.go(Routes.gestionLog);
+                  context.go(Routes.log);
                 },
               ),
             ],

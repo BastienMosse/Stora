@@ -1,24 +1,23 @@
 import '/index.dart';
+import 'package:intl/intl.dart';
 
-import 'popup/employees_filter_popup.dart';
-import 'popup/employees_create_popup.dart';
+import '../viewmodel/log_screen_vm.dart';
+import 'popup/log_filter_popup.dart';
+import 'popup/log_sort_popup.dart';
 
-import '../viewmodel/emplyees_screen_mv.dart';
-
-class EmployeesScreen extends StatefulWidget {
-  const EmployeesScreen({super.key});
+class GestionLogsWidget extends StatefulWidget {
+  const GestionLogsWidget({super.key});
 
   @override
-  State<EmployeesScreen> createState() => _EmployeesScreenState();
+  State<GestionLogsWidget> createState() => _GestionLogsWidgetState();
 }
 
-class _EmployeesScreenState extends State<EmployeesScreen> {
+class _GestionLogsWidgetState extends State<GestionLogsWidget> {
   late AppState appState;
-  late UserPrefs userPrefs;
-  late ThemeController theme;
   late AppLocalizations locale;
+  late ThemeController theme;
 
-  late EmplyeesScreenViewModel viewModel;
+  late LogScreenViewModel viewModel;
   late Future<void> _initialFetchFuture;
 
   bool _isRefreshing = false;
@@ -33,8 +32,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
       });
     }
 
-    viewModel = EmplyeesScreenViewModel();
-    _initialFetchFuture = viewModel.fetchUserList();
+    viewModel = LogScreenViewModel();
   }
 
   @override
@@ -45,16 +43,15 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
       context.go(Routes.home);
     }
 
-    appState = context.read<AppState>();
-    theme = context.read<ThemeController>();
     locale = AppLocalizations.of(context)!;
+    theme = context.read<ThemeController>();
 
     viewModel.init(context);
+    _initialFetchFuture = viewModel.fetchLogList();
   }
 
   @override
   void dispose() {
-    viewModel.dispose();
     super.dispose();
   }
 
@@ -65,17 +62,35 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
       _isRefreshing = true;
     });
 
-    await viewModel.refreshUserList();
+    await viewModel.refreshProductList();
 
     setState(() {
       _isRefreshing = false;
     });
   }
 
-  Widget buildEmployeeCard(User user) {
+  String _formatDate(DateTime date) {
+    final formatter = DateFormat('dd/MM/yyyy HH:mm');
+    return formatter.format(date);
+  }
+
+  IconData _getActionIcon(String action) {
+    switch (action.toUpperCase()) {
+      case 'CREATE':
+        return Icons.add_circle_outline;
+      case 'UPDATE':
+        return Icons.edit;
+      case 'DELETE':
+        return Icons.delete_outline;
+      default:
+        return Icons.info_outline;
+    }
+  }
+
+  Widget buildStockCard(Log log) {
     return InkWell(
       onTap: () {
-        context.go(Routes.employeesDisplay, extra: user.id);
+        context.go(Routes.logDisplay, extra: log.id);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
@@ -95,37 +110,10 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
             padding: const EdgeInsets.all(12.0),
             child: Row(
               children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: theme.currentTheme.Primary,
-                      width: 2,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child:
-                        user.photo.isNotEmpty
-                            ? Image.network(
-                              user.photo,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Icon(
-                                  Icons.person,
-                                  size: 32,
-                                  color: theme.currentTheme.PrimaryBackground,
-                                );
-                              },
-                            )
-                            : Icon(
-                              Icons.person,
-                              size: 32,
-                              color: theme.currentTheme.PrimaryText,
-                            ),
-                  ),
+                Icon(
+                  _getActionIcon(log.actionType),
+                  color: theme.currentTheme.Primary,
+                  size: 28,
                 ),
                 SizedBox(width: 16),
                 Expanded(
@@ -133,25 +121,37 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.login,
+                        '${log.actionType} • ${_formatDate(log.actionDate)}',
                         style: TextStyle(
-                          color: theme.currentTheme.PrimaryText,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          color: theme.currentTheme.PrimaryText,
                         ),
                       ),
+                      SizedBox(height: 4),
                       Text(
-                        '${locale.employee_screen_username} ${user.username.isEmpty ? '-' : user.username}',
+                        log.details,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: theme.currentTheme.PrimaryText,
-                          fontSize: 15,
+                          fontSize: 14,
+                          color: theme.currentTheme.SecondaryText,
                         ),
                       ),
+                      SizedBox(height: 4),
                       Text(
-                        'email: ${user.email.isEmpty ? '-' : user.email}',
+                        'Par ${log.username}',
                         style: TextStyle(
+                          fontSize: 13,
+                          color: theme.currentTheme.SecondaryText,
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        'ID: ${log.id}',
+                        style: TextStyle(
+                          fontSize: 11,
                           color: theme.currentTheme.PrimaryText,
-                          fontSize: 15,
                         ),
                       ),
                     ],
@@ -182,14 +182,17 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
             context.go(Routes.home);
           },
         ),
-        title: Text(
-          locale.employee_screen_Employer,
-          style: GoogleFonts.interTight(
-            fontWeight: FontWeight.w600,
-            fontStyle: FontStyle.normal,
-            color: theme.currentTheme.PrimaryBackground,
-            fontSize: 22,
-            letterSpacing: 0.0,
+        title: Align(
+          alignment: AlignmentDirectional(0, 0),
+          child: Text(
+            locale.stock_manage_page_title,
+            style: GoogleFonts.interTight(
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color: theme.currentTheme.PrimaryBackground,
+              fontSize: 22,
+              letterSpacing: 0.0,
+            ),
           ),
         ),
         centerTitle: true,
@@ -209,11 +212,11 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                   IconButton(
                     iconSize: 40,
                     padding: EdgeInsets.zero,
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      await showDialog(
                         context: context,
                         builder:
-                            (context) => EmployeesFilterPopup(
+                            (context) => LogFilterPopup(
                               initialFilters: viewModel.currentFilters,
                               onFiltersApplied: (filterData) {
                                 viewModel.setFilters(filterData);
@@ -256,7 +259,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                           },
                           decoration: InputDecoration(
                             isDense: true,
-                            hintText: locale.employee_screen_hint,
+                            hintText: locale.stock_manage_page_bar_de_recherche,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(8),
@@ -274,6 +277,36 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    iconSize: 40,
+                    padding: EdgeInsets.zero,
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder:
+                            (context) => LogSortPopup(
+                              initialSorts: viewModel.currentSorts,
+                              onSortsApplied: (sortData) {
+                                viewModel.setSortOrder(sortData);
+                                setState(() {});
+                              },
+                            ),
+                      );
+                    },
+                    icon: Container(
+                      decoration: BoxDecoration(
+                        color: theme.currentTheme.Primary,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.sort,
+                        color: theme.currentTheme.PrimaryBackground,
+                        size: 24,
                       ),
                     ),
                   ),
@@ -309,10 +342,10 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                               return RefreshIndicator(
                                 onRefresh: _refreshData,
                                 child: ListView.builder(
-                                  itemCount: viewModel.filteredUserList.length,
+                                  itemCount: viewModel.filteredLogList.length,
                                   itemBuilder: (context, index) {
-                                    return buildEmployeeCard(
-                                      viewModel.filteredUserList[index],
+                                    return buildStockCard(
+                                      viewModel.filteredLogList[index],
                                     );
                                   },
                                 ),
@@ -320,47 +353,6 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                             }
                           },
                         ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: SizedBox(
-                  width: 250,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final result = await showDialog<bool>(
-                        context: context,
-                        builder: (context) => const EmployeeCreatePopup(),
-                      );
-
-                      if (result == true) {
-                        await _refreshData();
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.currentTheme.Primary,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      elevation: 0,
-                      textStyle: Theme.of(
-                        context,
-                      ).textTheme.titleSmall?.copyWith(
-                        color: theme.currentTheme.Primary,
-                        fontFamily: GoogleFonts.interTight().fontFamily,
-                      ),
-                    ),
-                    child: Text(
-                      '+',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: theme.currentTheme.PrimaryBackground,
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

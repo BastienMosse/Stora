@@ -5,7 +5,7 @@ class UserRegisterRequest {
   final String username;
   final Role role;
   final String password;
-  final DateTime? birth;
+  final String? birth;
   final String? tel;
   final String? email;
   final double? pay;
@@ -29,8 +29,7 @@ class UserRegisterRequest {
       'username': username,
       'password': password,
       'role': role.value,
-      if (birth != null)
-        'birth': '${birth!.year}-${birth!.month}-${birth!.day}',
+      if (birth != null) 'birth': birth,
       if (tel != null) 'tel': tel,
       if (email != null) 'email': email,
       if (pay != null) 'pay': pay,

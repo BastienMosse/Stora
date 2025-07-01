@@ -1,34 +1,40 @@
 class Log {
   final String id;
   final String userId;
-  final String username;
   final DateTime actionDate;
   final String actionType;
   final String details;
   final String targetTable;
   final String targetId;
+  final String state;
+  final String originalData;
+  final String username;
 
   Log({
     required this.id,
     required this.userId,
-    required this.username,
     required this.actionDate,
     required this.actionType,
     required this.details,
     required this.targetTable,
     required this.targetId,
+    required this.state,
+    required this.originalData,
+    required this.username,
   });
 
   factory Log.fromJson(Map<String, dynamic> json) {
     return Log(
-      id: json['id'] as String,
-      userId: json['user_id'] as String,
-      username: json['username'] as String,
-      actionDate: DateTime.parse(json['action_date'] as String),
-      actionType: json['action_type'] as String,
-      details: json['details'] as String,
-      targetTable: json['target_table'] as String,
-      targetId: json['target_id'] as String,
+      id: json['id'],
+      userId: json['user_id'],
+      actionDate: DateTime.parse(json['action_date']),
+      actionType: json['action_type'],
+      details: json['details'],
+      targetTable: json['target_table'],
+      targetId: json['target_id'],
+      state: json['state'],
+      originalData: json['original_data'],
+      username: json['username'],
     );
   }
 }

@@ -14,7 +14,6 @@ class StockScreen extends StatefulWidget {
 
 class _StockScreenState extends State<StockScreen> {
   late AppState appState;
-  late UserPrefs userPrefs;
   late ThemeController theme;
   late AppLocalizations locale;
 
@@ -55,7 +54,6 @@ class _StockScreenState extends State<StockScreen> {
 
   @override
   void dispose() {
-    viewModel.dispose();
     super.dispose();
   }
 
@@ -189,7 +187,7 @@ class _StockScreenState extends State<StockScreen> {
             style: GoogleFonts.interTight(
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.normal,
-              color:  theme.currentTheme.PrimaryBackground,
+              color: theme.currentTheme.PrimaryBackground,
               fontSize: 22,
               letterSpacing: 0.0,
             ),

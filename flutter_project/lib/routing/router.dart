@@ -43,8 +43,16 @@ GoRouter route = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.gestionLog,
+      path: Routes.log,
       builder: (context, state) => const GestionLogsWidget(),
     ),
+    GoRoute(
+      path: Routes.logDisplay,
+      builder: (context, state) {
+        return LogDisplayScreen(logId: state.extra as String);
+      },
+    ),
   ],
+
+   // logDisplay
 );

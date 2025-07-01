@@ -139,9 +139,4 @@ class StockScreenViewModel {
     _isLoading = false;
     await fetchProductList();
   }
-
-  void dispose() {
-    searchNode.dispose();
-    searchController.dispose();
-  }
 }

@@ -24,7 +24,6 @@ class _StockDisplayScreenState extends State<StockDisplayScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel = StockDisplayScreenViewModel();
 
     if (ApiService.jwt == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

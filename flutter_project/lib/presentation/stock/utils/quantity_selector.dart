@@ -25,7 +25,7 @@ class QuantitySelector extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(icon: const Icon(Icons.remove), onPressed: onRemove),
-          Text('$value',style: TextStyle(color: color)),
+          Text('$value', style: TextStyle(color: color)),
           IconButton(icon: const Icon(Icons.add), onPressed: onAdd),
         ],
       ),

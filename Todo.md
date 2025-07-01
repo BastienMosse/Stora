@@ -1,5 +1,6 @@
 - All
 	- Mettre les /root
+	- Regarder si ont peut mettre des locale dans les enums
 
 - Theme
 	- Stock screen
