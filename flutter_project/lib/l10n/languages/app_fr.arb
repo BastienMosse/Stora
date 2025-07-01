@@ -179,6 +179,9 @@
 	"product_update_popup_update" : "Mettre à jour",
 
 
+	"log_screen_title": "Gestion des logs",
+
+
 	"log_sort_popup_date": "Date",
 	"log_sort_popup_product_id": "ID Produit",
 	"log_sort_popup_product_name": "Nom du Produit",

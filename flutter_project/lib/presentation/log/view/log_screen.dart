@@ -185,7 +185,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
         title: Align(
           alignment: AlignmentDirectional(0, 0),
           child: Text(
-            locale.stock_manage_page_title,
+            locale.log_screen_title,
             style: GoogleFonts.interTight(
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.normal,
@@ -195,6 +195,7 @@ class _GestionLogsWidgetState extends State<GestionLogsWidget> {
             ),
           ),
         ),
+        elevation: 2,
         centerTitle: true,
       ),
       body: SafeArea(

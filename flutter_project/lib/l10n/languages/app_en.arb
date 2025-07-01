@@ -177,6 +177,10 @@
 	"product_update_popup_enter_note" : "Enter your note here : ",
 	"product_update_popup_update" : "Update",
 
+
+	"log_screen_title": "Logs Management",
+
+
 	"log_sort_popup_date": "Date",
 	"log_sort_popup_product_id": "Product ID",
 	"log_sort_popup_product_name": "Product Name",

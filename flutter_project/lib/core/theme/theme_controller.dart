@@ -1,7 +1,5 @@
 import '/index.dart';
 
-Color? custom_color;
-
 enum ThemeType { light, dark, custom }
 
 class ThemeController extends ChangeNotifier {
@@ -25,8 +23,8 @@ class ThemeController extends ChangeNotifier {
   AppThemeBase get currentTheme => _currentTheme;
 
   void switchTheme(ThemeType newType) {
-    print('Entering switch with value : ${custom_color.toString()}');
     _currentType = newType;
+
     switch (newType) {
       case ThemeType.light:
         _currentTheme = LightTheme.instance;
@@ -39,6 +37,7 @@ class ThemeController extends ChangeNotifier {
         (_currentTheme as CustomTheme).load(_userPrefs.CustomTheme);
         break;
     }
+
     _userPrefs.setTypeTheme(newType);
     notifyListeners();
   }

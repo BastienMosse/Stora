@@ -105,7 +105,7 @@ class CustomTheme extends AppThemeBase {
   CustomTheme._internal();
 
   // Brand Colors
-  Color? _primary = custom_color;
+  Color? _primary;
   Color? _secondary;
   Color? _tertiary;
   Color? _alternate;
@@ -149,26 +149,27 @@ class CustomTheme extends AppThemeBase {
   Color get Accent4 => _accent4 ?? DarkTheme.instance.Accent4;
 
   void load(String jsonString) {
-    print('jsonString : ${jsonString}');
-    final Map<String, dynamic> json = jsonDecode(jsonString);
+    try {
+      final Map<String, dynamic> json = jsonDecode(jsonString);
 
-    Color? parseColor(String key) =>
-        json.containsKey(key) && json[key] != null ? Color(json[key]) : null;
+      Color? parseColor(String key) =>
+          json.containsKey(key) && json[key] != null ? Color(json[key]) : null;
 
-    _primary = parseColor('primary');
-    _secondary = parseColor('secondary');
-    _tertiary = parseColor('tertiary');
-    _alternate = parseColor('alternate');
-
-    _primaryText = parseColor('primaryText');
-    _secondaryText = parseColor('secondaryText');
-    _primaryBackground = parseColor('primaryBackground');
-    _secondaryBackground = parseColor('secondaryBackground');
-
-    _accent1 = parseColor('accent1');
-    _accent2 = parseColor('accent2');
-    _accent3 = parseColor('accent3');
-    _accent4 = parseColor('accent4');
+      _primary = parseColor('primary');
+      _secondary = parseColor('secondary');
+      _tertiary = parseColor('tertiary');
+      _alternate = parseColor('alternate');
+      _primaryText = parseColor('primaryText');
+      _secondaryText = parseColor('secondaryText');
+      _primaryBackground = parseColor('primaryBackground');
+      _secondaryBackground = parseColor('secondaryBackground');
+      _accent1 = parseColor('accent1');
+      _accent2 = parseColor('accent2');
+      _accent3 = parseColor('accent3');
+      _accent4 = parseColor('accent4');
+    } catch (e) {
+      print('Error loading custom theme: $e');
+    }
   }
 
   String save() {
@@ -186,7 +187,6 @@ class CustomTheme extends AppThemeBase {
       'accent3': _accent3?.value,
       'accent4': _accent4?.value,
     };
-    // Remove null values
     colorMap.removeWhere((key, value) => value == null);
     return jsonEncode(colorMap);
   }

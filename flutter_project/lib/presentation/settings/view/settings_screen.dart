@@ -25,10 +25,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Colors.red,
     Colors.green,
     Colors.purple,
-    Colors.orange,
+    Colors.deepOrange,
     Colors.teal,
   ];
-  bool _showColorPalette = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Section Thème
             _buildSectionTitle(locale.settings_topic),
             _buildThemeSelector(themeController),
-            if (_showColorPalette) ...[
+            if (theme.currentType == ThemeType.custom) ...[
               const SizedBox(height: 16),
               _buildColorPalette(context, themeController),
             ],
@@ -104,12 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         isExpanded: true,
         onChanged: (ThemeType? newType) {
           if (newType != null) {
-            setState(() {
-              _showColorPalette = newType == ThemeType.custom;
-            });
-            if (newType != ThemeType.custom) {
-              themeController.switchTheme(newType);
-            }
+            themeController.switchTheme(newType);
           }
         },
         items:
@@ -176,12 +170,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _updateCustomTheme(ThemeController themeController, Color newColor) {
-    //print('${custom_color.toString()} -> ${newColor.toString()}');
-
-    setState(() {
-      custom_color = newColor;
+    final themeJson = jsonEncode({
+      'primary': newColor.value,
     });
 
+    context.read<UserPrefs>().setCustomTheme(themeJson);
     themeController.switchTheme(ThemeType.custom);
   }
 
