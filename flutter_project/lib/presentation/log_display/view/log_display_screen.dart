@@ -17,7 +17,6 @@ class _LogDisplayScreenState extends State<LogDisplayScreen> {
   late ThemeController theme;
   late AppLocalizations locale;
 
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +30,7 @@ class _LogDisplayScreenState extends State<LogDisplayScreen> {
     viewModel = LogDisplayScreenViewModel();
   }
 
-    @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
@@ -52,13 +51,13 @@ class _LogDisplayScreenState extends State<LogDisplayScreen> {
   }
 
   @override
-Widget build(BuildContext context) {
-  final theme = viewModel.theme;
-  final locale = viewModel.locale;
-  final log = viewModel.log;
+  Widget build(BuildContext context) {
+    final theme = viewModel.theme;
+    final locale = viewModel.locale;
+    final log = viewModel.log;
 
-  return Scaffold(
-    appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: theme.currentTheme.Primary,
         leading: IconButton(
           icon: Icon(
@@ -77,62 +76,73 @@ Widget build(BuildContext context) {
         centerTitle: true,
         elevation: 2,
       ),
-    backgroundColor: theme.currentTheme.PrimaryBackground,
-    body: viewModel.isLoading
-        ? Center(child: CircularProgressIndicator())
-        : log == null
-            ? Center(child: Text(locale.log_display_error))
-            : Padding(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
+      body:
+          viewModel.isLoading
+              ? Center(child: CircularProgressIndicator())
+              : log == null
+              ? Center(child: Text(locale.log_display_error))
+              : Padding(
                 padding: const EdgeInsets.all(16),
                 child: ListView(
                   children: [
                     _buildInfoRow(locale.log_display_logId, log.id),
-                    _buildInfoRow(locale.log_display_actionType, log.actionType),
+                    _buildInfoRow(
+                      locale.log_display_actionType,
+                      log.actionType,
+                    ),
                     _buildInfoRow(locale.log_display_username, log.username),
                     _buildInfoRow(locale.log_display_userId, log.userId),
-                    _buildInfoRow(locale.log_display_date, log.actionDate.toString()),
-                    _buildInfoRow(locale.log_display_targetTable, log.targetTable),
+                    _buildInfoRow(
+                      locale.log_display_date,
+                      log.actionDate.toString(),
+                    ),
+                    _buildInfoRow(
+                      locale.log_display_targetTable,
+                      log.targetTable,
+                    ),
                     _buildInfoRow(locale.log_display_targetId, log.targetId),
                     _buildInfoRow(locale.log_display_state, log.state),
                     _buildInfoRow(locale.log_display_details, log.details),
                     if (log.originalData.isNotEmpty)
-                      _buildInfoRow(locale.log_display_originalData, log.originalData!),
+                      _buildInfoRow(
+                        locale.log_display_originalData,
+                        log.originalData!,
+                      ),
                   ],
                 ),
               ),
-  );
-}
+    );
+  }
 
-Widget _buildInfoRow(String label, String value) {
-  final theme = viewModel.theme;
+  Widget _buildInfoRow(String label, String value) {
+    final theme = viewModel.theme;
 
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 8),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: theme.currentTheme.SecondaryBackground,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: theme.currentTheme.Primary.withOpacity(0.2)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: theme.currentTheme.PrimaryText,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: theme.currentTheme.SecondaryBackground,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: theme.currentTheme.Primary.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: theme.currentTheme.PrimaryText,
+            ),
           ),
-        ),
-        SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            color: theme.currentTheme.SecondaryText,
+          SizedBox(height: 4),
+          Text(
+            value,
+            style: TextStyle(color: theme.currentTheme.SecondaryText),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }

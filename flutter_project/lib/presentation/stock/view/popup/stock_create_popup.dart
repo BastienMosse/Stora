@@ -302,8 +302,8 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                     context,
                   ).copyWith(canvasColor: theme.currentTheme.PrimaryBackground),
                   child: DropdownButtonFormField<Category>(
-                    decoration: const InputDecoration(
-                      labelText: 'Category',
+                    decoration: InputDecoration(
+                      labelText: locale.stock_create_category,
                       border: OutlineInputBorder(),
                     ),
                     value: _selectedCategory,

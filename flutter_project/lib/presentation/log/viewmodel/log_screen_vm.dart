@@ -65,44 +65,59 @@ class LogScreenViewModel extends ChangeNotifier {
       return;
     }
 
-    filteredLogList = logList.where((log) {
-      final matchesSearch = searchQuery.isEmpty ||
-          log.details.toLowerCase().contains(searchQuery) ||
-          log.username.toLowerCase().contains(searchQuery);
+    filteredLogList =
+        logList.where((log) {
+          final matchesSearch =
+              searchQuery.isEmpty ||
+              log.details.toLowerCase().contains(searchQuery) ||
+              log.username.toLowerCase().contains(searchQuery);
 
-      if (!matchesSearch) return false;
+          if (!matchesSearch) return false;
 
-      if (currentFilters != null) {
-        final filter = currentFilters!;
+          if (currentFilters != null) {
+            final filter = currentFilters!;
 
-        if (filter.action != null && filter.action!.isNotEmpty) {
-          if (!filter.action!.any((a) => a.name == log.actionType)) return false;
-        }
+            if (filter.action != null && filter.action!.isNotEmpty) {
+              if (!filter.action!.any((a) => a.name == log.actionType))
+                return false;
+            }
 
-        if (filter.from != null && log.actionDate.isBefore(filter.from!)) return false;
-        if (filter.to != null && log.actionDate.isAfter(filter.to!)) return false;
+            if (filter.from != null && log.actionDate.isBefore(filter.from!))
+              return false;
+            if (filter.to != null && log.actionDate.isAfter(filter.to!))
+              return false;
 
-        if (log.targetTable.toLowerCase() == 'products') {
-          if (filter.productId != null && filter.productId!.isNotEmpty) {
-            if (log.targetId != filter.productId) return false;
+            if (log.targetTable.toLowerCase() == 'products') {
+              if (filter.productId != null && filter.productId!.isNotEmpty) {
+                if (log.targetId != filter.productId) return false;
+              }
+              if (filter.productName != null &&
+                  filter.productName!.isNotEmpty) {
+                if (!log.details.toLowerCase().contains(
+                  filter.productName!.toLowerCase(),
+                ))
+                  return false;
+              }
+            }
+
+            if (filter.employeeId != null && filter.employeeId!.isNotEmpty) {
+              if (log.userId != filter.employeeId) return false;
+            }
+            if (filter.employeeName != null &&
+                filter.employeeName!.isNotEmpty) {
+              if (!log.username.toLowerCase().contains(
+                filter.employeeName!.toLowerCase(),
+              ))
+                return false;
+            }
           }
-          if (filter.productName != null && filter.productName!.isNotEmpty) {
-            if (!log.details.toLowerCase().contains(filter.productName!.toLowerCase())) return false;
-          }
-        }
 
-        if (filter.employeeId != null && filter.employeeId!.isNotEmpty) {
-          if (log.userId != filter.employeeId) return false;
-        }
-        if (filter.employeeName != null && filter.employeeName!.isNotEmpty) {
-          if (!log.username.toLowerCase().contains(filter.employeeName!.toLowerCase())) return false;
-        }
-      }
+          return true;
+        }).toList();
 
-      return true;
-    }).toList();
-
-    if (currentSorts != null && currentSorts!.order != null && currentSorts!.order!.isNotEmpty) {
+    if (currentSorts != null &&
+        currentSorts!.order != null &&
+        currentSorts!.order!.isNotEmpty) {
       final orderKeys = currentSorts!.order!;
       filteredLogList.sort((a, b) {
         for (final key in orderKeys) {
@@ -128,7 +143,9 @@ class LogScreenViewModel extends ChangeNotifier {
               if (currentSorts!.isActiveProductName == true) {
                 if (a.targetTable.toLowerCase() == 'products' &&
                     b.targetTable.toLowerCase() == 'products') {
-                  cmp = a.details.toLowerCase().compareTo(b.details.toLowerCase());
+                  cmp = a.details.toLowerCase().compareTo(
+                    b.details.toLowerCase(),
+                  );
                 }
               }
               break;
@@ -141,7 +158,9 @@ class LogScreenViewModel extends ChangeNotifier {
 
             case 'employee_name':
               if (currentSorts!.isActiveEmployeeName == true) {
-                cmp = a.username.toLowerCase().compareTo(b.username.toLowerCase());
+                cmp = a.username.toLowerCase().compareTo(
+                  b.username.toLowerCase(),
+                );
               }
               break;
           }

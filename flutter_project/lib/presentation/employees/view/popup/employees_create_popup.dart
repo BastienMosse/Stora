@@ -135,14 +135,16 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
         hintText: locale.filter_log_popup_date_pick,
       ),
       controller: TextEditingController(
-        text: selectedDate != null
-            ? DateFormat('yyyy-MM-dd').format(selectedDate)
-            : '',
+        text:
+            selectedDate != null
+                ? DateFormat('yyyy-MM-dd').format(selectedDate)
+                : '',
       ),
       style: TextStyle(
-        color: selectedDate != null
-            ? theme.currentTheme.PrimaryText
-            : Colors.grey.shade600,
+        color:
+            selectedDate != null
+                ? theme.currentTheme.PrimaryText
+                : Colors.grey.shade600,
       ),
     );
   }
@@ -438,7 +440,9 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               password: _passwdController.text,
                               birth:
                                   birthDate != null
-                                      ? DateFormat('yyyy-MM-dd').format(birthDate!)
+                                      ? DateFormat(
+                                        'yyyy-MM-dd',
+                                      ).format(birthDate!)
                                       : null,
                               tel: _phoneController.text,
                               pay: double.tryParse(_payController.text) ?? 0.0,

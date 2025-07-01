@@ -54,5 +54,5 @@ GoRouter route = GoRouter(
     ),
   ],
 
-   // logDisplay
+  // logDisplay
 );

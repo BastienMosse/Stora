@@ -106,17 +106,22 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
         hintText: locale.filter_log_popup_date_pick,
         filled: true,
         fillColor: theme.currentTheme.SecondaryBackground,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 12,
+        ),
       ),
       controller: TextEditingController(
-        text: selectedDate != null
-            ? DateFormat('dd/MM/yyyy').format(selectedDate)
-            : '',
+        text:
+            selectedDate != null
+                ? DateFormat('dd/MM/yyyy').format(selectedDate)
+                : '',
       ),
       style: TextStyle(
-        color: selectedDate != null
-            ? theme.currentTheme.PrimaryText
-            : Colors.grey.shade600,
+        color:
+            selectedDate != null
+                ? theme.currentTheme.PrimaryText
+                : Colors.grey.shade600,
       ),
     );
   }
@@ -265,7 +270,9 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
                 ] else if (selectedEntity == EntityType.EMPLOYEE) ...[
                   TextField(
                     controller: _employeeIdController,
-                    decoration: InputDecoration(labelText: locale.filter_log_popup_employee_id),
+                    decoration: InputDecoration(
+                      labelText: locale.filter_log_popup_employee_id,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextField(
@@ -312,18 +319,22 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
                         onPressed: () {
                           final filterData = LogFilterData(
                             action: actions.isNotEmpty ? actions : null,
-                            productId: _productIdController.text.isNotEmpty
-                                ? _productIdController.text
-                                : null,
-                            productName: _productNameController.text.isNotEmpty
-                                ? _productNameController.text
-                                : null,
-                            employeeId: _employeeIdController.text.isNotEmpty
-                                ? _employeeIdController.text
-                                : null,
-                            employeeName: _employeeUsernameController.text.isNotEmpty
-                                ? _employeeUsernameController.text
-                                : null,
+                            productId:
+                                _productIdController.text.isNotEmpty
+                                    ? _productIdController.text
+                                    : null,
+                            productName:
+                                _productNameController.text.isNotEmpty
+                                    ? _productNameController.text
+                                    : null,
+                            employeeId:
+                                _employeeIdController.text.isNotEmpty
+                                    ? _employeeIdController.text
+                                    : null,
+                            employeeName:
+                                _employeeUsernameController.text.isNotEmpty
+                                    ? _employeeUsernameController.text
+                                    : null,
                             from: from,
                             to: to,
                           );

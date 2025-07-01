@@ -30,10 +30,14 @@ class _LogSortPopupState extends State<LogSortPopup> {
       final sorts = widget.initialSorts!;
       order.addAll(sorts.order ?? []);
       if (sorts.isActiveDate != null) isActiveDate = sorts.isActiveDate!;
-      if (sorts.isActiveProductID != null) isActiveProductID = sorts.isActiveProductID!;
-      if (sorts.isActiveProductName != null) isActiveProductName = sorts.isActiveProductName!;
-      if (sorts.isActiveEmployeeID != null) isActiveEmployeeID = sorts.isActiveEmployeeID!;
-      if (sorts.isActiveEmployeeName != null) isActiveEmployeeName = sorts.isActiveEmployeeName!;
+      if (sorts.isActiveProductID != null)
+        isActiveProductID = sorts.isActiveProductID!;
+      if (sorts.isActiveProductName != null)
+        isActiveProductName = sorts.isActiveProductName!;
+      if (sorts.isActiveEmployeeID != null)
+        isActiveEmployeeID = sorts.isActiveEmployeeID!;
+      if (sorts.isActiveEmployeeName != null)
+        isActiveEmployeeName = sorts.isActiveEmployeeName!;
     }
   }
 
@@ -110,11 +114,16 @@ class _LogSortPopupState extends State<LogSortPopup> {
           label,
           style: GoogleFonts.inter(
             fontWeight:
-                Theme.of(context).textTheme.bodyMedium?.fontWeight ?? FontWeight.normal,
+                Theme.of(context).textTheme.bodyMedium?.fontWeight ??
+                FontWeight.normal,
             fontStyle:
-                Theme.of(context).textTheme.bodyMedium?.fontStyle ?? FontStyle.normal,
+                Theme.of(context).textTheme.bodyMedium?.fontStyle ??
+                FontStyle.normal,
             letterSpacing: 0.0,
-            color: isActive ? theme.currentTheme.PrimaryText : theme.currentTheme.PrimaryText,
+            color:
+                isActive
+                    ? theme.currentTheme.PrimaryText
+                    : theme.currentTheme.PrimaryText,
           ),
         ),
         Switch(
@@ -147,9 +156,12 @@ class _LogSortPopupState extends State<LogSortPopup> {
                   locale.sort_popup_sort_items,
                   style: TextStyle(
                     fontFamily: 'InterTight',
-                    fontSize: Theme.of(context).textTheme.headlineMedium?.fontSize,
-                    fontWeight: Theme.of(context).textTheme.headlineMedium?.fontWeight,
-                    fontStyle: Theme.of(context).textTheme.headlineMedium?.fontStyle,
+                    fontSize:
+                        Theme.of(context).textTheme.headlineMedium?.fontSize,
+                    fontWeight:
+                        Theme.of(context).textTheme.headlineMedium?.fontWeight,
+                    fontStyle:
+                        Theme.of(context).textTheme.headlineMedium?.fontStyle,
                     letterSpacing: 0.0,
                     color: theme.currentTheme.PrimaryText,
                   ),
@@ -163,8 +175,12 @@ class _LogSortPopupState extends State<LogSortPopup> {
                 Text(
                   locale.sort_log_popup_sort_by,
                   style: GoogleFonts.interTight(
-                    fontWeight: Theme.of(context).textTheme.titleMedium?.fontWeight ?? FontWeight.normal,
-                    fontStyle: Theme.of(context).textTheme.titleMedium?.fontStyle ?? FontStyle.normal,
+                    fontWeight:
+                        Theme.of(context).textTheme.titleMedium?.fontWeight ??
+                        FontWeight.normal,
+                    fontStyle:
+                        Theme.of(context).textTheme.titleMedium?.fontStyle ??
+                        FontStyle.normal,
                     letterSpacing: 0.0,
                     color: theme.currentTheme.PrimaryText,
                   ),
@@ -214,7 +230,9 @@ class _LogSortPopupState extends State<LogSortPopup> {
                     color: theme.currentTheme.PrimaryBackground,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onBackground.withOpacity(0.1),
                       width: 1,
                     ),
                   ),
@@ -239,22 +257,32 @@ class _LogSortPopupState extends State<LogSortPopup> {
                               IconButton(
                                 icon: Icon(
                                   Icons.arrow_upward,
-                                  color: index == 0
-                                      ? theme.currentTheme.PrimaryText
-                                      : Theme.of(context).colorScheme.primary,
+                                  color:
+                                      index == 0
+                                          ? theme.currentTheme.PrimaryText
+                                          : Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
                                   size: 20,
                                 ),
-                                onPressed: index == 0 ? null : () => moveUp(index),
+                                onPressed:
+                                    index == 0 ? null : () => moveUp(index),
                               ),
                               IconButton(
                                 icon: Icon(
                                   Icons.arrow_downward,
-                                  color: index == order.length - 1
-                                      ? theme.currentTheme.PrimaryText
-                                      : Theme.of(context).colorScheme.primary,
+                                  color:
+                                      index == order.length - 1
+                                          ? theme.currentTheme.PrimaryText
+                                          : Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
                                   size: 20,
                                 ),
-                                onPressed: index == order.length - 1 ? null : () => moveDown(index),
+                                onPressed:
+                                    index == order.length - 1
+                                        ? null
+                                        : () => moveDown(index),
                               ),
                             ],
                           ),
@@ -267,7 +295,9 @@ class _LogSortPopupState extends State<LogSortPopup> {
                   margin: const EdgeInsets.symmetric(vertical: 12),
                   width: double.infinity,
                   height: 1,
-                  color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onBackground.withOpacity(0.1),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -280,10 +310,14 @@ class _LogSortPopupState extends State<LogSortPopup> {
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.all(8),
                           side: BorderSide(
-                            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onBackground.withOpacity(0.1),
                             width: 1,
                           ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           backgroundColor: theme.currentTheme.Primary,
                         ),
                         child: Text(
@@ -317,7 +351,9 @@ class _LogSortPopupState extends State<LogSortPopup> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(8),
                           backgroundColor: theme.currentTheme.Primary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           elevation: 0,
                         ),
                         child: Text(

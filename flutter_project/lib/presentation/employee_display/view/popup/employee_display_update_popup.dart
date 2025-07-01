@@ -23,7 +23,6 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
 
   File? _profileImage;
 
-
   Future<void> _showImageOptions() async {
     final locale = AppLocalizations.of(context)!;
     try {
@@ -137,14 +136,16 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
         hintText: locale.filter_log_popup_date_pick,
       ),
       controller: TextEditingController(
-        text: selectedDate != null
-            ? DateFormat('yyyy-MM-dd').format(selectedDate)
-            : '',
+        text:
+            selectedDate != null
+                ? DateFormat('yyyy-MM-dd').format(selectedDate)
+                : '',
       ),
       style: TextStyle(
-        color: selectedDate != null
-            ? theme.currentTheme.PrimaryText
-            : Colors.grey.shade600,
+        color:
+            selectedDate != null
+                ? theme.currentTheme.PrimaryText
+                : Colors.grey.shade600,
       ),
     );
   }
@@ -155,9 +156,10 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
     _loginController.text = widget.user.login;
     _selectedRole = Role.values.firstWhere((r) => r.value == widget.user.role);
     _emailController.text = widget.user.email;
-    _selectedDate = widget.user.birth.isNotEmpty
-        ? DateTime.tryParse(widget.user.birth)
-        : null;
+    _selectedDate =
+        widget.user.birth.isNotEmpty
+            ? DateTime.tryParse(widget.user.birth)
+            : null;
     _phoneController.text = widget.user.tel;
     _payController.text = widget.user.pay.toString();
     _noteController.text = widget.user.note;
@@ -298,7 +300,8 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                   context: context,
                   label: locale.filter_log_popup_start_date,
                   selectedDate: _selectedDate,
-                  onDateSelected: (date) => setState(() => _selectedDate = date),
+                  onDateSelected:
+                      (date) => setState(() => _selectedDate = date),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -382,7 +385,12 @@ class _EmployeeUpdatePopupState extends State<EmployeeUpdatePopup> {
                                 .join(' '),
                             role: _selectedRole ?? Role.USER,
                             email: _emailController.text,
-                            birth: _selectedDate != null ? DateFormat('yyyy-MM-dd').format(_selectedDate!) : '',
+                            birth:
+                                _selectedDate != null
+                                    ? DateFormat(
+                                      'yyyy-MM-dd',
+                                    ).format(_selectedDate!)
+                                    : '',
                             tel: _phoneController.text,
                             pay: double.tryParse(_payController.text) ?? 0.0,
                             note: _noteController.text,
