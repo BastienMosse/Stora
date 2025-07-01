@@ -152,7 +152,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplayScreen>
                                                   color:
                                                       theme
                                                           .currentTheme
-                                                          .SecondaryText,
+                                                          .PrimaryText,
                                                 ),
                                               ),
                                     )
@@ -160,7 +160,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplayScreen>
                                       child: Icon(
                                         Icons.person,
                                         size: 64,
-                                        color: theme.currentTheme.SecondaryText,
+                                        color: theme.currentTheme.PrimaryText,
                                       ),
                                     ),
                           ),
@@ -251,7 +251,7 @@ class _EmployeeDisplayScreenState extends State<EmployeeDisplayScreen>
                       height: 80,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(12),
                         ),

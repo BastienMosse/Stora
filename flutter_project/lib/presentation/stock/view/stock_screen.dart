@@ -117,14 +117,14 @@ class _StockScreenState extends State<StockScreen> {
                                 return Icon(
                                   Icons.person,
                                   size: 32,
-                                  color: theme.currentTheme.SecondaryBackground,
+                                  color: theme.currentTheme.PrimaryBackground,
                                 );
                               },
                             )
                             : Icon(
                               Icons.person,
                               size: 32,
-                              color: theme.currentTheme.SecondaryText,
+                              color: theme.currentTheme.PrimaryText,
                             ),
                   ),
                 ),
@@ -143,14 +143,14 @@ class _StockScreenState extends State<StockScreen> {
                       Text(
                         'id: ${product.id}',
                         style: TextStyle(
-                          color: theme.currentTheme.SecondaryText,
+                          color: theme.currentTheme.PrimaryText,
                           fontSize: 15,
                         ),
                       ),
                       Text(
                         '${product.price} \$',
                         style: TextStyle(
-                          color: theme.currentTheme.SecondaryText,
+                          color: theme.currentTheme.PrimaryText,
                           fontSize: 15,
                         ),
                       ),
@@ -175,21 +175,24 @@ class _StockScreenState extends State<StockScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: theme.currentTheme.PrimaryText,
+            color: theme.currentTheme.PrimaryBackground,
             size: 24,
           ),
           onPressed: () {
             context.go(Routes.home);
           },
         ),
-        title: Text(
-          locale.stock_manage_page_title,
-          style: GoogleFonts.interTight(
-            fontWeight: FontWeight.w600,
-            fontStyle: FontStyle.normal,
-            color: theme.currentTheme.PrimaryBackground,
-            fontSize: 22,
-            letterSpacing: 0.0,
+        title: Align(
+          alignment: AlignmentDirectional(0, 0),
+          child: Text(
+            locale.stock_manage_page_title,
+            style: GoogleFonts.interTight(
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color:  theme.currentTheme.PrimaryBackground,
+              fontSize: 22,
+              letterSpacing: 0.0,
+            ),
           ),
         ),
         centerTitle: true,
@@ -231,7 +234,7 @@ class _StockScreenState extends State<StockScreen> {
                       height: 40,
                       child: Icon(
                         Icons.filter_alt,
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         size: 24,
                       ),
                     ),
@@ -266,7 +269,7 @@ class _StockScreenState extends State<StockScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: theme.currentTheme.SecondaryBackground,
+                            fillColor: theme.currentTheme.PrimaryBackground,
                             prefixIcon: Icon(
                               FontAwesomeIcons.magnifyingGlass,
                               color: theme.currentTheme.Primary,
@@ -302,7 +305,7 @@ class _StockScreenState extends State<StockScreen> {
                       height: 40,
                       child: Icon(
                         Icons.sort,
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         size: 24,
                       ),
                     ),
@@ -378,7 +381,7 @@ class _StockScreenState extends State<StockScreen> {
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleSmall?.copyWith(
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                         fontFamily: GoogleFonts.interTight().fontFamily,
                       ),
                     ),
@@ -387,7 +390,7 @@ class _StockScreenState extends State<StockScreen> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: theme.currentTheme.SecondaryBackground,
+                        color: theme.currentTheme.PrimaryBackground,
                       ),
                     ),
                   ),

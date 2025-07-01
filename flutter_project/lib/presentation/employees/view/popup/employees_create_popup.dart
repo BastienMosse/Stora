@@ -331,34 +331,39 @@ class _EmployeeCreatePopupState extends State<EmployeeCreatePopup> {
                               : null,
                 ),
                 const SizedBox(height: 12),
-                DropdownButtonFormField<Role>(
-                  decoration: const InputDecoration(
-                    labelText: 'Role',
-                    border: OutlineInputBorder(),
-                  ),
-                  value: _selectedRole,
-                  items:
-                      Role.values.map((role) {
-                        return DropdownMenuItem(
-                          value: role,
-                          child: Text(
-                            role.value,
-                            style: TextStyle(
-                              color: theme.currentTheme.PrimaryText,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      _selectedRole = val;
-                    });
-                  },
-                  validator:
-                      (v) =>
-                          v == null
-                              ? locale.employee_display_update_popup_required
-                              : null,
+                Theme(
+                  data:Theme.of(context).copyWith(
+                    canvasColor: theme.currentTheme.PrimaryBackground,
+                  ), 
+                  child: 
+                    DropdownButtonFormField<Role>(
+                      decoration: const InputDecoration(
+                        labelText: 'Role',
+                        border: OutlineInputBorder(),
+                      ),
+                      value: _selectedRole,
+                      items:
+                          Role.values.map((role) {
+                            return DropdownMenuItem(
+                              value: role,
+                              child: Text(
+                                role.value,style: TextStyle(
+                                  color: theme.currentTheme.PrimaryText,
+                                )
+                              ),
+                            );
+                          }).toList(),
+                      onChanged: (val) {
+                        setState(() {
+                          _selectedRole = val;
+                        });
+                      },
+                      validator:
+                          (v) =>
+                              v == null
+                                  ? locale.employee_display_update_popup_required
+                                  : null,
+                    ),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(

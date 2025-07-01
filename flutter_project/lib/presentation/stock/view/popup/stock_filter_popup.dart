@@ -88,6 +88,7 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: theme.currentTheme.PrimaryBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -101,7 +102,9 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
               children: [
                 Text(
                   locale.stock_filter_popup_title,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                 ),
                 const SizedBox(height: 20),
 
@@ -111,6 +114,9 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                   child: Text(locale.stock_filter_popup_keyword),
                 ),
                 TextField(
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   controller: keysController,
                   onSubmitted: addKeyword,
                   decoration: InputDecoration(
@@ -126,7 +132,11 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                   children:
                       keywords.map((word) {
                         return Chip(
-                          label: Text(word),
+                          label: Text(word,
+                          style: GoogleFonts.interTight(
+                              color: theme.currentTheme.PrimaryText,
+                            ),
+                          ),
                           onDeleted: () => removeKeyword(word),
                           backgroundColor: theme.currentTheme.Primary,
                         );
@@ -137,7 +147,11 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                 // Category selection
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(locale.stock_filter_popup_categories),
+                  child: Text(locale.stock_filter_popup_categories,
+                  style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
+                  ),
                 ),
                 Wrap(
                   spacing: 8,
@@ -157,7 +171,11 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                 // Quantity fields
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(locale.stock_filter_popup_quantity),
+                  child: Text(locale.stock_filter_popup_quantity,
+                    style: GoogleFonts.interTight(
+                      color: theme.currentTheme.PrimaryText,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -165,12 +183,17 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                     Expanded(
                       child: Column(
                         children: [
-                          Text(locale.stock_filter_popup_moreThan),
+                          Text(locale.stock_filter_popup_moreThan,
+                            style: GoogleFonts.interTight(
+                              color: theme.currentTheme.PrimaryText,
+                            ),
+                          ),
                           const SizedBox(height: 4),
                           QuantitySelector(
                             value: minQuantity,
                             onAdd: incrementMin,
                             onRemove: decrementMin,
+                            color:theme.currentTheme.PrimaryText
                           ),
                         ],
                       ),
@@ -179,12 +202,18 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                     Expanded(
                       child: Column(
                         children: [
-                          Text(locale.stock_filter_popup_lessThan),
+                          Text(
+                            locale.stock_filter_popup_lessThan,
+                            style: GoogleFonts.interTight(
+                              color: theme.currentTheme.PrimaryText,
+                            ),
+                          ),
                           const SizedBox(height: 4),
                           QuantitySelector(
                             value: maxQuantity,
                             onAdd: incrementMax,
                             onRemove: decrementMax,
+                            color:theme.currentTheme.PrimaryText
                           ),
                         ],
                       ),
@@ -197,7 +226,10 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextButton(
+                      child:ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () {
                           setState(() {
                             keysController.clear();
@@ -207,12 +239,19 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                             maxQuantity = 0;
                           });
                         },
-                        child: Text(locale.stock_filter_popup_reset),
+                        child: Text(locale.stock_filter_popup_reset,
+                          style: GoogleFonts.interTight(
+                            color: theme.currentTheme.PrimaryText,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.currentTheme.Primary,
+                        ),
                         onPressed: () {
                           final filterData = StockFilterData(
                             keywords: keywords,
@@ -223,7 +262,11 @@ class _StockFilterPopupState extends State<StockFilterPopup> {
                           widget.onFiltersApplied?.call(filterData);
                           Navigator.of(context).pop();
                         },
-                        child: Text(locale.stock_filter_popup_apply),
+                        child: Text(locale.stock_filter_popup_apply,
+                          style: GoogleFonts.interTight(
+                            color: theme.currentTheme.PrimaryText,
+                          ),
+                        ),
                       ),
                     ),
                   ],

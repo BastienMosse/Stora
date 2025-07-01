@@ -4,11 +4,13 @@ class QuantitySelector extends StatelessWidget {
   final int value;
   final VoidCallback onAdd;
   final VoidCallback onRemove;
+  final Color color;
 
   const QuantitySelector({
     required this.value,
     required this.onAdd,
     required this.onRemove,
+    required this.color,
   });
 
   @override
@@ -23,7 +25,7 @@ class QuantitySelector extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(icon: const Icon(Icons.remove), onPressed: onRemove),
-          Text('$value'),
+          Text('$value',style: TextStyle(color: color)),
           IconButton(icon: const Icon(Icons.add), onPressed: onAdd),
         ],
       ),

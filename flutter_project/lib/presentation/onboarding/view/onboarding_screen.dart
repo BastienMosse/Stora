@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
-              color: theme.currentTheme.SecondaryText,
+              color: theme.currentTheme.PrimaryText,
             ),
           ),
         ],
@@ -92,7 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             color:
                 viewModel.currentPageIndex == index
                     ? theme.currentTheme.Primary
-                    : theme.currentTheme.SecondaryText,
+                    : theme.currentTheme.PrimaryText,
             borderRadius: BorderRadius.circular(8),
           ),
         ),

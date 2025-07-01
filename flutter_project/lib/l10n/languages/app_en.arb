@@ -24,11 +24,11 @@
 	"login_login" : "Login",
 
 	"homePage_menu": "Menu",
-	"homePage_stock": "Stock management",
+	"homePage_stock": "Stocks management",
 	"homePage_admin_log": "Log management",
 	"homePage_admin_employee": "Employees management",
 
-	"stock_manage_page_title": "Stocks Managerment",
+	"stock_manage_page_title": "Stocks Management",
 	"stock_manage_page_bar_de_recherche": "search the product by his name",
 
 	"log_manage_screen_page_title": "Logs Managerment",
@@ -40,7 +40,10 @@
 	"settings_contact" : "Contact Us",
 	"settings_days" : "days",
 	"settings_close" : "Close",
-	
+	"settings_select_custom_color" : "Select custom color :",
+	"settings_light_theme" : "Light Theme",
+	"settings_dark_theme" : "Dark Theme",
+	"settings_custom_theme" : "Custom Theme",
 
 	"selectThemeColor" :"Color of interface : ",
 
