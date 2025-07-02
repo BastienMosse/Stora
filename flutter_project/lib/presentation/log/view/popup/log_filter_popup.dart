@@ -126,6 +126,22 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
     );
   }
 
+
+  String language(String action)
+  {
+    switch (action.toUpperCase()) {
+      case 'CREATE':
+        return locale.log_screen_create;
+      case 'UPDATE':
+        return locale.log_screen_update;
+      case 'DELETE':
+        return locale.log_screen_delete;
+      default:
+        return "";
+    }
+  }
+ 
+ 
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -165,7 +181,7 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
                   children:
                       ActionType.values.map((action) {
                         return FilterChip(
-                          label: Text(action.name),
+                          label: Text(language(action.name)),
                           selected: actions.contains(action),
                           onSelected: (_) => toggleAction(action),
                           selectedColor: theme.currentTheme.Primary,
@@ -217,41 +233,49 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
                     ),
                   ),
                 ),
-                DropdownButtonFormField<EntityType>(
-                  value: selectedEntity,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: theme.currentTheme.PrimaryBackground,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 12,
+                    child: DropdownButtonFormField<EntityType>(
+                      value: selectedEntity,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 12,
+                        ),
+                        filled: true,
+                        fillColor: theme.currentTheme.SecondaryBackground,
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: EntityType.NONE,
+                          child: Text(locale.log_screen_none, style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText))),
+                        DropdownMenuItem(
+                          value: EntityType.PRODUCT,
+                          child: Text(locale.filter_log_popup_product, style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText))
+                        ),
+                        
+                        DropdownMenuItem(
+                          value: EntityType.EMPLOYEE,
+                          child: Text(locale.filter_log_popup_employee, style: GoogleFonts.interTight(
+                          color: theme.currentTheme.PrimaryText)))
+                        
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() {
+                            selectedEntity = value;
+                          });
+                        }
+                      },
                     ),
-                    filled: true,
-                    fillColor: theme.currentTheme.SecondaryBackground,
                   ),
-                  items: const [
-                    DropdownMenuItem(
-                      value: EntityType.NONE,
-                      child: Text('None'),
-                    ),
-                    DropdownMenuItem(
-                      value: EntityType.PRODUCT,
-                      child: Text('Product'),
-                    ),
-                    DropdownMenuItem(
-                      value: EntityType.EMPLOYEE,
-                      child: Text('Employee'),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() {
-                        selectedEntity = value;
-                      });
-                    }
-                  },
-                ),
                 const SizedBox(height: 8),
                 if (selectedEntity == EntityType.PRODUCT) ...[
                   TextField(
@@ -305,7 +329,7 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
                         child: Text(
                           locale.stock_filter_popup_reset,
                           style: GoogleFonts.interTight(
-                            color: theme.currentTheme.PrimaryText,
+                            color: theme.currentTheme.PrimaryBackground,
                           ),
                         ),
                       ),
@@ -344,7 +368,7 @@ class _LogFilterPopupState extends State<LogFilterPopup> {
                         child: Text(
                           locale.stock_filter_popup_apply,
                           style: GoogleFonts.interTight(
-                            color: theme.currentTheme.PrimaryText,
+                            color: theme.currentTheme.PrimaryBackground,
                           ),
                         ),
                       ),
