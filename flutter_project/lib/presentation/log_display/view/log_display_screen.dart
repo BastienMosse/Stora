@@ -107,7 +107,7 @@ class _LogDisplayScreenState extends State<LogDisplayScreen> {
                     if (log.originalData.isNotEmpty)
                       _buildInfoRow(
                         locale.log_display_originalData,
-                        log.originalData!,
+                        log.originalData,
                       ),
                   ],
                 ),

@@ -334,6 +334,9 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _positionController,
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   decoration: InputDecoration(
                     labelText: locale.stock_create_position,
                     border: OutlineInputBorder(),
@@ -344,6 +347,9 @@ class _StockCreatePopupState extends State<StockCreatePopup> {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _noteController,
+                  style: GoogleFonts.interTight(
+                    color: theme.currentTheme.PrimaryText,
+                  ),
                   decoration: InputDecoration(
                     labelText: locale.stock_create_notes,
                     border: OutlineInputBorder(),

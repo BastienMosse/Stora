@@ -8,7 +8,7 @@ class UserPrefs extends ChangeNotifier {
   }
 
   // ======= Theme Mode ======= //
-  String get CustomTheme => _prefs.getString('custom_theme') ?? '';
+  String get CustomTheme => _prefs.getString('custom_theme') ?? LightTheme.instance.Primary.toString();
   Future<void> setCustomTheme(String jsonString) async {
     await _prefs.setString('custom_theme', jsonString);
     notifyListeners();

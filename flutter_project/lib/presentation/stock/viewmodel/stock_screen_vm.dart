@@ -116,7 +116,7 @@ class StockScreenViewModel {
         for (var crit in currentSorts!.order!) {
           int cmp = 0;
           if (crit == locale.sort_popup_name) {
-            cmp = a.name.compareTo(b.name);
+            cmp = a.name.toLowerCase().compareTo(b.name.toLowerCase());
           } else if (crit == "ID") {
             cmp = a.id.compareTo(b.id);
           } else if (crit == locale.sort_popup_quantity) {
